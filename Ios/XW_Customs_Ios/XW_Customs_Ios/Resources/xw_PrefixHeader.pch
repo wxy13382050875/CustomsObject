@@ -1,0 +1,66 @@
+//
+//  xw_PrefixHeader.pch
+//  XW_Object
+//
+//  Created by 武新义 on 2019/11/20.
+//  Copyright © 2019年 武新义. All rights reserved.
+//
+
+#ifndef xw_PrefixHeader_pch
+#define xw_PrefixHeader_pch
+
+//#import <Foundation/Foundation.h>
+//#import <UIKit/UIKit.h>
+#import "AppDelegate.h"
+#import <ReactiveObjC/ReactiveObjC.h>
+//#import "RACEXTScope.h"
+//#import "AFNetworking.h"
+#import "SDAutoLayout.h"
+//#import "NSDate+DateTools.h"
+//#import "MJRefresh.h"
+//#import "MJExtension.h"
+//#import "MyLayout.h"
+#import "UITableView+FDTemplateLayoutCell.h"
+//#import "JXCategoryView.h"
+#import "xw_MacroDefinition.h"
+//#import "AppDelegate+XW.h"
+//#import "iOS-Echarts.h"
+//#import "xw_EchartsHelper.h"
+//#import "UIImageView+WebCache.h"
+////#import "RMMapper.h"
+//
+#import "xw_Object.h"
+//
+#import "WMZDialog.h"
+
+#import "xw_ConfigHelper.h"
+
+#import "MJExtension.h"
+//
+#import "xw_ConfigHelper.h"
+//
+#import "PPNetworkHelper.h"
+//
+#import "xw_HttpRequest.h"
+//
+#import "GHConsole.h"
+//
+//#import "MBProgressHUD.h"
+//
+#import "UIView+MBProgressHUD.h"
+//
+//#import "xw_UniMPHelper.h"
+//
+//#import "xw_RPSDKHelper.h"
+//
+//#import "xw_UserInfoModel.h"
+//
+//#import <STAlertView.h>
+//
+#import "xw_InterfacedConst.h"
+//
+//
+//#import "MXRGuideMaskView.h"
+//#import "MXRCustomView.h"
+
+#endif /* xw_PrefixHeader_pch */
