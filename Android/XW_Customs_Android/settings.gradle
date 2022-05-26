@@ -1,0 +1,3 @@
+
+rootProject.name = "XW_Customs_Android"
+include ':app',':push',':validate',':lottieview'

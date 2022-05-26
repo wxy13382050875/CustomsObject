@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#FFFFFF"
+    android:gravity="center"
+    android:orientation="horizontal"
+    >
+
+
+
+    <Button
+        android:id="@+id/btn_accept"
+        android:layout_width="150dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/btn_radius_shape_ghost"
+        android:text="受理"
+        android:textColor="#206EEA"
+        android:textSize="17sp"
+        />
+    <Button
+        android:id="@+id/btn_send"
+        android:layout_width="150dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="5dp"
+        android:background="@drawable/btn_radius_shape_ghost"
+        android:text="派单"
+        android:textColor="#206EEA"
+        android:textSize="17sp"
+        />
+</LinearLayout>

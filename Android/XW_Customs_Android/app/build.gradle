@@ -1,0 +1,189 @@
+apply plugin: 'com.android.application'
+//必须配置
+def mfph = [
+        //包名
+        "apk.applicationId": "com.technology.center",
+]
+
+android {
+    signingConfigs {
+        debug {
+            storeFile file('/Users/wuxinyi/Desktop/CustomsObject/Android/XW_Customs_Android/app/android.jks')
+            storePassword 'yndth123456'
+            keyAlias 'key'
+            keyPassword 'yndth123456'
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+        release {
+            storeFile file('/Users/wuxinyi/Desktop/CustomsObject/Android/XW_Customs_Android/app/android.jks')
+            storePassword 'yndth123456'
+            keyAlias 'key'
+            keyPassword 'yndth123456'
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            shrinkResources false
+            minifyEnabled false
+            signingConfig signingConfigs.debug
+        }
+    }
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+
+    defaultConfig {
+        applicationId "com.technology.center"
+        minSdkVersion 22
+        targetSdkVersion 31
+        versionCode 2
+        versionName "1.0.1"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        renderscriptTargetApi 17
+        renderscriptSupportModeEnabled true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    allprojects {
+        repositories {
+            google()
+            jcenter()
+            maven { url 'https://maven.aliyun.com/repository/google' }
+            maven { url 'https://maven.aliyun.com/repository/jcenter' }
+            maven { url 'https://maven.aliyun.com/nexus/content/groups/public' }
+
+            maven { url 'https://jitpack.io' }      //增加 jitPack Maven 仓库
+            maven { url 'https://www.jitpack.io' }
+            mavenCentral()
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.appcompat:appcompat:1.3.0'
+    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'org.jetbrains:annotations:15.0'
+    implementation project(path: ':validate')
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.navigation:navigation-fragment:2.3.5'
+    implementation 'androidx.navigation:navigation-ui:2.3.5'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.aar'], dir: 'libs')
+
+    //Android系统 应用图标显示未读消息数(BadgeNumber) 桌面app
+    implementation "me.leolin:ShortcutBadger:1.1.13@aar"
+    //ImageLoader 图片处理库appcompat
+    implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+
+    //可展开收起的分组列表GroupedRecyclerViewAdapter
+    implementation 'com.github.donkingliang:GroupedRecyclerViewAdapter:2.2.0'
+
+    //友盟推送
+    implementation project(':push')
+
+    //gson引入
+    implementation 'com.google.code.gson:gson:2.8.9'
+
+    //lombok插件是为了方便实体类bean快速生成get set方法,从而不用手动添加
+    compileOnly 'org.projectlombok:lombok:1.18.6'
+    annotationProcessor 'org.projectlombok:lombok:1.18.6'
+
+    //fastjson.jar是阿里爸爸开发的一款专门用于Java开发的包，可以方便的实现json对象与JavaBean对象的转换，实现JavaBean对象与json字符串的转换，实现json对象与json字符串的转换
+    implementation 'com.alibaba:fastjson:1.2.66'
+
+    //Andorid 任意界面悬浮窗，实现悬浮
+    implementation 'com.github.yhaolpz:FloatWindow:1.0.9'
+    //滚动视图
+    implementation 'com.github.pinguo-zhouwei:MZBannerView:v2.0.2'
+
+    //Retrofit 是一个 RESTful 的 HTTP 网络请求框架的封装，网络请求的工作本质上是 OkHttp 完成，而 Retrofit 仅负责 网络请求接口的封装
+    implementation 'com.squareup.retrofit2:retrofit:2.1.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+    implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.11.0'
+
+    //dialog依赖
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'com.kongzue.dialog_v3:dialog:3.1.9'
+
+    //底部导航栏
+    implementation 'com.wuhenzhizao:titlebar:1.2.0'
+    //Glide 一个专注于平滑滚动的图片加载和缓存库
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+
+    //shadow 阴影
+    implementation('com.loopeer.lib:shadow:0.0.4-beta3')
+
+    //bottomnavigationview 底部导航
+    implementation "com.google.android.material:material:1.0.0"
+
+    implementation project(path: ':lottieview')
+
+    implementation 'com.jakewharton:butterknife:10.0.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
+
+    //二维码扫描
+    implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
+
+    //AndroidPicker
+    //选择器的基础窗体
+    implementation 'com.github.gzu-liyujiang.AndroidPicker:Common:4.0.1'
+
+    //滚轮选择器的滚轮控件
+    implementation 'com.github.gzu-liyujiang.AndroidPicker:WheelView:4.0.1'
+
+    //单项/数字、二三级联动、日期/时间等滚轮选择器
+    implementation 'com.github.gzu-liyujiang.AndroidPicker:WheelPicker:4.0.1'
+
+    //文件/目录选择器：
+    implementation 'com.github.gzu-liyujiang.AndroidPicker:FilePicker:4.0.1'
+
+    //颜色选择器
+    implementation 'com.github.gzu-liyujiang.AndroidPicker:ColorPicker:4.0.1'
+
+    //省市区地址选择器
+    implementation 'com.github.gzu-liyujiang.AndroidPicker:AddressPicker:4.0.1'
+
+    //日历日期选择器：
+    implementation 'com.github.gzu-liyujiang.AndroidPicker:CalendarPicker:4.0.1'
+
+    //图片选择器
+    implementation 'com.github.gzu-liyujiang.AndroidPicker:ImagePicker:4.0.1'
+
+
+    //可以快速、简单的切换加载中、错误、空、或者自定义界面的控件
+    implementation 'com.github.ChangJiahong:LoadingLayout:v0.2.0'
+
+    //下拉刷新控件下拉 上拉 刷新加载更多
+    implementation 'com.liaoinstan.springview:library:1.7.0'
+    implementation 'com.liaoinstan.springview:AliHeader:1.7.0'           //Alitrip style （header and footer）
+
+}

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:titlebar="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <com.wuhenzhizao.titlebar.widget.CommonTitleBar
+            android:id="@+id/titlebar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            titlebar:bottomShadowHeight="0dp"
+            titlebar:centerText="注销账号"
+            titlebar:centerTextColor="#ffffff"
+            titlebar:centerType="textView"
+            titlebar:leftCustomView="@layout/action_bar_back"
+            titlebar:leftType="customView"
+            titlebar:rightTextColor="#ffffff"
+            titlebar:showBottomLine="false"
+            titlebar:statusBarMode="light" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="40dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="注销后将无法再登录“边互通APP”！"
+                android:textColor="#ff17a0f4"
+                android:textAlignment="center"
+                android:textSize="15sp"
+                />
+            <LinearLayout
+                android:layout_marginTop="44dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/bg_bottom_line" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/bg_bottom_line"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_gravity="center_vertical"
+                    android:contentDescription="@string/ic_def_title"
+                    android:src="@mipmap/ic_verify_code" />
+                <EditText
+                    android:id="@+id/txt_verify"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:hint="请输入验证码"
+                    android:inputType="text"
+                    android:maxLength="6"
+                    android:paddingLeft="5dp"
+                    android:textColor="#333"
+                    android:textSize="13sp" />
+                <Button
+                    android:id="@+id/send_code_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="34dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/btn_radius_shape"
+                    android:text="获取验证码"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="13sp" />
+            </LinearLayout>
+            <Button
+                android:layout_marginTop="35dp"
+                android:id="@+id/btnConfirm"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/btn_radius_shape"
+                android:text="确认注销"
+                android:textColor="@color/colorWhite"
+                android:textSize="17sp" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

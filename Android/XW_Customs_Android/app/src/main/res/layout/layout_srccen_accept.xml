@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:titlebar="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="end"
+    android:background="@color/white"
+    android:gravity="center"
+    android:orientation="vertical">
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"
+        android:layout_marginTop="10dp"
+        android:paddingBottom="50dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/lv_sn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center_vertical"
+                    android:text="检测编号"
+                    android:textColor="#171717"
+                    android:gravity="center"
+                    android:textSize="15sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:background="@drawable/text_radius_shape"
+                    android:orientation="horizontal"
+                    >
+
+                    <EditText
+                        android:id="@+id/txt_sn"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="left|center"
+                        android:layout_weight="1"
+                        android:background="@drawable/text_radius_shape"
+                        android:hint="请输入"
+                        android:inputType="text"
+                        android:textColor="#333"
+                        android:textSize="13sp"
+                        />
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_gravity="center_vertical"
+                android:text="样品名称"
+                android:textColor="#171717"
+                android:gravity="center"
+                android:textSize="15sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:background="@drawable/text_radius_shape"
+                android:orientation="horizontal"
+                >
+
+                <EditText
+                    android:id="@+id/txt_sampleName"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="left|center"
+                    android:layout_weight="1"
+                    android:background="@drawable/text_radius_shape"
+                    android:hint="请输入样品名称"
+                    android:inputType="text"
+                    android:textColor="#333"
+                    android:textSize="13sp"
+                    />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_gravity="center_vertical"
+                android:text="检疫机构"
+                android:textColor="#171717"
+                android:gravity="center"
+                android:textSize="15sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:background="@drawable/text_radius_shape"
+                android:orientation="horizontal"
+                >
+
+                <EditText
+                    android:id="@+id/txt_inspectOrg"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="left|center"
+                    android:layout_weight="1"
+                    android:background="@drawable/text_radius_shape"
+                    android:hint="请选择检疫机构"
+                    android:inputType="text"
+                    android:textColor="#333"
+                    android:focusable="false"
+                    android:textSize="13sp"
+                    />
+                <ImageView
+                    android:layout_width="13dp"
+                    android:layout_height="16dp"
+                    android:layout_gravity="center_vertical"
+                    android:contentDescription="@string/ic_def_title"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/ic_select" />
+            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_gravity="center_vertical"
+                android:text="申请企业"
+                android:textColor="#171717"
+                android:gravity="center"
+                android:textSize="15sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:background="@drawable/text_radius_shape"
+                android:orientation="horizontal"
+                >
+
+                <EditText
+                    android:id="@+id/txt_entrustOrg"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="left|center"
+                    android:layout_weight="1"
+                    android:background="@drawable/text_radius_shape"
+                    android:hint="请输入申请企业"
+                    android:inputType="text"
+                    android:textColor="#333"
+                    android:textSize="13sp"
+                    />
+            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_gravity="center_vertical"
+                android:text="申请时间"
+                android:textColor="#171717"
+                android:gravity="center"
+                android:textSize="15sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:background="@drawable/text_radius_shape"
+                android:orientation="horizontal"
+                >
+
+                <EditText
+                    android:id="@+id/txt_createTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="left|center"
+                    android:layout_weight="1"
+                    android:background="@drawable/text_radius_shape"
+                    android:hint="请选择申请时间"
+                    android:inputType="text"
+                    android:textColor="#333"
+                    android:focusable="false"
+                    android:textSize="13sp"
+                    />
+                <ImageView
+                    android:layout_width="13dp"
+                    android:layout_height="16dp"
+                    android:layout_gravity="center_vertical"
+                    android:contentDescription="@string/ic_def_title"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/ic_select" />
+            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_gravity="center_vertical"
+                android:text="受理人员"
+                android:textColor="#171717"
+                android:gravity="center"
+                android:textSize="15sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:background="@drawable/text_radius_shape"
+                android:orientation="horizontal"
+                >
+
+                <EditText
+                    android:id="@+id/txt_acceptUserName"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="left|center"
+                    android:layout_weight="1"
+                    android:background="@drawable/text_radius_shape"
+                    android:hint="请输入受理人员"
+                    android:inputType="text"
+                    android:textColor="#333"
+                    android:textSize="13sp"
+                    />
+
+            </LinearLayout>
+            <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_gravity="center_vertical"
+            android:text="受理时间"
+            android:textColor="#171717"
+            android:gravity="center"
+            android:textSize="15sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:background="@drawable/text_radius_shape"
+                android:orientation="horizontal"
+                >
+
+                <EditText
+                    android:id="@+id/txt_acceptTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="left|center"
+                    android:layout_weight="1"
+                    android:background="@drawable/text_radius_shape"
+                    android:hint="请选择受理时间"
+                    android:inputType="text"
+                    android:textColor="#333"
+                    android:focusable="false"
+                    android:textSize="13sp"
+                    />
+                <ImageView
+                    android:layout_width="13dp"
+                    android:layout_height="16dp"
+                    android:layout_gravity="center_vertical"
+                    android:contentDescription="@string/ic_def_title"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/ic_select" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lv_inspectResult"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center_vertical"
+                    android:text="检测结果"
+                    android:textColor="#171717"
+                    android:gravity="center"
+                    android:textSize="15sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:background="@drawable/text_radius_shape"
+                    android:orientation="horizontal"
+                    >
+
+                    <EditText
+                        android:id="@+id/txt_inspectResult"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="left|center"
+                        android:layout_weight="1"
+                        android:background="@drawable/text_radius_shape"
+                        android:hint="请选择检测结果"
+                        android:inputType="text"
+                        android:textColor="#333"
+                        android:focusable="false"
+                        android:textSize="13sp"
+                        />
+                    <ImageView
+                        android:layout_width="13dp"
+                        android:layout_height="16dp"
+                        android:layout_gravity="center_vertical"
+                        android:contentDescription="@string/ic_def_title"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/ic_select" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:background="@color/colorWhite"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_reset"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:text="重置"
+            android:textColor="#206EEA"
+            android:background="#D8E7FF"
+            android:textSize="17sp"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/btn_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:text="确认"
+            android:background="#206EEA"
+            android:textColor="#ffffff"
+            android:textSize="17sp"
+            android:layout_weight="1"/>
+    </LinearLayout>
+</RelativeLayout>

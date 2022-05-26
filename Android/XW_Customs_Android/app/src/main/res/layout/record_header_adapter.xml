@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="45dp"
+    android:gravity="center"
+    android:layout_weight="1"
+    android:background="#eeeeee"
+    android:padding="1dp"
+    android:orientation="vertical"
+    android:showDividers="end"
+    android:divider="@drawable/bottom_line_gray"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#ffffff"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:includeFontPadding="false"
+            android:gravity="left|center"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:textColor="#2A2A2A"
+            android:layout_weight="1"
+            android:text="委托记录单"/>
+        <TextView
+            android:id="@+id/tv_state"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:padding="5dp"
+            android:gravity="right|center"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="#ffffff"
+            android:background="@drawable/btn_radius_shape"
+            android:text="待受理"/>
+
+    </LinearLayout>
+</LinearLayout>

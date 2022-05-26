@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:titlebar="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    tools:context=".view.MainActivity">
+    <com.wuhenzhizao.titlebar.widget.CommonTitleBar
+        android:id="@+id/titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        titlebar:bottomShadowHeight="0dp"
+        titlebar:centerText="登陆"
+        titlebar:centerTextColor="#ffffff"
+        titlebar:centerType="textView"
+        titlebar:leftCustomView="@layout/action_bar_back"
+        titlebar:leftType="customView"
+        titlebar:showBottomLine="false"
+        titlebar:statusBarMode="light"
+        android:visibility="gone"/>
+    <FrameLayout
+        android:id="@+id/container_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:background="@color/bom_nav_bg_color"
+        android:gravity="bottom"
+        android:orientation="horizontal">
+
+        <com.chason.lottieview.LottieTabView
+            android:id="@+id/tab_view_home"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:icon_normal="@mipmap/ic_bom_nav_icon_home"
+            app:lottie_path="tabbar_0.json"
+            app:tab_name="首页"
+            app:tab_selected="true"
+            app:text_normal_color="@color/bom_nav_def_color"
+            app:text_selected_color="@color/bom_nav_sel_color"
+            app:text_size="9sp" />
+
+        <com.chason.lottieview.LottieTabView
+            android:clipChildren="false"
+            android:id="@+id/tab_view_office"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:icon_normal="@mipmap/ic_bom_nav_icon_office"
+            app:lottie_path="tabbar_1.json"
+            app:tab_name="办公"
+            app:tab_selected="false"
+            app:text_normal_color="@color/bom_nav_def_color"
+            app:text_selected_color="@color/bom_nav_sel_color"
+            app:text_size="9sp" />
+
+
+
+        <com.chason.lottieview.LottieTabView
+            android:clipChildren="false"
+            android:id="@+id/tab_view_msg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:icon_normal="@mipmap/ic_bom_nav_icon_message"
+            app:lottie_path="tabbar_2.json"
+            app:tab_name="消息"
+            app:tab_selected="false"
+            app:text_normal_color="@color/bom_nav_def_color"
+            app:text_selected_color="@color/bom_nav_sel_color"
+            app:text_size="9sp" />
+
+        <com.chason.lottieview.LottieTabView
+            android:id="@+id/tab_view_my"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:icon_normal="@mipmap/ic_bom_nav_icon_me"
+            app:lottie_path="tabbar_3.json"
+            app:tab_name="我的"
+            app:tab_selected="false"
+            app:text_normal_color="@color/bom_nav_def_color"
+            app:text_selected_color="@color/bom_nav_sel_color"
+            app:text_size="9sp" />
+    </LinearLayout>
+</LinearLayout>

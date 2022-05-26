@@ -1,0 +1,13 @@
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+    <!--内容内边距-->
+    <dimen name="content_padding">10dp</dimen>
+    <dimen name="block_margin">10dp</dimen>
+
+    <!--模块图标上边距-->
+    <dimen name="icon_margin">6dp</dimen>
+
+    <dimen name="big_title">25sp</dimen>
+    <dimen name="txt_color_13">13sp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+</resources>

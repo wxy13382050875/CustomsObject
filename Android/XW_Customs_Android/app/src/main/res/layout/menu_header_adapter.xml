@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="45dp"
+    android:gravity="center"
+    android:layout_weight="1"
+    android:background="#ffffff"
+    android:padding="1dp"
+    android:orientation="vertical"
+    android:showDividers="end"
+    android:divider="@drawable/bottom_line_gray"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+
+        android:layout_weight="0.5">
+        <ImageView
+            android:id="@+id/iv_icon"
+            android:layout_width="19dp"
+            android:layout_height="19dp"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center_vertical"
+            android:contentDescription="@string/ic_def_title"
+            android:src="@mipmap/ic_password" />
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:includeFontPadding="false"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="#333333"
+            android:text="时事要闻"/>
+
+    </LinearLayout>
+</LinearLayout>
