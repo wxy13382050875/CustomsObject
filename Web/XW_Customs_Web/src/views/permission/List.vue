@@ -10,21 +10,26 @@
     } from "@/api/permission";
     import { columns } from "@/interface/IPermission";
     import { Form } from "ant-design-vue";
+
+    import { store } from "@/store";
+
     const useForm = Form.useForm;
     const { run, loading } = useRequest<any>(permissionList, {
         manual: true,
         loadingDelay: 1000
     });
     const queryParams = ref({
-        appId: "",
+        appId: store.getters["user/getAppId"],
         type: "WEB"
     });
     const formState = ref({
-        appId: "",
+        appId: store.getters["user/getAppId"],
         parentId: null,
         name: "",
         type: "WEB",
         path: "",
+        androidPath: "",
+        iosPath: "",
         icon: "",
         sort: 1,
         note: "",
@@ -42,7 +47,7 @@
     //表单校验规则
     const rules = reactive({
         name: [{ type: "string" as const, required: true, message: "请输入菜单名称!" }],
-        path: [{ type: "string" as const, required: true, message: "请输入菜单地址!" }],
+        // path: [{ type: "string" as const, required: true, message: "请输入菜单地址!" }],
         sort: [{ type: "number" as const, required: true, message: "请输入排序!" }]
     });
     const { validate, resetFields, validateInfos } = useForm(formState, rules);
@@ -67,6 +72,7 @@
             message.info("请选择应用再查询");
             return;
         }
+        
         run(queryParams.value).then((res) => {
             iterateTreeData(res);
             tableData.value = res;
@@ -75,17 +81,20 @@
 
     const handleReset = () => {
         formState.value = {
-            appId: "0",
+            appId: store.getters["user/getAppId"],
             parentId: null,
             name: "",
             type: "WEB",
             path: "",
+            androidPath: "",
+            iosPath: "",
             icon: "",
             sort: 1,
             note: "",
             enabled: true
         };
     };
+    const fileList = ref();
     const handleAdd = () => {
         if (!queryParams.value.appId) {
             message.info("请选择应用后再操作");
@@ -94,13 +103,17 @@
         addModalStatus.value = true;
         resetFields();
         formState.value.appId = queryParams.value.appId;
-        formState.value.type =  queryParams.value.type;
+        formState.value.type = queryParams.value.type;
+        fileList.value = [];
         curPermission.value = {};
     };
     //编辑
     const handleEdit = ($event: any, item: any) => {
         $event.stopPropagation();
         formState.value = { ...item };
+        formState.value.type = queryParams.value.type;
+        fileList.value = [{ url: formState.value.icon }];
+        console.log(item);
         editModdalStatus.value = true;
         curPermission.value = {};
     };
@@ -110,8 +123,9 @@
         resetFields();
         curPermission.value = { ...item };
         formState.value.appId = queryParams.value.appId;
-        formState.value.type =  queryParams.value.type;
+        formState.value.type = queryParams.value.type;
         formState.value.parentId = item.id;
+        fileList.value = [];
         addModalStatus.value = true;
     };
     //提交新增菜单
@@ -153,7 +167,7 @@
             fileType: 1004
         };
     };
-    const fileList = ref();
+
     //图标上传
     const handleUploadIconChange = (info: any) => {
         const status = info.file.status;
@@ -165,17 +179,18 @@
             }
         }
     };
+    getData();
 </script>
 <template>
     <ListContainer>
         <template #form>
             <a-form ref="formRef" :colon="false" :model="queryParams">
                 <a-row :gutter="20">
-                    <a-col :span="6">
+                    <!-- <a-col :span="6">
                         <a-form-item label="所属应用" name="appId">
                             <AppSelect v-model:value="queryParams.appId" />
                         </a-form-item>
-                    </a-col>
+                    </a-col> -->
                     <a-col :span="6">
                         <a-form-item label="应用类型" name="type">
                             <a-radio-group v-model:value="queryParams.type">
@@ -261,15 +276,50 @@
                 <a-form-item label="菜单名称" v-bind="validateInfos.name">
                     <a-input v-model:value="formState.name" placeholder="请输入菜单名称"></a-input>
                 </a-form-item>
-                <a-form-item label="菜单地址" v-bind="validateInfos.sort">
-                    <a-input v-model:value="formState.path" placeholder="请输入菜单地址"></a-input>
-                </a-form-item>
-                <a-form-item label="排序" v-bind="validateInfos.path">
+
+                <template v-if="JSON.stringify(curPermission) !== '{}'">
+                    <template v-if="formState.type === 'MOBILE'">
+                        <a-form-item label="android地址" v-bind="validateInfos.androidPath">
+                            <a-input
+                                v-model:value="formState.androidPath"
+                                placeholder="请输入菜单地址"
+                            ></a-input>
+                        </a-form-item>
+                        <a-form-item label="ios地址" v-bind="validateInfos.iosPath">
+                            <a-input
+                                v-model:value="formState.iosPath"
+                                placeholder="请输入菜单地址"
+                            ></a-input>
+                        </a-form-item>
+                    </template>
+                    <template v-else>
+                        <a-form-item label="菜单地址" v-bind="validateInfos.path">
+                            <a-input
+                                v-model:value="formState.path"
+                                placeholder="请输入菜单地址"
+                            ></a-input>
+                        </a-form-item>
+                    </template>
+                </template>
+                <a-form-item label="排序" v-bind="validateInfos.sort">
                     <a-input-number
                         style="width: 100%"
                         v-model:value="formState.sort"
                         placeholder="请输入排序"
                     ></a-input-number>
+                </a-form-item>
+                <a-form-item label="菜单图标" name="icon">
+                    <a-upload
+                        @change="handleUploadIconChange"
+                        :data="data"
+                        action="http://bt-static.yndth.cn/upload"
+                        v-model:file-list="fileList"
+                        list-type="picture-card"
+                        multiple
+                        accept=".jpg,.png,.jpeg"
+                    >
+                        <plus-outlined />
+                    </a-upload>
                 </a-form-item>
             </a-form>
         </a-modal>
@@ -285,15 +335,36 @@
             @ok="handleSubmitUpdate"
         >
             <a-form :colon="false" :model="formState" :rules="rules" :label-col="{ span: 4 }">
-                <a-form-item v-show="JSON.stringify(curPermission) !== '{}'" label="父菜单">
+                <a-form-item v-show="formState.parentId !== null" label="父菜单">
                     {{ formState.name }}
                 </a-form-item>
                 <a-form-item label="菜单名称" v-bind="validateInfos.name">
                     <a-input v-model:value="formState.name" placeholder="请输入菜单名称"></a-input>
                 </a-form-item>
-                <a-form-item label="菜单地址" v-bind="validateInfos.path">
-                    <a-input v-model:value="formState.path" placeholder="请输入菜单地址"></a-input>
-                </a-form-item>
+                <template v-if="formState.parentId !== null">
+                    <template v-if="formState.type === 'MOBILE'">
+                        <a-form-item label="android地址" v-bind="validateInfos.androidPath">
+                            <a-input
+                                v-model:value="formState.androidPath"
+                                placeholder="请输入菜单地址"
+                            ></a-input>
+                        </a-form-item>
+                        <a-form-item label="ios地址" v-bind="validateInfos.iosPath">
+                            <a-input
+                                v-model:value="formState.iosPath"
+                                placeholder="请输入菜单地址"
+                            ></a-input>
+                        </a-form-item>
+                    </template>
+                    <template v-else>
+                        <a-form-item e label="菜单地址" v-bind="validateInfos.path">
+                            <a-input
+                                v-model:value="formState.path"
+                                placeholder="请输入菜单地址"
+                            ></a-input>
+                        </a-form-item>
+                    </template>
+                </template>
                 <a-form-item label="排序" v-bind="validateInfos.sort">
                     <a-input-number
                         v-model:value="formState.sort"
@@ -308,10 +379,9 @@
                         action="http://bt-static.yndth.cn/upload"
                         v-model:file-list="fileList"
                         list-type="picture-card"
-                        multiple
                         accept=".jpg,.png,.jpeg"
                     >
-                        <plus-outlined />
+                        <plus-outlined v-if="fileList.size === 0" />
                     </a-upload>
                 </a-form-item>
             </a-form>

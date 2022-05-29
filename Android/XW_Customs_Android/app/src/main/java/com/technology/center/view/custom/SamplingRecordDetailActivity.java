@@ -14,6 +14,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.lifecycle.Observer;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.github.gzuliyujiang.wheelpicker.OptionPicker;
 import com.github.gzuliyujiang.wheelpicker.contract.OnOptionPickedListener;
@@ -172,7 +173,7 @@ public class SamplingRecordDetailActivity extends BaseActionBarActivity {
                         TipDialog.show(SamplingRecordDetailActivity.this, "提交成功！", TipDialog.TYPE.SUCCESS).setOnDismissListener(new OnDismissListener() {
                             @Override
                             public void onDismiss() {
-                                finish();
+                                onBack();
                             }
                         });
                     } else {
@@ -185,7 +186,13 @@ public class SamplingRecordDetailActivity extends BaseActionBarActivity {
         }
 
     }
-
+    private void onBack() {
+        Intent intent2 = new Intent("android.intent.action.CART_BROADCAST");
+        intent2.putExtra("data","refresh");
+        LocalBroadcastManager.getInstance(SamplingRecordDetailActivity.this).sendBroadcast(intent2);
+        sendBroadcast(intent2);
+        finish();
+    }
     protected void onDestroy() {
         super.onDestroy();
 

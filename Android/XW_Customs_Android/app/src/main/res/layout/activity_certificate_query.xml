@@ -51,15 +51,16 @@
                     android:src="@mipmap/icon_search" />
 
                 <EditText
-                    android:id="@+id/txt_reg_phone"
+                    android:id="@+id/txt_search"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@null"
-                    android:hint="请输入证收编号"
+                    android:hint="请输入证书编号"
                     android:textColorHint="@color/color_title_secondary"
                     android:inputType="phone"
                     android:paddingLeft="5dp"
                     android:textColor="#333"
+                    android:imeOptions="actionSearch"
                     android:textSize="13sp" />
             </LinearLayout>
 

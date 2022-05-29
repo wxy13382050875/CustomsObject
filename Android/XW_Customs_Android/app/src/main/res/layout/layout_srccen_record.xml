@@ -7,13 +7,15 @@
     android:background="@color/white"
     android:gravity="center"
     android:orientation="vertical">
+
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorWhite"
         android:layout_marginTop="10dp"
+        android:background="@color/colorWhite"
         android:paddingBottom="50dp">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -25,130 +27,132 @@
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
                 android:layout_gravity="center_vertical"
+                android:gravity="center"
                 android:text="样品名称"
                 android:textColor="#171717"
-                android:gravity="center"
                 android:textSize="15sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:background="@drawable/text_radius_shape"
-                android:orientation="horizontal"
-                >
+                android:orientation="horizontal">
 
                 <EditText
                     android:id="@+id/txt_sampleName"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
-                    android:gravity="left|center"
                     android:layout_weight="1"
                     android:background="@drawable/text_radius_shape"
+                    android:gravity="left|center"
                     android:hint="请输入样品名称"
                     android:inputType="text"
                     android:textColor="#333"
-                    android:textSize="13sp"
-                    />
+                    android:textSize="13sp" />
             </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
                 android:layout_gravity="center_vertical"
+                android:gravity="center"
                 android:text="检疫机构"
                 android:textColor="#171717"
-                android:gravity="center"
                 android:textSize="15sp" />
 
             <LinearLayout
+                android:id="@+id/lv_inspectOrg"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:background="@drawable/text_radius_shape"
-                android:orientation="horizontal"
-                >
+                android:orientation="horizontal">
 
                 <EditText
                     android:id="@+id/txt_inspectOrg"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
-                    android:gravity="left|center"
                     android:layout_weight="1"
                     android:background="@drawable/text_radius_shape"
+                    android:focusable="false"
+                    android:gravity="left|center"
                     android:hint="请选择检疫机构"
                     android:inputType="text"
                     android:textColor="#333"
-                    android:focusable="false"
                     android:textSize="13sp"
-                    />
-                <ImageView
-                    android:layout_width="13dp"
-                    android:layout_height="16dp"
-                    android:layout_gravity="center_vertical"
-                    android:contentDescription="@string/ic_def_title"
-                    android:layout_marginRight="10dp"
-                    android:src="@drawable/ic_select" />
+                    android:drawableRight="@drawable/ic_select"
+                    android:paddingRight="10dp"/>
+
+<!--                <ImageView-->
+<!--                    android:layout_width="13dp"-->
+<!--                    android:layout_height="16dp"-->
+<!--                    android:layout_gravity="center_vertical"-->
+<!--                    android:layout_marginRight="10dp"-->
+<!--                    android:contentDescription="@string/ic_def_title"-->
+<!--                    android:src="@drawable/ic_select" />-->
             </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
                 android:layout_gravity="center_vertical"
+                android:gravity="center"
                 android:text="申请时间"
                 android:textColor="#171717"
-                android:gravity="center"
                 android:textSize="15sp" />
 
             <LinearLayout
+                android:id="@+id/lv_createTime"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:background="@drawable/text_radius_shape"
-                android:orientation="horizontal"
-                >
+                android:orientation="horizontal">
 
                 <EditText
                     android:id="@+id/txt_createTime"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
-                    android:gravity="left|center"
                     android:layout_weight="1"
                     android:background="@drawable/text_radius_shape"
+                    android:focusable="false"
+                    android:gravity="left|center"
                     android:hint="请选择申请时间"
                     android:inputType="text"
                     android:textColor="#333"
-                    android:focusable="false"
                     android:textSize="13sp"
-                    />
-                <ImageView
-                    android:layout_width="13dp"
-                    android:layout_height="16dp"
-                    android:layout_gravity="center_vertical"
-                    android:contentDescription="@string/ic_def_title"
-                    android:layout_marginRight="10dp"
-                    android:src="@drawable/ic_select" />
+                    android:drawableRight="@drawable/ic_select"
+                    android:paddingRight="10dp"/>
+
+<!--                <ImageView-->
+<!--                    android:layout_width="13dp"-->
+<!--                    android:layout_height="16dp"-->
+<!--                    android:layout_gravity="center_vertical"-->
+<!--                    android:layout_marginRight="10dp"-->
+<!--                    android:contentDescription="@string/ic_def_title"-->
+<!--                    android:src="@drawable/ic_select" />-->
             </LinearLayout>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
                 android:layout_gravity="center_vertical"
+                android:gravity="center"
                 android:text="受理状态"
                 android:textColor="#171717"
-                android:gravity="center"
                 android:textSize="15sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                >
+                android:orientation="horizontal">
 
                 <RadioGroup
                     android:id="@+id/rg_status"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal">
 
 
                 </RadioGroup>

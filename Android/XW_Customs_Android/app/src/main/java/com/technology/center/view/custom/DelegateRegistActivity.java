@@ -54,8 +54,8 @@ public class DelegateRegistActivity extends BaseActionBarActivity {
     private String userId;
     private String orgType;
     private EntrustOrgModel model = new EntrustOrgModel();
-    @Index(1)
-    @NotNull(msg = "企业类型不能为空！")
+//    @Index(1)
+//    @NotNull(msg = "企业类型不能为空！")
 //    @MaxLength(length = 11, msg = "请输入企业类型")
     @BindView(R.id.txt_type)
     EditText txttype;
@@ -66,8 +66,8 @@ public class DelegateRegistActivity extends BaseActionBarActivity {
     @BindView(R.id.txt_name)
     EditText txtname;
 
-    @Index(3)
-    @NotNull(msg = "营业执照不能为空！")
+//    @Index(3)
+//    @NotNull(msg = "营业执照不能为空！")
 //    @MaxLength(length = 11, msg = "请输入营业执照")
     @BindView(R.id.txt_papersNo)
     EditText txtpapersNo;
@@ -95,9 +95,9 @@ public class DelegateRegistActivity extends BaseActionBarActivity {
 //    @MaxLength(length = 11, msg = "请输入传真")
     @BindView(R.id.txt_fax)
     EditText txtfax;
-
-    @Index(8)
-    @NotNull(msg = "邮箱不能为空！")
+//
+//    @Index(8)
+//    @NotNull(msg = "邮箱不能为空！")
     @RE(re = RE.email, msg = "请输入正确的邮箱")
     @BindView(R.id.txt_email)
     EditText txtemail;

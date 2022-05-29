@@ -201,14 +201,16 @@
                                     android:textColor="#333"
                                     android:focusable="false"
                                     android:textSize="13sp"
+                                    android:drawableRight="@drawable/ic_select"
+                                    android:paddingRight="10dp"
                                     />
-                                <ImageView
-                                    android:layout_width="13dp"
-                                    android:layout_height="16dp"
-                                    android:layout_gravity="center_vertical"
-                                    android:contentDescription="@string/ic_def_title"
-                                    android:layout_marginRight="10dp"
-                                    android:src="@drawable/ic_select" />
+<!--                                <ImageView-->
+<!--                                    android:layout_width="13dp"-->
+<!--                                    android:layout_height="16dp"-->
+<!--                                    android:layout_gravity="center_vertical"-->
+<!--                                    android:contentDescription="@string/ic_def_title"-->
+<!--                                    android:layout_marginRight="10dp"-->
+<!--                                    android:src="@drawable/ic_select" />-->
                             </LinearLayout>
 
                         </LinearLayout>

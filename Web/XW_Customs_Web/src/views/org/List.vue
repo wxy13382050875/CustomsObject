@@ -12,16 +12,18 @@
     } from "@/api/org";
     import { columns } from "@/interface/IOrg";
     import { Form } from "ant-design-vue";
+import { store } from "@/store";
+
     const useForm = Form.useForm;
     const { run, loading } = useRequest<any>(orgList, {
         manual: true,
         loadingDelay: 1000
     });
     const queryParams = ref({
-        appId: "1"
+        appId: store.getters["user/getAppId"]
     });
     const formState = ref({
-        appId: "1",
+        appId:store.getters["user/getAppId"],
         parentId: null,
         name: "",
         code: "",
@@ -93,7 +95,7 @@
     };
     const handleReset = () => {
         formState.value = {
-            appId: "",
+            appId: store.getters["user/getAppId"],
             parentId: null,
             name: "",
             code: "",
@@ -186,7 +188,7 @@
 </script>
 <template>
     <ListContainer>
-        <template #form>
+        <!-- <template #form>
             <a-form ref="formRef" :colon="false" :model="queryParams">
                 <a-row :gutter="20">
                     <a-col :span="6">
@@ -204,7 +206,7 @@
                     </a-col>
                 </a-row>
             </a-form>
-        </template>
+        </template> -->
         <template #tools>
             <a-button
                 type="primary"

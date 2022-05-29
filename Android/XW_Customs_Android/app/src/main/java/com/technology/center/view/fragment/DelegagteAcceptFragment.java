@@ -106,6 +106,7 @@ public class DelegagteAcceptFragment extends BaseToolBarFragment implements Titl
 
     @Override
     protected void loadDataSource() {
+        springView.getFooter(AutoFooter.class).showProgress();
 //        CurrentUserModel model = GsonUtil.fromJson(spUtils.getString("userInfo"), CurrentUserModel.class);
         page =1;
         dataSource.clear();

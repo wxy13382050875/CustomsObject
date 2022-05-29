@@ -112,6 +112,8 @@ public class DelegateApplyActivity extends BaseActionBarActivity {
     @BindView(R.id.txt_sampleQuantity)
     EditText txt_sampleQuantity;
 
+    @Index(9)
+    @NotNull(msg = "样品重量不能为空！")
     @BindView(R.id.txt_sampleWeight)
     EditText txt_sampleWeight;
 
@@ -241,10 +243,6 @@ public class DelegateApplyActivity extends BaseActionBarActivity {
         ButterKnife.bind(this);
 
         mRadioGroup = findViewById(R.id.rg_takeWay);
-
-
-
-
 
         txt_inspectOrg.setOnClickListener(new View.OnClickListener() {
             @Override

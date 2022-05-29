@@ -4,11 +4,12 @@
     import { IUser } from "@/interface/IUser";
     import { saveUserInfo } from "@/api/user";
     import { useOrgTree, useValidate } from "@/utils/hooks";
-
+    import { store } from "@/store";
+    
     const formRef = ref<FormInstance>();
     const showContainerRef = ref();
     const formState = reactive<IUser>({
-        appId: undefined,
+        appId: store.getters["user/getAppId"],
         code: "",
         username: "",
         password: "",
@@ -27,7 +28,7 @@
     const { run: getOrgData, orgTreeData } = useOrgTree();
     const { validatorIdcard, validatorPhone, validatorEmail } = useValidate();
     const rules = reactive({
-        appId: [{ type: "number" as const, required: true, message: "请选择应用!" }],
+        // appId: [{ type: "number" as const, required: true, message: "请选择应用!" }],
         username: [{ type: "string" as const, required: true, message: "请输入用户名!" }],
         password: [{ type: "string" as const, required: true, message: "请输入密码!" }],
         phone: [
@@ -70,12 +71,13 @@
     const handleValidate = (...args: any[]) => {
         console.log(args);
     };
-    const handleAppIdSelectChange = (appId: string) => {
-        if (!appId) {
-            return;
-        }
-        getOrgData(appId);
-    };
+    // const handleAppIdSelectChange = (appId: string) => {
+    //     if (!appId) {
+    //         return;
+    //     }
+        
+    // };
+    getOrgData(store.getters["user/getAppId"],);
     //重置表单
     const resetForm = () => {
         formRef.value?.resetFields();
@@ -97,13 +99,13 @@
             @finish-failed="onFinishFailed"
             @validate="handleValidate"
         >
-            <a-form-item label="所属应用" name="appId">
+            <!-- <a-form-item label="所属应用" name="appId">
                 <AppSelect
                     @change="handleAppIdSelectChange"
                     placeholder="请选择所属应用"
                     v-model:value="formState.appId"
                 />
-            </a-form-item>
+            </a-form-item> -->
             <a-form-item label="所属机构" name="orgIds">
                 <a-tree-select
                     v-model:value="formState.orgIds"

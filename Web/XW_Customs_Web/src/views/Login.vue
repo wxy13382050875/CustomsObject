@@ -1,7 +1,7 @@
 <script setup lang="ts">
     import { reactive, computed } from "vue";
     import { UserOutlined, LockOutlined } from "@ant-design/icons-vue";
-    import { login } from "@/api/sys";
+    import { login, getCurrentUser } from "@/api/sys";
     import { useStore } from "@/store";
     import { useRouter } from "vue-router";
 
@@ -20,8 +20,13 @@
     const onFinish = () => {
         login(formState).then((res: string) => {
             store.dispatch("user/setToken", res);
-            store.dispatch("user/getAuthorityRouting").then((res: any) => {
-                router.push(res[0].path);
+
+            getCurrentUser().then((data) => {
+                console.log(data);
+                store.dispatch("user/setAppId", data.appId);
+                store.dispatch("user/getAuthorityRouting").then((res: any) => {
+                    router.push(res[0].path);
+                });
             });
         });
     };
