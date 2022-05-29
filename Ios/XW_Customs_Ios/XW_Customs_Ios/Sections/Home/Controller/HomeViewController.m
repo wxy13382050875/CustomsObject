@@ -274,7 +274,7 @@ static CGFloat kMagin = 1.f;
         [leftView addSubview:imageView];
         imageView.sd_layout.centerXEqualToView(leftView)
         .centerYEqualToView(leftView).widthIs(16).heightIs(16);
-        _searchTextField.leftView = leftView;‘«
+//        _searchTextField.leftView = leftView;
         _searchTextField.leftViewMode = UITextFieldViewModeAlways;
         ViewRadius(_searchTextField, 5);
     }
