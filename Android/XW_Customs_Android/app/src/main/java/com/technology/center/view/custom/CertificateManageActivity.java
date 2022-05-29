@@ -140,6 +140,7 @@ public class CertificateManageActivity extends BaseActionListBarActivity {
 
     @Override
     protected void loadDataSource() {
+        springView.getFooter(AutoFooter.class).showProgress();
         page = 1;
         dataSource.clear();
         getData();

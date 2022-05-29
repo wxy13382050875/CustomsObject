@@ -15,3 +15,9 @@ export const login = (params: { username: string; password: string }): Promise<s
 export const getPermission = () => {
     return http.get("/permission");
 };
+/**
+ * 当前登陆用户信息
+ */
+ export const getCurrentUser = () => {
+    return http.get("/user/current");
+};

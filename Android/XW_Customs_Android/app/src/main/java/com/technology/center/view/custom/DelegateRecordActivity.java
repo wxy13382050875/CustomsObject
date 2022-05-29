@@ -2,6 +2,7 @@ package com.technology.center.view.custom;
 
 import static com.technology.center.App.getContext;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -133,7 +134,7 @@ public class DelegateRecordActivity extends BaseActionListBarActivity {
         for(int i=0; i<Items.size(); i++)
         {
             RadioButton radioButton = new RadioButton(this);
-            RadioGroup.LayoutParams lp = new RadioGroup.LayoutParams(RadioGroup.LayoutParams.WRAP_CONTENT, 50);
+            RadioGroup.LayoutParams lp = new RadioGroup.LayoutParams(RadioGroup.LayoutParams.WRAP_CONTENT, RadioGroup.LayoutParams.WRAP_CONTENT);
             //设置RadioButton边距 (int left, int top, int right, int bottom)
             lp.setMargins(0,0,15,0);
             radioButton.setLayoutParams(lp);
@@ -178,6 +179,7 @@ public class DelegateRecordActivity extends BaseActionListBarActivity {
     }
     @Override
     protected void loadDataSource() {
+        springView.getFooter(AutoFooter.class).showProgress();
         page = 1;
         dataSource.clear();
         getData();
@@ -393,4 +395,5 @@ public class DelegateRecordActivity extends BaseActionListBarActivity {
                 break;
         }
     }
+
 }

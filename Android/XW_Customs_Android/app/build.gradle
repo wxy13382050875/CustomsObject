@@ -8,7 +8,7 @@ def mfph = [
 android {
     signingConfigs {
         debug {
-            storeFile file('/Users/wuxinyi/Desktop/CustomsObject/Android/XW_Customs_Android/app/android.jks')
+            storeFile file('android.jks')
             storePassword 'yndth123456'
             keyAlias 'key'
             keyPassword 'yndth123456'
@@ -16,7 +16,7 @@ android {
             v2SigningEnabled true
         }
         release {
-            storeFile file('/Users/wuxinyi/Desktop/CustomsObject/Android/XW_Customs_Android/app/android.jks')
+            storeFile file('android.jks')
             storePassword 'yndth123456'
             keyAlias 'key'
             keyPassword 'yndth123456'
@@ -44,7 +44,7 @@ android {
         applicationId "com.technology.center"
         minSdkVersion 22
         targetSdkVersion 31
-        versionCode 2
+        versionCode 3
         versionName "1.0.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

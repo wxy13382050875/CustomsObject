@@ -4,7 +4,7 @@
     import { message, Form } from "ant-design-vue";
     import { orgList, roleOfOrgList } from "@/api/org";
     import { addRole, updateRole, getRolePermission, saveRoleForPermission } from "@/api/role";
-
+import { store } from "@/store";
     const router = useRouter();
     const useForm = Form.useForm;
     const columns = [
@@ -36,12 +36,12 @@
         }
     ];
     const queryParams = ref({
-        appId: ""
+        appId: store.getters["user/getAppId"],
     });
     //表单对象
     const formState = ref({
         id: 0,
-        appId: "",
+        appId: store.getters["user/getAppId"],
         orgId: 0,
         name: "",
         code: "",
@@ -111,7 +111,7 @@
     const handleReset = () => {
         formState.value = {
             id: 0,
-            appId: "",
+            appId: store.getters["user/getAppId"],
             orgId: 0,
             name: "",
             code: "",
@@ -211,10 +211,11 @@
             orgTreeData.value = res;
         });
     };
+    getDataOrg();
 </script>
 <template>
     <ListContainer>
-        <template #form>
+        <!-- <template #form>
             <a-form ref="formRef" :colon="false" :model="queryParams">
                 <a-row :gutter="20">
                     <a-col :span="6">
@@ -232,7 +233,7 @@
                     </a-col>
                 </a-row>
             </a-form>
-        </template>
+        </template> -->
         <a-row :gutter="18" class="h-full">
             <a-col :span="6">
                 <a-card

@@ -96,11 +96,12 @@ public class MsgActivity extends BaseActionListBarActivity {
     }
     @Override
     protected void initEventAndData() {
-        getData();
+//        getData();
     }
 
     @Override
     protected void loadDataSource() {
+        springView.getFooter(AutoFooter.class).showProgress();
         page = 1;
         dataSource.clear();
         getData();

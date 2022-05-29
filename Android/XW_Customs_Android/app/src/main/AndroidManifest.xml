@@ -107,7 +107,8 @@
 
         <activity
             android:name=".view.custom.DelegateRegistActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".view.custom.DelegateInspectionActivity"
             android:screenOrientation="portrait" />
@@ -137,7 +138,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.custom.DelegateApplyActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".view.custom.DelegateRecordDetailActivity"
             android:screenOrientation="portrait" />

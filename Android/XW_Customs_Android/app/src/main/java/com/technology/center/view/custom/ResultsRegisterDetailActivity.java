@@ -1,6 +1,7 @@
 package com.technology.center.view.custom;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +12,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.lifecycle.Observer;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.google.gson.reflect.TypeToken;
 import com.kongzue.dialog.interfaces.OnDismissListener;
@@ -151,7 +153,7 @@ public class ResultsRegisterDetailActivity extends BaseActionBarActivity {
                             TipDialog.show(ResultsRegisterDetailActivity.this, "成功！", TipDialog.TYPE.SUCCESS).setOnDismissListener(new OnDismissListener() {
                                 @Override
                                 public void onDismiss() {
-                                    finish();
+                                    onBack();
                                 }
                             });
 
@@ -185,7 +187,7 @@ public class ResultsRegisterDetailActivity extends BaseActionBarActivity {
                                             TipDialog.show(ResultsRegisterDetailActivity.this, "成功！", TipDialog.TYPE.SUCCESS).setOnDismissListener(new OnDismissListener() {
                                                 @Override
                                                 public void onDismiss() {
-                                                    finish();
+                                                    onBack();
                                                 }
                                             });
 
@@ -205,6 +207,13 @@ public class ResultsRegisterDetailActivity extends BaseActionBarActivity {
                 });
             }
         }
+    }
+    private void onBack() {
+        Intent intent2 = new Intent("android.intent.action.CART_BROADCAST");
+        intent2.putExtra("data","refresh");
+        LocalBroadcastManager.getInstance(ResultsRegisterDetailActivity.this).sendBroadcast(intent2);
+        sendBroadcast(intent2);
+        finish();
     }
     protected void onDestroy() {
         super.onDestroy();

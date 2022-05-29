@@ -45,14 +45,14 @@ const DYNAMIC_ROUTING: Array<RouteRecordRaw> = [
                     keepAlive: true
                 }
             },
-            {
-                path: "/app",
-                component: () => import("@/views/app/List.vue"),
-                meta: {
-                    title: "应用管理",
-                    keepAlive: true
-                }
-            }
+            // {
+            //     path: "/app",
+            //     component: () => import("@/views/app/List.vue"),
+            //     meta: {
+            //         title: "应用管理",
+            //         keepAlive: true
+            //     }
+            // }
         ]
     }
 ];

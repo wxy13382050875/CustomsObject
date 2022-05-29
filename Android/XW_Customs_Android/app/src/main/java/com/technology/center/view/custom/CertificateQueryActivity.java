@@ -1,10 +1,14 @@
 package com.technology.center.view.custom;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,6 +25,7 @@ import com.technology.center.repository.impl.UserRepository;
 import com.technology.center.utils.MyDictUtils;
 import com.technology.center.utils.SpUtils;
 import com.technology.center.utils.ToastUtil;
+import com.technology.center.utils.Utils;
 import com.technology.center.view.base.BaseActionBarActivity;
 import com.technology.center.view.qr.QrCodeActivity;
 
@@ -61,6 +66,8 @@ public class CertificateQueryActivity extends BaseActionBarActivity {
     @BindView(R.id.iv_icon)
     ImageView iv_icon;
 
+    @BindView(R.id.txt_search)
+    EditText txt_search;
     @Override
     protected int getLayoutId() {
         return R.layout.activity_certificate_query;
@@ -110,6 +117,19 @@ public class CertificateQueryActivity extends BaseActionBarActivity {
 
             }
         });
+        txt_search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    //关闭软键盘
+//                    YUtils.closeSoftKeyboard();
+                    closeKeyboard();
+                    getCert(txt_search.getText().toString());
+                    return true;
+                }
+                return false;
+            }
+        });
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -138,17 +158,32 @@ public class CertificateQueryActivity extends BaseActionBarActivity {
 
                 if (contentBeanBaseDto.getCode().equals(Constant.RespCode.R200)) {
                     EntrustInspectModel.ContentBean dto = contentBeanBaseDto.getData();
-                    MyDictUtils myUtils = new MyDictUtils(getBaseContext());
-                    tv_sn.setText("检验编号:" +dto.getSn());
-                    tv_entrustOrg.setText("报检单位:" +dto.getEntrustOrgName());
-                    tv_inspectOrg.setText("检测机构:" + myUtils.getSingleOrgsNameById(dto.getInspectOrgId()));
-                    tv_registerTime.setText("检验时间:" +dto.getRegisterTime());
-                    tv_createTime.setText( dto.getCreateTime());
+                    if(dto != null){
+                        MyDictUtils myUtils = new MyDictUtils(getBaseContext());
+                        tv_sn.setText("检验编号:" +dto.getSn());
+                        tv_entrustOrg.setText("报检单位:" +dto.getEntrustOrgName());
+                        tv_inspectOrg.setText("检测机构:" + myUtils.getSingleOrgsNameById(dto.getInspectOrgId()));
+                        tv_registerTime.setText("检验时间:" +dto.getRegisterTime());
+                        tv_createTime.setText( dto.getCreateTime());
+                    } else {
+                        ToastUtil.show(getBaseContext(), "未查到相关检测证书");
+                    }
+
                 } else {
                     ToastUtil.show(getBaseContext(), contentBeanBaseDto.getMessage());
                 }
 
             }
         });
+    }
+    /*
+    软键盘自动和关闭
+     */
+    private void closeKeyboard() {
+        View view =  getWindow().peekDecorView();
+        if (view != null) {
+            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 }

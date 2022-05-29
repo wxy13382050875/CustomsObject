@@ -19,6 +19,7 @@ export type UserState = {
     token: string; //token
     permissionList: IPermission[]; //权限列表
     routeList: any[]; //路由列表
+    appId: string; //应用ID
 };
 
 // 定义user模块下的state
@@ -27,7 +28,8 @@ export const state: UserState = {
     permissionList: sessionStorage.getItem("PermissionList")
         ? (JSON.parse(sessionStorage.getItem("PermissionList") || "[]") as IPermission[])
         : [],
-    routeList: []
+    routeList: [],
+    appId: sessionStorage.getItem("appId") || ""
 };
 
 export const getters = {
@@ -39,7 +41,11 @@ export const getters = {
     },
     getRouteList(state: UserState) {
         return state.routeList;
+    },
+    getAppId(state: UserState):string {
+        return state.appId;
     }
+
 };
 
 export const mutations = {
@@ -51,7 +57,11 @@ export const mutations = {
         const menuList = getAuthRouters(MenuList);
         const routeList = createAuthRouters(menuList)(DYNAMIC_ROUTING, "/");
         state.routeList = routeList;
-    }
+    },
+    ["SET_APPID"](state: UserState, appId: string): void {
+        state.appId = appId;
+        sessionStorage.setItem("appId", appId);
+    },
 };
 
 export const actions = {
@@ -70,7 +80,10 @@ export const actions = {
                 reject(error);
             }
         });
-    }
+    },
+    setAppId({ commit }: ActionContext<UserState, RootState>, appId: string) {
+        commit("SET_APPID", appId);
+    },
 };
 
 export default {

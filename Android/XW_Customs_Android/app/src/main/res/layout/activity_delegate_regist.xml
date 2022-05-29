@@ -47,6 +47,7 @@
 
 
             <LinearLayout
+                android:id="@+id/lv_type"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:background="@drawable/text_radius_shape"
@@ -67,14 +68,17 @@
                     android:textColor="#333"
                     android:layout_marginLeft="5dp"
                     android:textSize="13sp"
+                    android:drawableRight="@drawable/ic_select"
+                    android:focusable="false"
+                    android:paddingRight="10dp"
                     />
-                <ImageView
-                    android:layout_width="13dp"
-                    android:layout_height="16dp"
-                    android:layout_gravity="center_vertical"
-                    android:contentDescription="@string/ic_def_title"
-                    android:layout_marginRight="10dp"
-                    android:src="@drawable/ic_select" />
+<!--                <ImageView-->
+<!--                    android:layout_width="13dp"-->
+<!--                    android:layout_height="16dp"-->
+<!--                    android:layout_gravity="center_vertical"-->
+<!--                    android:contentDescription="@string/ic_def_title"-->
+<!--                    android:layout_marginRight="10dp"-->
+<!--                    android:src="@drawable/ic_select" />-->
 
             </LinearLayout>
 
@@ -89,13 +93,19 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="80dp"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:text="单位名称"
                 android:textColor="#2C2C2B"
                 android:textSize="15sp" />
-
+            <TextView
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="*"
+                android:textColor="#FF0000"
+                android:textSize="15sp" />
             <EditText
                 android:id="@+id/txt_name"
                 android:layout_width="match_parent"
@@ -153,13 +163,19 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="80dp"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:text="地址"
                 android:textColor="#2C2C2B"
                 android:textSize="15sp" />
-
+            <TextView
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="*"
+                android:textColor="#FF0000"
+                android:textSize="15sp" />
             <EditText
                 android:id="@+id/txt_address"
                 android:layout_width="match_parent"
@@ -185,13 +201,19 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="80dp"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:text="联系人"
                 android:textColor="#2C2C2B"
                 android:textSize="15sp" />
-
+            <TextView
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="*"
+                android:textColor="#FF0000"
+                android:textSize="15sp" />
             <EditText
                 android:id="@+id/txt_contacts"
                 android:layout_width="match_parent"
@@ -217,13 +239,19 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="80dp"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:text="电话"
                 android:textColor="#2C2C2B"
                 android:textSize="15sp" />
-
+            <TextView
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="*"
+                android:textColor="#FF0000"
+                android:textSize="15sp" />
             <EditText
                 android:id="@+id/txt_phone"
                 android:layout_width="match_parent"

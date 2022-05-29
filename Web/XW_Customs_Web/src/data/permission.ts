@@ -25,9 +25,9 @@ export const MenuList = [
         name: "角色管理",
         children: []
     },
-    {
-        url: "/app",
-        name: "应用管理",
-        children: []
-    }
+    // {
+    //     url: "/app",
+    //     name: "应用管理",
+    //     children: []
+    // }
 ];

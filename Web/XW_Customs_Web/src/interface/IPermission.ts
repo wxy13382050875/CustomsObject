@@ -16,15 +16,26 @@ export const columns = [
         key: "name"
     },
     {
-        title: "菜单地址",
-        dataIndex: "path",
-        key: "path"
-    },
-    {
         title: "菜单图标",
         dataIndex: "icon",
         key: "icon"
     },
+    {
+        title: "Web地址",
+        dataIndex: "path",
+        key: "path"
+    },
+    {
+        title: "Android地址",
+        dataIndex: "androidPath",
+        key: "androidPath"
+    },
+    {
+        title: "Ios地址",
+        dataIndex: "iosPath",
+        key: "iosPath"
+    },
+    
     {
         title: "排序",
         dataIndex: "sort",

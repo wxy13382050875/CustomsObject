@@ -181,13 +181,19 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="80dp"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:text="样品名称"
                 android:textColor="#2C2C2B"
                 android:textSize="15sp" />
-
+            <TextView
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="*"
+                android:textColor="#FF0000"
+                android:textSize="15sp" />
             <EditText
                 android:id="@+id/txt_sampleName"
                 android:layout_width="match_parent"
@@ -213,13 +219,19 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="80dp"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:text="样品份数"
                 android:textColor="#2C2C2B"
                 android:textSize="15sp" />
-
+            <TextView
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="*"
+                android:textColor="#FF0000"
+                android:textSize="15sp" />
             <EditText
                 android:id="@+id/txt_sampleNum"
                 android:layout_width="match_parent"
@@ -245,13 +257,19 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="80dp"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:text="规格型号"
                 android:textColor="#2C2C2B"
                 android:textSize="15sp" />
-
+            <TextView
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="*"
+                android:textColor="#FF0000"
+                android:textSize="15sp" />
             <EditText
                 android:id="@+id/txt_spec"
                 android:layout_width="match_parent"
@@ -278,13 +296,19 @@
             >
 
             <TextView
-                android:layout_width="80dp"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:text="生产日期"
                 android:textColor="#2C2C2B"
                 android:textSize="15sp" />
-
+            <TextView
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="*"
+                android:textColor="#FF0000"
+                android:textSize="15sp" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
@@ -309,14 +333,16 @@
                     android:focusable="false"
                     android:paddingLeft="10dp"
                     android:textSize="13sp"
+                    android:drawableRight="@drawable/ic_select"
+                    android:paddingRight="10dp"
                     />
-                <ImageView
-                    android:layout_width="13dp"
-                    android:layout_height="16dp"
-                    android:layout_gravity="center_vertical"
-                    android:contentDescription="@string/ic_def_title"
-                    android:layout_marginRight="10dp"
-                    android:src="@drawable/ic_select" />
+<!--                <ImageView-->
+<!--                    android:layout_width="13dp"-->
+<!--                    android:layout_height="16dp"-->
+<!--                    android:layout_gravity="center_vertical"-->
+<!--                    android:contentDescription="@string/ic_def_title"-->
+<!--                    android:layout_marginRight="10dp"-->
+<!--                    android:src="@drawable/ic_select" />-->
             </LinearLayout>
 
         </LinearLayout>
@@ -393,13 +419,19 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="80dp"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:text="样品数量"
                 android:textColor="#2C2C2B"
                 android:textSize="15sp" />
-
+            <TextView
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="*"
+                android:textColor="#FF0000"
+                android:textSize="15sp" />
             <EditText
                 android:id="@+id/txt_sampleQuantity"
                 android:layout_width="match_parent"
@@ -425,13 +457,19 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="80dp"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:text="样品重量"
                 android:textColor="#2C2C2B"
                 android:textSize="15sp" />
-
+            <TextView
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="*"
+                android:textColor="#FF0000"
+                android:textSize="15sp" />
             <EditText
                 android:id="@+id/txt_sampleWeight"
                 android:layout_width="match_parent"
@@ -521,13 +559,19 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="80dp"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:text="生产商"
                 android:textColor="#2C2C2B"
                 android:textSize="15sp" />
-
+            <TextView
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="*"
+                android:textColor="#FF0000"
+                android:textSize="15sp" />
             <EditText
                 android:id="@+id/txt_producer"
                 android:layout_width="match_parent"
@@ -553,13 +597,19 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="80dp"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:text="生产商地址"
                 android:textColor="#2C2C2B"
                 android:textSize="15sp" />
-
+            <TextView
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="*"
+                android:textColor="#FF0000"
+                android:textSize="15sp" />
             <EditText
                 android:id="@+id/txt_producerAddress"
                 android:layout_width="match_parent"
@@ -616,14 +666,16 @@
                     android:focusable="false"
                     android:paddingLeft="10dp"
                     android:textSize="13sp"
+                    android:drawableRight="@drawable/ic_select"
+                    android:paddingRight="10dp"
                     />
-                <ImageView
-                    android:layout_width="13dp"
-                    android:layout_height="16dp"
-                    android:layout_gravity="center_vertical"
-                    android:contentDescription="@string/ic_def_title"
-                    android:layout_marginRight="10dp"
-                    android:src="@drawable/ic_select" />
+<!--                <ImageView-->
+<!--                    android:layout_width="13dp"-->
+<!--                    android:layout_height="16dp"-->
+<!--                    android:layout_gravity="center_vertical"-->
+<!--                    android:contentDescription="@string/ic_def_title"-->
+<!--                    android:layout_marginRight="10dp"-->
+<!--                    android:src="@drawable/ic_select" />-->
             </LinearLayout>
 
         </LinearLayout>

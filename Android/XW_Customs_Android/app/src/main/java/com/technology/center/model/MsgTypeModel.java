@@ -12,6 +12,8 @@ public class MsgTypeModel implements Serializable {
      * type : SYSTEM
      */
 
-    private int noReadNum;
+    private String total;
     private String type;
+    private String noRead;
+    private String readed;
 }

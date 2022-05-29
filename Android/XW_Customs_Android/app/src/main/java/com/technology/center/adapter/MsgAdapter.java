@@ -75,9 +75,9 @@ public class MsgAdapter extends GroupedRecyclerViewAdapter {
 
         if (entity.getType().equals("SYSTEM")){
             holder.setImageResource(R.id.iv_icon,R.mipmap.icon_msg_system);
-        } else if (entity.getType().equals("RECEIVE")){
+        } else if (entity.getType().equals("ACCEPT")){
             holder.setImageResource(R.id.iv_icon,R.mipmap.icon_msg_receive);
-        } else if (entity.getType().equals("ORDER")){
+        } else if (entity.getType().equals("DISPATCH")){
             holder.setImageResource(R.id.iv_icon,R.mipmap.icon_msg_order);
         }
         holder.setText(R.id.tv_title,entity.getTitle());

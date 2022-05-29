@@ -7,6 +7,7 @@
     import { userList } from "@/api/user";
     import { useOrgTree } from "@/utils/hooks";
 
+    import { store } from "@/store";
     //组件
     import UserRoleModal from "./component/UserRoleModal.vue";
 
@@ -19,10 +20,10 @@
     }
     //查询用户列表参数
     const queryParams = reactive<IQueryParams>({
-        appId: undefined,
+        appId: store.getters["user/getAppId"],
         orgId: undefined,
         page: 1,
-        size: 1
+        size: 20
     });
     const router = useRouter();
     const { run: getOrgData, orgTreeData } = useOrgTree();
@@ -45,24 +46,25 @@
 
     const handleQuery = () => {
         queryParams.page = 1;
+        
         getData();
+        
     };
 
-    const handleAppIdSelectChange = (value: string) => {
-        if (!value) {
-            orgTreeData.value = [];
-            return;
-        }
-        queryParams.appId = value;
-        getOrgData(value);
-    };
+    // const handleAppIdSelectChange = (value: string) => {
+    //     if (!value) {
+    //         orgTreeData.value = [];
+    //         return;
+    //     }
+    //     getOrgData(value);
+    // };
 
     //获取用户列表数据
     const getData = () => {
         run(queryParams);
     };
     getData();
-
+    getOrgData(store.getters["user/getAppId"]);
     //分配角色
     const handleAssignRole = (item: any) => {
         console.log(item);
@@ -91,22 +93,14 @@
                 :model="queryParams"
             >
                 <a-row :gutter="18">
-                    <a-col :span="6">
+                    <!-- <a-col :span="6">
                         <a-form-item label="所属应用" name="appId">
                             <AppSelect
                                 @change="handleAppIdSelectChange"
                                 v-model:value="queryParams.appId"
                             />
-                            <!-- <a-select
-                                v-model:value="queryParams.appId"
-                                allow-clear
-                                placeholder="请选择所属应用"
-                                @change="handleAppIdSelectChange"
-                            >
-                                <a-select-option key="1" value="1">昆明技术中心</a-select-option>
-                            </a-select> -->
                         </a-form-item>
-                    </a-col>
+                    </a-col> -->
                     <a-col :span="6">
                         <a-form-item label="所属机构" name="orgId">
                             <a-tree-select

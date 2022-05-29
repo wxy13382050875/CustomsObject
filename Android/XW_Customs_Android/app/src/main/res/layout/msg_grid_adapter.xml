@@ -81,7 +81,8 @@
                     android:gravity="center"
                     android:layout_weight="0."
                     android:textColor="@color/white"
-                    android:background="@drawable/shape_circle_bg"/>
+                    android:background="@drawable/shape_circle_bg"
+                    android:visibility="gone"/>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
