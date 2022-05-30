@@ -254,7 +254,7 @@ public class DelegagteAcceptFragment extends BaseToolBarFragment implements Titl
                     bundle.putString("type", type);
 
                     intent.putExtras(bundle);
-                    startActivityForResult(intent,10086);
+                    startActivity(intent);
                 }
 
             }

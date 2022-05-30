@@ -45,6 +45,13 @@ public class UserRepository extends BaseRepository implements IUserRepository {
     }
 
     @Override
+    public LiveData<BaseDto<CurrentUserModel>> updatePassword(Map<String, String> params) {
+        Flowable<BaseDto<CurrentUserModel>> flowable = RequestRetrofit.getInstance(UserService.class).updatePassword(params);
+
+        return request(flowable).get();
+    }
+
+    @Override
     public LiveData<BaseDto<List<CanSelectOrgsModel>>> getCanSelectOrgs(String id) {
         Flowable<BaseDto<List<CanSelectOrgsModel>>> flowable = RequestRetrofit.getInstance(UserService.class).getCanSelectOrgs(id);
 

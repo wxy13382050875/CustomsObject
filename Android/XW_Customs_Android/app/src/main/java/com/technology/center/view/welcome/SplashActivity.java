@@ -88,12 +88,12 @@ public class SplashActivity extends BaseCompatActivity {
         boolean isFirstOpen = spUtils.getBoolean(Constant.FIRST_OPEN, false);
 
         // 如果是第一次启动，则先进入功能引导页
-        if (!isFirstOpen) {
-            Intent intent = new Intent(this, WelcomeGuideActivity.class);
-            startActivity(intent);
-            finish();
-            return;
-        }
+//        if (!isFirstOpen) {
+//            Intent intent = new Intent(this, WelcomeGuideActivity.class);
+//            startActivity(intent);
+//            finish();
+//            return;
+//        }
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);  //无title
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -101,7 +101,6 @@ public class SplashActivity extends BaseCompatActivity {
         // 如果不是第一次启动app，则正常显示启动屏
         setContentView(R.layout.activity_splash);
         //创建广告位
-
 
         boolean agreed = spUtils.getBoolean("agreed",false);;
         if (!agreed) {
@@ -115,7 +114,7 @@ public class SplashActivity extends BaseCompatActivity {
                     TextView btnCancel = v.findViewById(R.id.cancel);
 
                     title.setText("隐私政策");
-                    String content ="{\"createDate\":\"2020-09-10 15:42:23\",\"id\":1,\"groupKey\":\"REGIST_LOGIN_PROTOCOL\",\"name\":\"用户使用须知\",\"outline\":\"亲爱的用户，欢迎来到边互通！我们根据最新的监管要求更新了边互通《用户隐私政策》和《服务条款》（点击查看），特向您说明如下:\\n1.为保障服务所需，我们会申请系统权限收集您的手机设备信息用于信息推送和安全风控，并申请存储权限用于下载、缓存相关文件。\\n2.基于您的明确授权，我们可能会获取您的相机权限等信息用于人脸认证，您有权拒绝或取消授权。\\n3.您可以查询、更正您的个人信息，我们也提供账户注销渠道。\\n 如对本政策内容有任何疑问、意见或建议，您可以及时通过客服邮箱：chenlijuan@yndth.cn与我们取得联系。\",\"protocols\":[{\"createDate\":\"2020-09-10 15:42:23\",\"id\":2,\"name\":\"《用户隐私政策》\"},{\"createDate\":\"2020-09-10 15:42:23\",\"id\":7,\"name\":\"《服务条款》\"}],\"consent\":true}";
+                    String content ="{\"createDate\":\"2020-09-10 15:42:23\",\"id\":1,\"groupKey\":\"REGIST_LOGIN_PROTOCOL\",\"name\":\"用户使用须知\",\"outline\":\"亲爱的用户，欢迎来到海关技术中心！我们根据最新的监管要求更新了海关技术中心《用户隐私政策》和《服务条款》（点击查看），特向您说明如下:\\n1.为保障服务所需，我们会申请系统权限收集您的手机设备信息用于信息推送和安全风控，并申请存储权限用于下载、缓存相关文件。\\n2.基于您的明确授权，我们可能会获取您的相机权限等信息用于人脸认证，您有权拒绝或取消授权。\\n3.您可以查询、更正您的个人信息，我们也提供账户注销渠道。\\n 如对本政策内容有任何疑问、意见或建议，您可以及时通过客服邮箱：chenlijuan@yndth.cn与我们取得联系。\",\"protocols\":[{\"createDate\":\"2020-09-10 15:42:23\",\"id\":2,\"name\":\"《用户隐私政策》\"},{\"createDate\":\"2020-09-10 15:42:23\",\"id\":7,\"name\":\"《服务条款》\"}],\"consent\":true}";
                     ProtocolModel proBean  = GsonUtil.fromJson(content, ProtocolModel.class);
                     message.setText(generateSp(proBean.getOutline(), proBean.getProtocols()));
                     btnConfirm.setOnClickListener(new View.OnClickListener() {

@@ -96,7 +96,7 @@ public class DelegateRegistActivity extends BaseActionBarActivity {
     @BindView(R.id.txt_fax)
     EditText txtfax;
 //
-//    @Index(8)
+    @Index(8)
 //    @NotNull(msg = "邮箱不能为空！")
     @RE(re = RE.email, msg = "请输入正确的邮箱")
     @BindView(R.id.txt_email)

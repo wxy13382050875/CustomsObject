@@ -1,4 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
+
     <!-- Base application theme. -->
     <style name="Theme.XW_Customs_Android" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Primary brand color. -->
@@ -19,6 +20,7 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
 
     <style name="Theme.XW_Customs_Android.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 

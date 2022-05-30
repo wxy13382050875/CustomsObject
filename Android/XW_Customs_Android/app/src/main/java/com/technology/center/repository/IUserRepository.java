@@ -47,6 +47,14 @@ public interface IUserRepository {
      * @return 返回JSON字符串
      */
     LiveData<BaseDto<CurrentUserModel>> register(Map<String, Object> params);
+
+
+    /**
+     * 修改密码
+     *
+     * @return
+     */
+    LiveData<BaseDto<CurrentUserModel>> updatePassword(Map<String, String> params);
     /**
      * 获取模块
      *

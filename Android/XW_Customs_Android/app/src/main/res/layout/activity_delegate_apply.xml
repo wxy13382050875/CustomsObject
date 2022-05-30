@@ -641,7 +641,13 @@
                 android:text="检测机构"
                 android:textColor="#2C2C2B"
                 android:textSize="15sp" />
-
+            <TextView
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="*"
+                android:textColor="#FF0000"
+                android:textSize="15sp" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
@@ -694,7 +700,13 @@
                 android:text="检测报告拿取方式"
                 android:textColor="#2C2C2B"
                 android:textSize="15sp" />
-
+            <TextView
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="*"
+                android:textColor="#FF0000"
+                android:textSize="15sp" />
             <RadioGroup
                 android:id="@+id/rg_takeWay"
                 android:layout_width="match_parent"

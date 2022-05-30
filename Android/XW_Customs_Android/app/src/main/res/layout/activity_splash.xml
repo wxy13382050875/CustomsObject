@@ -56,11 +56,11 @@
                     android:layout_height="30dp" />
             </LinearLayout>
         </FrameLayout>
+
         <FrameLayout
             android:id="@+id/splash_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
+            android:layout_height="match_parent" />
     </RelativeLayout>
 
 

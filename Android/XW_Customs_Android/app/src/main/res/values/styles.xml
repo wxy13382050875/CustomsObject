@@ -78,4 +78,7 @@
         <item name="tabRippleColor">#00000000</item>
         <item name="tabIndicatorFullWidth">false</item>
     </style>
+    <style name="AppTheme.StartingWindowTheme" parent="AppTheme">
+        <item name="android:windowBackground" >@mipmap/pic_startpage</item>
+    </style>
 </resources>

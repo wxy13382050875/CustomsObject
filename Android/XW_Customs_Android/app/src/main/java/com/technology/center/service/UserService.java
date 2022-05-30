@@ -42,13 +42,20 @@ public interface UserService {
     Flowable<BaseDto<String>> login(@Body Map<String, String> params);
 
     /**
-     * 用户登录
+     * 用户注册
      *
      * @return
      */
     @POST("/bt_cus_tc/sso/user/register")
     Flowable<BaseDto<CurrentUserModel>> register(@Body Map<String, Object> params);
 
+    /**
+     * 修改密码
+     *
+     * @return
+     */
+    @PUT("/bt_cus_tc/sso/user/updatePassword")
+    Flowable<BaseDto<CurrentUserModel>> updatePassword(@Body Map<String, String> params);
     /**
      * 当前登陆用户信息
      *

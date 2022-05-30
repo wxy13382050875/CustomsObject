@@ -133,6 +133,8 @@ public class DelegateApplyActivity extends BaseActionBarActivity {
     @BindView(R.id.txt_producerAddress)
     EditText txt_producerAddress;
 
+    @Index(11)
+    @NotNull(msg = "检测机构不能为空！")
     @BindView(R.id.txt_inspectOrg)
     EditText txt_inspectOrg;
 
