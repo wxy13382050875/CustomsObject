@@ -17,7 +17,15 @@ export const addRole = (params: any) => {
 export const updateRole = (params: any) => {
     return http.put(`/role/${params.id}`, params);
 };
-
+/**
+ * 获取角色分页查询
+ * @param roleId
+ * @param params
+ * @returns
+ */
+ export const getRoleList = ( params: any) => {
+    return http.get("/role", { params: params });
+};
 /**
  * 获取角色下的权限
  * @param roleId

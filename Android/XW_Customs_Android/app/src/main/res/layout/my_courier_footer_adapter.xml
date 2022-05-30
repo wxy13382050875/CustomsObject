@@ -21,8 +21,4 @@
         android:textColor="#206EEA"
         android:textSize="17sp"
         />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:background="@drawable/bottom_line_gray"/>
 </LinearLayout>

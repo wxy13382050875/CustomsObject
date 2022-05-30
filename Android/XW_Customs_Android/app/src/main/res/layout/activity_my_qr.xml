@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:titlebar="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EEEEEE"
+    android:orientation="vertical">
+
+    <com.wuhenzhizao.titlebar.widget.CommonTitleBar
+        android:id="@+id/titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        titlebar:bottomShadowHeight="0dp"
+        titlebar:centerText="我的二维码"
+        titlebar:centerTextColor="#171717"
+        titlebar:centerType="textView"
+        titlebar:leftCustomView="@layout/action_bar_back"
+        titlebar:leftType="customView"
+        titlebar:rightType="textView"
+        titlebar:rightText="打印"
+        titlebar:rightTextColor="#171717"
+        titlebar:showBottomLine="false"
+        titlebar:statusBarMode="dark" />
+    <LinearLayout
+        android:id="@+id/register_box"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
+
+
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:textAlignment="center"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/iv_qr"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center_vertical"
+                android:contentDescription="@string/ic_def_title"
+                android:src="@mipmap/icon_certificate_logo" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+</LinearLayout>

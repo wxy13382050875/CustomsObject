@@ -57,7 +57,8 @@ public class AcceptAdapter extends GroupedRecyclerViewAdapter {
         if(mType == DelegagteAcceptFragment.TypeEnum.WAIT_ACCEPT){
             return true;
         } else if(mType == DelegagteAcceptFragment.TypeEnum.WAIT_SAMPLE ||
-                mType == DelegagteAcceptFragment.TypeEnum.WAIT_REGISTER  ){
+                mType == DelegagteAcceptFragment.TypeEnum.WAIT_REGISTER ||
+                mType == DelegagteAcceptFragment.TypeEnum.REGISTERED ){
             return true;
         }
         return  false;
@@ -73,7 +74,8 @@ public class AcceptAdapter extends GroupedRecyclerViewAdapter {
         if(mType == DelegagteAcceptFragment.TypeEnum.WAIT_ACCEPT){
             return R.layout.accept_footer_adapter;
         } else if(mType == DelegagteAcceptFragment.TypeEnum.WAIT_SAMPLE ||
-                mType == DelegagteAcceptFragment.TypeEnum.WAIT_REGISTER  ){
+                mType == DelegagteAcceptFragment.TypeEnum.WAIT_REGISTER ||
+                mType == DelegagteAcceptFragment.TypeEnum.REGISTERED ){
             return R.layout.my_courier_footer_adapter;
         } else {
             return 0;
@@ -114,12 +116,20 @@ public class AcceptAdapter extends GroupedRecyclerViewAdapter {
                         }
                     }
                 });
-            } if(mType == DelegagteAcceptFragment.TypeEnum.WAIT_REGISTER ){
+            } else if(mType == DelegagteAcceptFragment.TypeEnum.WAIT_REGISTER ){
                 holder.setText(R.id.it_btn, "结果登记");
                 holder.get(R.id.it_btn).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         onClickBtn.myButtonClick(entity,"REGISTER");
+                    }
+                });
+            } else if(mType == DelegagteAcceptFragment.TypeEnum.REGISTERED ){
+                holder.setText(R.id.it_btn, "我的二维码");
+                holder.get(R.id.it_btn).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onClickBtn.myButtonClick(entity,"QR");
                     }
                 });
             } else if(mType == DelegagteAcceptFragment.TypeEnum.WAIT_ACCEPT ){

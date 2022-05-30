@@ -38,6 +38,7 @@ import com.technology.center.model.EntrustInspectModel;
 import com.technology.center.repository.impl.UserRepository;
 import com.technology.center.utils.GsonUtil;
 import com.technology.center.view.base.BaseToolBarFragment;
+import com.technology.center.view.custom.MyQrActivity;
 import com.technology.center.view.custom.ResultsRegisterActivity;
 import com.technology.center.view.custom.DelegateAcceptDetailActivity;
 import com.technology.center.view.custom.SamplingRecordDetailActivity;
@@ -237,6 +238,17 @@ public class DelegagteAcceptFragment extends BaseToolBarFragment implements Titl
                 } else if(type.equals("REGISTER")){//结果登记
 
                     Intent intent = new Intent(getContext(), ResultsRegisterDetailActivity.class);
+                    //用Bundle携带数据
+                    Bundle bundle = new Bundle();
+                    //传递name参数为tinyphp
+                    bundle.putSerializable("model",model);
+                    bundle.putString("type", type);
+
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                } else if(type.equals("QR")){//结果登记
+
+                    Intent intent = new Intent(getContext(), MyQrActivity.class);
                     //用Bundle携带数据
                     Bundle bundle = new Bundle();
                     //传递name参数为tinyphp

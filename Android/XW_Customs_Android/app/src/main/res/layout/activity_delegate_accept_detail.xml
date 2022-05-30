@@ -61,7 +61,13 @@
                                 android:text="检测编号："
                                 android:textColor="#2A2A2A"
                                 android:textSize="13sp" />
-
+                            <TextView
+                                android:layout_width="10dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:text="*"
+                                android:textColor="#FF0000"
+                                android:textSize="15sp" />
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="30dp"
@@ -130,7 +136,13 @@
                                 android:text="业务类别："
                                 android:textColor="#2A2A2A"
                                 android:textSize="13sp" />
-
+                            <TextView
+                                android:layout_width="10dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:text="*"
+                                android:textColor="#FF0000"
+                                android:textSize="15sp" />
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="30dp"
@@ -177,7 +189,13 @@
                                 android:text="检测机构："
                                 android:textColor="#2A2A2A"
                                 android:textSize="13sp" />
-
+                            <TextView
+                                android:layout_width="10dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:text="*"
+                                android:textColor="#FF0000"
+                                android:textSize="15sp" />
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="30dp"
@@ -371,7 +389,13 @@
                             android:text="执行标准："
                             android:textColor="#2A2A2A"
                             android:textSize="13sp" />
-
+                        <TextView
+                            android:layout_width="10dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:text="*"
+                            android:textColor="#FF0000"
+                            android:textSize="15sp" />
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="30dp"
@@ -412,7 +436,13 @@
                             android:text="检测项目："
                             android:textColor="#2A2A2A"
                             android:textSize="13sp" />
-
+                        <TextView
+                            android:layout_width="10dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:text="*"
+                            android:textColor="#FF0000"
+                            android:textSize="15sp" />
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="30dp"
@@ -453,7 +483,13 @@
                             android:text="检测项目依据："
                             android:textColor="#2A2A2A"
                             android:textSize="13sp" />
-
+                        <TextView
+                            android:layout_width="10dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:text="*"
+                            android:textColor="#FF0000"
+                            android:textSize="15sp" />
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="30dp"

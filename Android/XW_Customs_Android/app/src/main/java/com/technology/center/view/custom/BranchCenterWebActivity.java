@@ -193,14 +193,17 @@ public class BranchCenterWebActivity extends BaseActionBarActivity {
             @Override
             public void onChanged(BaseDto<OrgDetailModel> orgDetailModelBaseDto) {
                 if (orgDetailModelBaseDto.getCode().equals(Constant.RespCode.R200)) {
-                    String html = "<!DOCTYPE html><html><head><meta charset=\"utf-8\"><meta name=viewport content=\"width=device-width,minimum-scale=1,maximum-scale=1,user-scalable=no,initial-scale=1\"><title></title>" +
-                            "<style>html,body,h1,h2,h3,h4,h5,ul{margin:0}h4 strong { text-align: left; display: inline-block; }html,body{width:100%;padding:0;margin:0}body{overflow-y:scroll}img{max-width:100%}.content{padding:0 10px;word-wrap: break-word; word-break: normal;word-break:break-all;}.content p{overflow:visible;letter-spacing:.2px;line-height:32px}</style>" +
-                            "</head><body>" +
-                            "<div class=content>" +
-                            orgDetailModelBaseDto.getData().getIntroduce() +
-                            "</div>" +
-                            "</body></html>";
-                    webView.loadDataWithBaseURL(null, html, "text/html", "UTF-8", null);
+                    if(orgDetailModelBaseDto.getData() != null){
+                        String html = "<!DOCTYPE html><html><head><meta charset=\"utf-8\"><meta name=viewport content=\"width=device-width,minimum-scale=1,maximum-scale=1,user-scalable=no,initial-scale=1\"><title></title>" +
+                                "<style>html,body,h1,h2,h3,h4,h5,ul{margin:0}h4 strong { text-align: left; display: inline-block; }html,body{width:100%;padding:0;margin:0}body{overflow-y:scroll}img{max-width:100%}.content{padding:0 10px;word-wrap: break-word; word-break: normal;word-break:break-all;}.content p{overflow:visible;letter-spacing:.2px;line-height:32px}</style>" +
+                                "</head><body>" +
+                                "<div class=content>" +
+                                orgDetailModelBaseDto.getData().getIntroduce() +
+                                "</div>" +
+                                "</body></html>";
+                        webView.loadDataWithBaseURL(null, html, "text/html", "UTF-8", null);
+                    }
+
                 } else {
                     ToastUtil.show(getBaseContext(), orgDetailModelBaseDto.getMessage());
                 }

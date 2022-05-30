@@ -39,7 +39,7 @@ const DYNAMIC_ROUTING: Array<RouteRecordRaw> = [
             },
             {
                 path: "/role",
-                component: () => import("@/views/role/List.vue"),
+                component: () => import("@/views/role/AllList.vue"),
                 meta: {
                     title: "角色管理",
                     keepAlive: true
@@ -99,7 +99,7 @@ const Qk_DYNAMIC_ROUTING: Array<RouteRecordRaw> = [
     },
     {
         path: "/app",
-        component: () => import("@/views/app/List.vue"),
+        component: () => import("@/views/role/AllList.vue"),
         meta: {
             title: "应用管理",
             keepAlive: true
