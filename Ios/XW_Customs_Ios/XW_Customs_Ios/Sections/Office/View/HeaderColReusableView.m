@@ -16,7 +16,7 @@
 -(void)xw_setupUI{
     [self addSubview:self.imageView];
     [self addSubview:self.titleLabel];
-    [self addSubview:self.moreBtn];
+//    [self addSubview:self.moreBtn];
     [self addSubview:self.line];
 }
 -(void)xw_updateConstraints{
@@ -26,15 +26,15 @@
     .widthIs(20)
     .heightIs(20);
     
-    self.moreBtn.sd_layout
-    .rightSpaceToView(self, 10)
-    .topEqualToView(self)
-    .bottomEqualToView(self)
-    .widthIs(105);
+//    self.moreBtn.sd_layout
+//    .rightSpaceToView(self, 10)
+//    .topEqualToView(self)
+//    .bottomEqualToView(self)
+//    .widthIs(105);
     
     self.titleLabel.sd_layout
     .leftSpaceToView(self.imageView, 5)
-    .rightSpaceToView(self.moreBtn, 10)
+    .rightSpaceToView(self, 10)
     .topEqualToView(self)
     .bottomEqualToView(self);
     
@@ -45,7 +45,10 @@
     .heightIs(1);
     
 }
-
+-(void)setModel:(MobilepermissiontreeModel *)model{
+    [self.imageView sd_setImageWithURL:[NSURL URLWithString:model.icon] placeholderImage:IMG(@"icon_default_placeholder")];
+    self.titleLabel.text = model.name;
+}
 #pragma mark 懒加载
 -(UIImageView*)imageView{
     if (!_imageView) {

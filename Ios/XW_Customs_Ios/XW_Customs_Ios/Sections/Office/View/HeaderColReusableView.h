@@ -6,11 +6,11 @@
 //
 
 #import "xw_BaseCollectionReusableView.h"
-
+#import "xw_UserInfoModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface HeaderColReusableView : xw_BaseCollectionReusableView
-@property (nonatomic, copy) void(^didChickEventBlock)(id params);
+@property (nonatomic, strong) MobilepermissiontreeModel *model;
 @end
 
 NS_ASSUME_NONNULL_END
