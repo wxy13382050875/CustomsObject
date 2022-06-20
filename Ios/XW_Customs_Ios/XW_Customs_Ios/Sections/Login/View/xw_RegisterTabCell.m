@@ -17,15 +17,15 @@
 @property(nonatomic,strong)UILabel* titleLabel;
 
 @property(nonatomic,strong)UITextField* phoneTextField;
-@property(nonatomic,strong)UITextField* codeTextField;
-@property(nonatomic,strong)UITextField* pwdTextField;
+//@property(nonatomic,strong)UITextField* codeTextField;
+//@property(nonatomic,strong)UITextField* pwdTextField;
 @property(nonatomic,strong)UITextField* npwdTextField;
 
 @property(nonatomic,strong)UITextView* protocolTextView;
 @property(nonatomic,strong)UIButton* resetBtn;
 @property (assign, nonatomic) BOOL isSelect;
 
-@property(nonatomic,strong)UIButton* codBtn;
+//@property(nonatomic,strong)UIButton* codBtn;
 //@property(nonatomic,assign)NSInteger selectedIndex;
 @end
 @implementation xw_RegisterTabCell
@@ -52,8 +52,8 @@
     [self.bgView addSubview:self.titleLabel];
     
     [self.bgView addSubview:self.phoneTextField];
-    [self.bgView addSubview:self.codeTextField];
-    [self.bgView addSubview:self.codBtn];
+//    [self.bgView addSubview:self.codeTextField];
+//    [self.bgView addSubview:self.codBtn];
     [self.bgView addSubview:self.npwdTextField];
     
     [self.contentView addSubview:self.protocolTextView];
@@ -79,8 +79,8 @@
     self.bgView.sd_layout
     .leftSpaceToView(self.contentView, 30)
     .rightSpaceToView(self.contentView, 30)
-    .topSpaceToView(self.contentView, kNavBarAndStatusBarHeight +10)
-    .heightIs(260);
+    .topSpaceToView(self.contentView, kNavBarAndStatusBarHeight +50)
+    .heightIs(220);
     
     self.titleLabel.sd_layout
     .leftSpaceToView(self.bgView, 30)
@@ -98,21 +98,21 @@
     .topSpaceToView(self.titleLabel, 0)
     .heightIs(40);
     
-    self.codeTextField.sd_layout
-    .leftSpaceToView(self.bgView, 30)
-    .rightSpaceToView(self.bgView, 30+120)
-    .topSpaceToView(self.phoneTextField, 15)
-    .heightIs(40);
-    
-    self.codBtn.sd_layout
-    .rightSpaceToView(self.bgView, 30)
-    .centerYEqualToView(self.codeTextField)
-    .heightIs(40).widthIs(120);
+//    self.codeTextField.sd_layout
+//    .leftSpaceToView(self.bgView, 30)
+//    .rightSpaceToView(self.bgView, 30+120)
+//    .topSpaceToView(self.phoneTextField, 15)
+//    .heightIs(40);
+//
+//    self.codBtn.sd_layout
+//    .rightSpaceToView(self.bgView, 30)
+//    .centerYEqualToView(self.codeTextField)
+//    .heightIs(40).widthIs(120);
     
     self.npwdTextField.sd_layout
     .leftSpaceToView(self.bgView, 30)
     .rightSpaceToView(self.bgView, 30)
-    .topSpaceToView(self.codeTextField, 15)
+    .topSpaceToView(self.phoneTextField, 15)
     .heightIs(40);
     
     self.protocolTextView.sd_layout
@@ -132,8 +132,8 @@
 -(void)setViewMode:(xw_LoginViewModel* )viewMode{
 //
     self.isSelect = NO;
-    RAC(viewMode ,phone) = self.phoneTextField.rac_textSignal;
-    RAC(viewMode ,smsCode) = self.codeTextField.rac_textSignal;
+    RAC(viewMode ,username) = self.phoneTextField.rac_textSignal;
+//    RAC(viewMode ,smsCode) = self.codeTextField.rac_textSignal;
     RAC(viewMode ,password) = self.npwdTextField.rac_textSignal;
     
     self.protocolTextView.attributedText = [NSAttributedString protocolIsSelect:NO];
@@ -144,14 +144,14 @@
     if (!_topBgView) {
         _topBgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT/3)];
         _topBgView.backgroundColor = COLOR(@"#206EEA");
-        UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.topBgView.bounds byRoundingCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight cornerRadii:CGSizeMake(50,50 )];
-        CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
-
-        maskLayer.frame = _topBgView.bounds;
-
-        maskLayer.path = maskPath.CGPath;
-
-        _topBgView.layer.mask = maskLayer;
+//        UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.topBgView.bounds byRoundingCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight cornerRadii:CGSizeMake(50,50 )];
+//        CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+//
+//        maskLayer.frame = _topBgView.bounds;
+//
+//        maskLayer.path = maskPath.CGPath;
+//
+//        _topBgView.layer.mask = maskLayer;
     }
     return _topBgView;
 }
@@ -228,55 +228,55 @@
     return _phoneTextField;
 }
 
--(UITextField*)codeTextField{
-    if (!_codeTextField) {
-        _codeTextField = [UITextField new];
-        _codeTextField.font = FONT(13);
-        _codeTextField.placeholder = @"请输入验证码";
-        _codeTextField.textColor = COLOR(@"#383838");
-        _codeTextField.keyboardType = UIKeyboardTypeNumberPad;
-        _codeTextField.backgroundColor = COLOR(@"#F5F5F5");
-        UIView* leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-        UIImageView* imageView = [UIImageView new];
-        imageView.image = IMG(@"icon_code");
-        [leftView addSubview:imageView];
-        imageView.sd_layout.centerXEqualToView(leftView)
-        .centerYEqualToView(leftView).widthIs(13).heightIs(16);
-        
-        _codeTextField.leftView = leftView;
-        
-        _codeTextField.leftViewMode = UITextFieldViewModeAlways;
-        
-        @weakify(self);
-        [[[_codeTextField.rac_textSignal map:^id(NSString* value) {
-            return @(value.length);
-        }] filter:^BOOL(id value) {
-            return [value intValue] > 6;
-        }] subscribeNext:^(id x) {
-            @strongify(self);
-            self.codeTextField.text = [self.codeTextField.text substringToIndex:6];
-        }];
-        ViewRadius(_codeTextField, 5);
-    }
-    return _codeTextField;
-}
--(UIButton*)codBtn{
-    if (!_codBtn) {
-        _codBtn = [UIButton buttonWithTitie:@"获取验证码" WithtextColor:[UIColor whiteColor]  WithBackColor:COLOR(@"#206EEA") WithBackImage:nil WithImage:nil WithFont:13 EventBlock:^(id  _Nonnull params) {
-            if (self.phoneTextField.text.length < 11) {
-                Dialog().wTypeSet(DialogTypeAuto).wMessageSet(@"身份证号输入不正确").wDisappelSecondSet(1).wStart();
-                return ;
-            }
-            [params setCountdown:60];
-            if (self.didChickEventBlock) {
-                self.didChickEventBlock(@"1");
-            }
-        }];;
-//        codBtn.frame = CGRectMake(0, 0, 118, 34);
-        ViewRadius(_codBtn, 5);
-    }
-    return _codBtn;
-}
+//-(UITextField*)codeTextField{
+//    if (!_codeTextField) {
+//        _codeTextField = [UITextField new];
+//        _codeTextField.font = FONT(13);
+//        _codeTextField.placeholder = @"请输入验证码";
+//        _codeTextField.textColor = COLOR(@"#383838");
+//        _codeTextField.keyboardType = UIKeyboardTypeNumberPad;
+//        _codeTextField.backgroundColor = COLOR(@"#F5F5F5");
+//        UIView* leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+//        UIImageView* imageView = [UIImageView new];
+//        imageView.image = IMG(@"icon_code");
+//        [leftView addSubview:imageView];
+//        imageView.sd_layout.centerXEqualToView(leftView)
+//        .centerYEqualToView(leftView).widthIs(13).heightIs(16);
+//        
+//        _codeTextField.leftView = leftView;
+//        
+//        _codeTextField.leftViewMode = UITextFieldViewModeAlways;
+//        
+//        @weakify(self);
+//        [[[_codeTextField.rac_textSignal map:^id(NSString* value) {
+//            return @(value.length);
+//        }] filter:^BOOL(id value) {
+//            return [value intValue] > 6;
+//        }] subscribeNext:^(id x) {
+//            @strongify(self);
+//            self.codeTextField.text = [self.codeTextField.text substringToIndex:6];
+//        }];
+//        ViewRadius(_codeTextField, 5);
+//    }
+//    return _codeTextField;
+//}
+//-(UIButton*)codBtn{
+//    if (!_codBtn) {
+//        _codBtn = [UIButton buttonWithTitie:@"获取验证码" WithtextColor:[UIColor whiteColor]  WithBackColor:COLOR(@"#206EEA") WithBackImage:nil WithImage:nil WithFont:13 EventBlock:^(id  _Nonnull params) {
+//            if (self.phoneTextField.text.length < 11) {
+//                Dialog().wTypeSet(DialogTypeAuto).wMessageSet(@"身份证号输入不正确").wDisappelSecondSet(1).wStart();
+//                return ;
+//            }
+//            [params setCountdown:60];
+//            if (self.didChickEventBlock) {
+//                self.didChickEventBlock(@"1");
+//            }
+//        }];;
+////        codBtn.frame = CGRectMake(0, 0, 118, 34);
+//        ViewRadius(_codBtn, 5);
+//    }
+//    return _codBtn;
+//}
 -(UITextField*)npwdTextField{
     if (!_npwdTextField) {
         _npwdTextField = [UITextField new];

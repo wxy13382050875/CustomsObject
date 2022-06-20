@@ -16,79 +16,55 @@ NS_ASSUME_NONNULL_BEGIN
 
 +(NSString*)xw_RegisterUrl;
 
-+(NSString*)xw_SendCodeUrl;
++(NSString*)xw_UpdatePasswordUrl;
 
-+(NSString*)xw_GetHome;
++(NSString*)xw_GetCurrentUserInfoUrl;
 
-+(NSString*)xw_GetHomeV2;
++(NSString*)xw_GetAllDictUrl;
 
-+(NSString*)xw_GetHomeInfo;
++(NSString*)xw_GetEntrustInspectUrl;
 
-+(NSString*)xw_ResetPasswordUrl;
++(NSString*)xw_PutEntrustInspectUrl:(NSString*) id;
 
-+(NSString*)xw_GetCivilFaceStatusUrl;
++(NSString*)xw_PostApplyEntrustInspectUrl;
 
-+(NSString*)xw_GetFaceVerifyTokenUrl;
++(NSString*)xw_PostEntrustInspectUrl:(NSString*) id type:(NSString*) type;
 
-+(NSString*)xw_GetVerifyResultUrl;
-
-+(NSString*)xw_WorkStationUrl;
-
-+(NSString*)xw_WorkStationShowUrl;
-
-+(NSString*)xw_GetNewsListUrl;
-
-+(NSString*)xw_GetArticleShow;
-
-+(NSString*)xw_GetMsgList;
-
-+(NSString*)xw_SetMsgRead;
-
-+(NSString*)xw_RefreshUserInfo;
-
-+(NSString*)xw_UpdateUserInfo;
-
-+(NSString*)xw_LoginOutUrl;
-
-+(NSString*)xw_ChangePwdUrl;
-
-+(NSString*)xw_BindDeviceTokenUrl;
-
-+(NSString*)xw_PostPayOrder;
-
-+(NSString*)xw_GetPayOrderState;
-
-+(NSString*)xw_GetAccountInfo;
-
-+(NSString*)xw_GetProtocolGroup;
-
-+(NSString*)xw_GetProtocolDetail;
-
-+(NSString*)xw_GetProtocolDetailONAuth;
-
-+(NSString*)xw_ConsentProtocol;
-
-+(NSString*)xw_UserMenuCount;
-
-+(NSString*)xw_GetAmcAccountVip;
-
-+(NSString*)xw_GetRealPersonOrAgentDeclare;
-
-+(NSString*)xw_GetGuideInfo:(NSString*)Location;
-
-+(NSString*)xw_PostCompleteGuide;
-
-+(NSString*)xw_GetAdShow;
-
-+(NSString*)xw_PostLoginOffCode;
-
-+(NSString*)xw_PostVerifyLoginOff;
-
-+(NSString*)xw_PostFaceAuthCode;
-
-+(NSString*)xw_PostVerifyFaceAuth;
++(NSString*)xw_GetCanSelectOrgsUrl:(NSString*) id;
 
 
+
++(NSString*)xw_GetVerifyExpressSnUrl;
+
++(NSString*)xw_GetEntrustOrgUrl:(NSString*) id;
+
++(NSString*)xw_PutEntrustOrgUrl:(NSString*) id;
+
++(NSString*)xw_PostEntrustOrgUrl;
+
++(NSString*)xw_getEntrustOrgByUserIdUrl;
+
++(NSString*)xw_GetExpressDetailUrl:(NSString*) id;
+
++(NSString*)xw_GetOneCacheUrl;
+
++(NSString*)xw_PostCacheUrl;
+
++(NSString*)xw_GetCertByQrCodeUrl;
+
++(NSString*)xw_GetQrCodeUrl:(NSString*) id;
+
++(NSString*)xw_GetMsgGroupUrl;
+
++(NSString*)xw_GetMsgListUrl;
+
++(NSString*)xw_PostMsgDetailClickUrl:(NSString*) id;
+
++(NSString*)xw_GetOrgDetailByIdUrl;
+
++(NSString*)xw_GetAcceptStatiByOrgIdUrl;
+
++(NSString*)xw_GetEntrustStatiByEntIdUrl;
 
 @end
 

@@ -4,7 +4,7 @@ import { message } from "ant-design-vue";
 import router from "@/router";
 /* 创建axios实例 */
 const http = axios.create({
-    baseURL: "http://172.16.2.100:8072",
+    baseURL: "http://api.bt-dev.yndth.cn",
     timeout: 5000 * 10 // 请求超时时间
 });
 

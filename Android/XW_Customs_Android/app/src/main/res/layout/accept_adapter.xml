@@ -19,7 +19,7 @@
             android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="40dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:orientation="horizontal">
@@ -31,15 +31,53 @@
                     android:text="检测编号："
                     android:textColor="#2A2A2A"
                     android:textSize="13sp" />
-
                 <TextView
-                    android:id="@+id/tv_sn"
+                    android:id="@id/tv_sn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="TNO22041901"
+                    android:text=""
                     android:textColor="#2A2A2A"
-                    android:textSize="13sp" />
+                    android:textSize="13sp"
+                    android:visibility="visible"/>
+
+                <LinearLayout
+                    android:id="@+id/lv_sn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginRight="10dp"
+                    android:layout_gravity="center"
+                    android:visibility="gone"
+                    >
+
+
+
+                    <EditText
+                        android:id="@+id/txt_sn"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="left|center"
+                        android:layout_weight="1"
+                        android:background="@drawable/text_radius_shape"
+                        android:hint="请输入检测编号"
+                        android:inputType="text"
+                        android:textColor="#333"
+                        android:textSize="13sp"
+                        android:paddingLeft="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        />
+                    <Button
+                        android:id="@+id/btn_edit"
+                        android:layout_width="50dp"
+                        android:layout_height="match_parent"
+                        android:text="修改"
+                        android:textColor="#206EEA"
+                        android:textSize="12sp"
+                        />
+                </LinearLayout>
 
             </LinearLayout>
             <LinearLayout
@@ -558,8 +596,19 @@
                     android:layout_gravity="center_vertical"
                     android:text="13655555555"
                     android:textColor="#2A2A2A"
+                    android:layout_weight="1"
                     android:textSize="13sp" />
-
+                <TextView
+                    android:id="@+id/tx_query"
+                    android:layout_width="80dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:text="查看物流"
+                    android:textColor="#206EEA"
+                    android:textSize="10sp"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"

@@ -22,6 +22,7 @@ public class AcceptQueryModel {
     private String to;
     private String acceptTimeFrom;
     private String acceptTimeTo;
-
+    private String samplingTimeFrom;
+    private String samplingTimeTo;
 
 }

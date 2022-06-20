@@ -67,8 +67,8 @@ public class DelegateRecordDetailActivity extends BaseActionBarActivity {
     @BindView(R.id.tv_sampleQuantity)
     TextView tv_sampleQuantity;
 
-    @BindView(R.id.tv_sampleWeight)
-    TextView tv_sampleWeight;
+//    @BindView(R.id.tv_sampleWeight)
+//    TextView tv_sampleWeight;
 
     @BindView(R.id.tv_project)
     TextView tv_project;
@@ -120,7 +120,7 @@ public class DelegateRecordDetailActivity extends BaseActionBarActivity {
             tv_excStandard.setText(model.getExcStandard());
             tv_sampleMark.setText(model.getSampleMark());
             tv_sampleQuantity.setText(model.getSampleQuantity());
-            tv_sampleWeight.setText(model.getSampleWeight());
+//            tv_sampleWeight.setText(model.getSampleWeight());
             tv_project.setText(model.getProject());
             tv_projectBasis.setText(model.getProjectBasis());
             tv_producer.setText(model.getProducer());

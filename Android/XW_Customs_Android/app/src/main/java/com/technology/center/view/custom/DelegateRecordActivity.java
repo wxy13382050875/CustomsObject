@@ -80,6 +80,8 @@ public class DelegateRecordActivity extends BaseActionListBarActivity {
     private String inspectOrgId = "";
     private long startTimeInMillis, endTimeInMillis ;
 
+    @BindView(R.id.txt_sn)
+    EditText txt_sn;
 
     @BindView(R.id.txt_sampleName)
     EditText txtsampleName;
@@ -201,6 +203,7 @@ public class DelegateRecordActivity extends BaseActionListBarActivity {
         params.put("size", size + "");
 
         if(queryModel != null){
+            params.put("sn", queryModel.getSn());
             params.put("sampleName", queryModel.getSampleName());
             params.put("inspectOrgId", inspectOrgId);
             params.put("from", queryModel.getFrom());
@@ -358,6 +361,7 @@ public class DelegateRecordActivity extends BaseActionListBarActivity {
     //处理点击注册事件
     @OnClick({R.id.btn_reset})
     public void resetClick(View v) {
+        txt_sn.setText("");
         txtsampleName.setText("");
         txtcreateTime.setText("");
         txt_inspectOrg.setText("");
@@ -372,6 +376,7 @@ public class DelegateRecordActivity extends BaseActionListBarActivity {
     @OnClick({R.id.btn_confirm})
     public void confirmClick(View v) {
         queryModel = new AcceptQueryModel();
+        queryModel.setSn(txt_sn.getText().toString());
         queryModel.setInspectOrgId(inspectOrgId);
         queryModel.setSampleName(txtsampleName.getText().toString());
 

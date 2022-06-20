@@ -26,6 +26,7 @@ import com.kongzue.dialog.v3.WaitDialog;
 import com.technology.center.Constant;
 import com.technology.center.R;
 import com.technology.center.http.base.BaseDto;
+import com.technology.center.model.CurrentUserModel;
 import com.technology.center.model.DictAllModel;
 import com.technology.center.model.EntrustInspectModel;
 import com.technology.center.repository.impl.UserRepository;
@@ -144,7 +145,9 @@ public class SamplingRecordDetailActivity extends BaseActionBarActivity {
 
         tvinspectOrg.setText(myUtils.getSingleOrgsNameById(model.getInspectOrgId()));
         tvsamplingTime.setText(model.getSamplingTime());
-        tvsamplingUserName.setText(model.getAcceptUserName());
+
+        CurrentUserModel userModel = GsonUtil.fromJson(spUtils.getString("userInfo"), CurrentUserModel.class);
+        tvsamplingUserName.setText(userModel.getTrueName());
         txtsamplingNote.setText(model.getSamplingNote());
 
     }

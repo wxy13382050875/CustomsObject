@@ -6,18 +6,25 @@
 //
 
 #import "HomeViewController.h"
-#import "BannerColCell.h"
-#import "MenuColCell.h"
-#import "CentreColCell.h"
-#import "NewsInfoColCell.h"
-#import "FAQColCell.h"
-#import "HeaderColReusableView.h"
-static CGFloat kMagin = 1.f;
-@import JJCollectionViewRoundFlowLayout;
-@interface HomeViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
+#import "CenterTabViewController.h"
+#import "SubCenterTabViewController.h"
+@interface HomeViewController ()<UITextFieldDelegate,JXCategoryViewDelegate, JXCategoryListContainerViewDelegate>
+@property (nonatomic, strong) JXCategoryTitleImageView *categoryView;
 
-@property(nonatomic,strong)UICollectionView* collectionView;
+@property (nonatomic, strong) JXCategoryListContainerView *listContainerView;
+
+@property (nonatomic, strong) NSArray *titles;
+
+@property (nonatomic, strong) NSArray *types;
+
+@property (nonatomic, strong) UIView *navView;
 @property(nonatomic,strong)UITextField* searchTextField;
+@property (nonatomic, strong) UIButton *logoBtn;
+@property (nonatomic, strong) UIButton *scanBtn;
+
+@property (nonatomic, strong) UIView *bgView;
+
+@property (nonatomic, strong) UIView *jxBgView;
 @end
 
 @implementation HomeViewController
@@ -26,7 +33,15 @@ static CGFloat kMagin = 1.f;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBar.hidden = YES;
+}
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    self.navigationController.navigationBar.hidden = NO;
+}
 /*
 #pragma mark - Navigation
 
@@ -37,22 +52,20 @@ static CGFloat kMagin = 1.f;
 }
 */
 -(void)xw_layoutNavigation{
-    UIButton* logoBtn = [UIButton buttonWithTitie:@"" WithtextColor:nil WithBackColor:nil WithBackImage:IMG(@"icon_nav_logo")  WithImage:nil WithFont:17 EventBlock:^(id  _Nonnull params) {
-        GGLog(@"左侧图标");
-    }];
-    UIButton* scanBtn =[UIButton buttonWithTitie:@"" WithtextColor:nil WithBackColor:nil WithBackImage:IMG(@"icon_scan")  WithImage:nil WithFont:17 EventBlock:^(id  _Nonnull params) {
-        GGLog(@"扫一扫");
-    }];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:logoBtn];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:scanBtn];
-    self.navigationItem.titleView = self.searchTextField;
+//    UIButton* logoBtn = [UIButton buttonWithTitie:@"" WithtextColor:nil WithBackColor:nil WithBackImage:IMG(@"icon_nav_logo")  WithImage:nil WithFont:17 EventBlock:^(id  _Nonnull params) {
+//        GGLog(@"左侧图标");
+//    }];
+//    UIButton* scanBtn =[UIButton buttonWithTitie:@"" WithtextColor:nil WithBackColor:nil WithBackImage:IMG(@"icon_scan")  WithImage:nil WithFont:17 EventBlock:^(id  _Nonnull params) {
+//        GGLog(@"扫一扫");
+//        [self skipCertificateQueryViewController];
+//    }];
+//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:logoBtn];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:scanBtn];
+//    self.navigationItem.titleView = self.searchTextField;
+    
 }
 
--(void)xw_setupUI{
-    [self.view addSubview:self.collectionView];
-    self.collectionView.sd_layout
-    .spaceToSuperView(UIEdgeInsetsMake(0, 0, 0, 0)) ;
-}
+
 -(void)xw_bindViewModel{
     
 }
@@ -92,192 +105,237 @@ static CGFloat kMagin = 1.f;
 }
 
 
-#pragma mark UICollectionViewDataSource,UICollectionViewDelegate
-
--(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+-(void)xw_setupUI{
+    self.titles = @[@"技术中心",@"技术分中心"];
     
-    return 5;
+    self.types = @[@(JXCategoryTitleImageType_OnlyTitle),
+                   @(JXCategoryTitleImageType_OnlyTitle)];
+    
+    [self.view addSubview:self.bgView];
+    self.bgView.sd_layout
+    .topEqualToView(self.view)
+    .leftEqualToView(self.view)
+    .rightEqualToView(self.view)
+    .heightIs(300);
+    
+    [self.view addSubview:self.navView];
+    self.navView.sd_layout
+    .leftEqualToView(self.view)
+    .rightEqualToView(self.view)
+    .topSpaceToView(self.view, kStatusBarHeight);
+    
+    [self.navView addSubview:self.logoBtn];
+    self.logoBtn.sd_layout
+    .leftSpaceToView(self.navView, 5)
+    .centerYEqualToView(self.navView)
+    .widthIs(35).heightIs(35);
+    [self.navView addSubview:self.scanBtn];
+    self.scanBtn.sd_layout
+    .rightSpaceToView(self.navView, 5)
+    .centerYEqualToView(self.navView)
+    .widthIs(35).heightIs(35);
+    
+    [self.navView addSubview:self.searchTextField];
+    self.searchTextField.sd_layout
+    .leftSpaceToView(self.logoBtn, 5)
+    .rightSpaceToView(self.scanBtn, 5)
+    .centerYEqualToView(self.navView)
+    .heightIs(35);
+    
+    
+    
+    [self.view addSubview:self.jxBgView];
+    self.jxBgView.sd_layout
+    .leftSpaceToView(self.view, 5)
+    .rightSpaceToView(self.view, 5)
+    .topSpaceToView(self.navView, 20)
+    .bottomSpaceToView(self.view, 5);
+    
+    [self.jxBgView addSubview:self.categoryView];
+    self.categoryView.sd_layout
+    .topEqualToView(self.jxBgView)
+    .leftEqualToView(self.jxBgView)
+    .rightEqualToView(self.jxBgView)
+    .heightIs(40);
+    
+    [self.jxBgView addSubview:self.listContainerView];
+    self.listContainerView.sd_layout
+    .leftEqualToView(self.jxBgView)
+    .rightEqualToView(self.jxBgView)
+    .topSpaceToView(self.categoryView, 0)
+    .bottomEqualToView(self.jxBgView);
+    self.categoryView.contentScrollView = self.listContainerView.scrollView;
+    
+}
+#pragma mark - JXCategoryListContentViewDelegate
+- (UIView *)listView {
+    return self.view;
 }
 
-//每个分组里有多少个item
+#pragma mark - JXCategoryViewDelegate
 
--(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-
-    if(section == 1){
-        return 4;
-    } else if(section == 2){
-        return 2;
-    }
-    return 1;
+- (void)categoryView:(JXCategoryBaseView *)categoryView didSelectedItemAtIndex:(NSInteger)index {
+    //侧滑手势处理
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+    self.navigationController.interactivePopGestureRecognizer.enabled = (index == 0);
+}
+//
+- (void)categoryView:(JXCategoryBaseView *)categoryView didScrollSelectedItemAtIndex:(NSInteger)index {
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+}
+//
+- (void)categoryView:(JXCategoryBaseView *)categoryView didClickSelectedItemAtIndex:(NSInteger)index {
+    
+//    self.list.title = self.titles[index];
+    [self.listContainerView didClickSelectedItemAtIndex:index];
+    
+}
+//
+- (void)categoryView:(JXCategoryBaseView *)categoryView scrollingFromLeftIndex:(NSInteger)leftIndex toRightIndex:(NSInteger)rightIndex ratio:(CGFloat)ratio {
+//    [self.listContainerView scrollingFromLeftIndex:leftIndex toRightIndex:rightIndex ratio:ratio selectedIndex:categoryView.selectedIndex];
+    
 }
 
--(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    //根据identifier从缓冲池里去出cell
+#pragma mark - JXCategoryListContainerViewDelegate
 
-    if (indexPath.section == 0) {
-        BannerColCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([BannerColCell class]) forIndexPath:indexPath];
-        return cell;
-    } else if (indexPath.section == 1) {
-        MenuColCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([MenuColCell class]) forIndexPath:indexPath];
-        return cell;
-    } else if (indexPath.section == 2) {
-        CentreColCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([CentreColCell class]) forIndexPath:indexPath];
-        return cell;
-    } else if (indexPath.section == 3) {
-        NewsInfoColCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([NewsInfoColCell class]) forIndexPath:indexPath];
-        return cell;
+- (id<JXCategoryListContentViewDelegate>)listContainerView:(JXCategoryListContainerView *)listContainerView initListForIndex:(NSInteger)index {
+    if(index == 0){
+        CenterTabViewController* list = [[CenterTabViewController alloc] init];
+        list.type = @"tab";
+        list.orgId = @"1";
+        list.naviController = self.navigationController;
+        return list;
     } else {
-        FAQColCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([FAQColCell class]) forIndexPath:indexPath];
-        return cell;
-        
+        SubCenterTabViewController* list = [[SubCenterTabViewController alloc] init];
+        list.naviController = self.navigationController;
+        return list;
     }
-    return nil;
+
     
 }
 
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section == 0) {
-        return CGSizeMake(SCREEN_WIDTH, 150);
-    } else if (indexPath.section == 1) {
-        return CGSizeMake((SCREEN_WIDTH-5)/4, 120);
-    } else if (indexPath.section == 2) {
-        return CGSizeMake((SCREEN_WIDTH-3)/2, 85);
-    }  else if (indexPath.section == 3) {
-        return CGSizeMake(SCREEN_WIDTH, 80);
-    } else {
-        return CGSizeMake(SCREEN_WIDTH, 40);
+- (NSInteger)numberOfListsInlistContainerView:(JXCategoryListContainerView *)listContainerView {
+    return self.titles.count;
+}
+-(UIScrollView*)scrollViewInlistContainerView:(JXCategoryListContainerView *)listContainerView{
+    UIScrollView* scrollView = [[UIScrollView alloc] init];
+    scrollView.scrollEnabled = NO;
+    return scrollView;
+}
+-(JXCategoryTitleImageView*)categoryView{
+    if (!_categoryView) {
+        _categoryView = [[JXCategoryTitleImageView alloc] init];
+        _categoryView.backgroundColor = COLOR(@"#ffffff");
+        _categoryView.titleColorGradientEnabled = YES;
+        _categoryView.delegate = self;
+        _categoryView.titleColor = COLOR(@"#898989");
+        _categoryView.titleSelectedColor = COLOR(@"#1F7EFE");
+        _categoryView.titleFont = FONT(15);
+        _categoryView.titleSelectedFont = FONT(15);
+        
+        _categoryView.cellSpacing = 0;
+        _categoryView.contentEdgeInsetLeft = 0;
+        _categoryView.contentEdgeInsetRight = 0;
+        _categoryView.averageCellSpacingEnabled = NO;
+        _categoryView.cellWidth = SCREEN_WIDTH/2;
+        
+        _categoryView.titles = self.titles;
+        _categoryView.imageTypes = self.types;
+        JXCategoryIndicatorLineView *lineView = [[JXCategoryIndicatorLineView alloc] init];
+        lineView.indicatorColor = COLOR(@"#1F7EFE");
+        lineView.indicatorWidth = 30;
+            //配置titleView的下划线
+        _categoryView.indicators = @[lineView];
     }
-    
-    
+    return _categoryView;
 }
-#pragma mark - JJCollectionViewDelegateRoundFlowLayout
-
-- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout borderEdgeInsertsForSectionAtIndex:(NSInteger)section{
-    return UIEdgeInsetsMake(0, 0, 5, 0);
-}
-
-- (JJCollectionViewRoundConfigModel *)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout configModelForSectionAtIndex:(NSInteger)section{
-
-    JJCollectionViewRoundConfigModel *model = [[JJCollectionViewRoundConfigModel alloc]init];
-
-    model.cornerRadius = 0;
-    model.backgroundColor = [UIColor whiteColor];
-//    model.shadowColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
-//    model.shadowOffset = CGSizeMake(0,0);
-//    model.shadowOpacity = 1;
-//    model.shadowRadius = 4;
-
-
-
-    return model;
-}
-
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
-    if (section == 3 || section == 4) {
-        return CGSizeMake(SCREEN_WIDTH, 50);
-        
+-(JXCategoryListContainerView*)listContainerView{
+    if (!_listContainerView) {
+        _listContainerView = [[JXCategoryListContainerView alloc] initWithType:JXCategoryListContainerType_ScrollView delegate:self];
+//        _listContainerView.didAppearPercent = 0.01; //滚动一点就触发加载
+        _listContainerView.defaultSelectedIndex = 0;
     }
-    return CGSizeZero;
-    
-    
-}
--(UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
-
-    
-//    //kind有两种 一种时header 一种事footer
-    if (kind == UICollectionElementKindSectionHeader) {
-        
-        if (indexPath.section == 3 || indexPath.section == 4) {
-//            BodyModel* tmModel = self.model.body[indexPath.section -1];
-            HeaderColReusableView * header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([HeaderColReusableView class]) forIndexPath:indexPath];
-//            header.bModel = tmModel;
-
-            header.didChickEventBlock = ^(id params) {
-//                xw_NewsViewController* viewController = [xw_NewsViewController new];
-//                viewController.moduleId = [NSString stringWithFormat:@"%ld",(long)params.moduleId];
-//                [self.navigationController pushViewController:viewController animated:YES];
-            };
-
-            return header;
-                
-        }
-        
-    }
-    return nil;
-}
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section{
-    
-    return 1;
+    return _listContainerView;
 }
 
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
-    return 1;
-}
-- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
-
-    return UIEdgeInsetsMake(0, 0, 5, 0);
-}
--(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-
-    
-    
-}
-
-#pragma mark 懒加载
--(UICollectionView*)collectionView{
-    if (!_collectionView) {
-         JJCollectionViewRoundFlowLayout *layout = [[JJCollectionViewRoundFlowLayout alloc]init];
-         layout.scrollDirection = UICollectionViewScrollDirectionVertical;
-         layout.isCalculateHeader = YES;
-         layout.isCalculateFooter = NO;
-
-
-        //设置senction的内边距
-        layout.sectionInset = UIEdgeInsetsMake(kMagin, kMagin, kMagin, kMagin);
-
-        
-        _collectionView = [[UICollectionView alloc]initWithFrame:self.view.frame collectionViewLayout:layout];
-        
-        _collectionView.backgroundColor =COLOR(@"#FFFFFF");
-        //注册cell banner
-        [_collectionView registerClass:[BannerColCell class] forCellWithReuseIdentifier:NSStringFromClass([BannerColCell class])];
-        //注册cell 菜单
-        [_collectionView registerClass:[MenuColCell class] forCellWithReuseIdentifier:NSStringFromClass([MenuColCell class])];
-        //注册cell 技术中心
-        [_collectionView registerClass:[CentreColCell class] forCellWithReuseIdentifier:NSStringFromClass([CentreColCell class])];
-        //注册cell 新闻资讯
-        [_collectionView registerClass:[NewsInfoColCell class] forCellWithReuseIdentifier:NSStringFromClass([NewsInfoColCell class])];
-        
-        //注册cell 常见问题
-        [_collectionView registerClass:[FAQColCell class] forCellWithReuseIdentifier:NSStringFromClass([FAQColCell class])];
-        
-//        //注册header
-        [_collectionView registerClass:[HeaderColReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([HeaderColReusableView class])];
-
-        _collectionView.backgroundColor =[UIColor clearColor];
-        _collectionView.dataSource = self;
-        _collectionView.delegate = self;
-    }
-    return _collectionView;
-}
 -(UITextField*)searchTextField{
     if(!_searchTextField){
-        _searchTextField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH -100, kNavBarHeight)];
+        _searchTextField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH -100, 35)];
         _searchTextField.font = FONT(10);
         _searchTextField.textColor = COLOR(@"#A1A1A1");
         _searchTextField.placeholder = @"输入证书编码";
         _searchTextField.backgroundColor = COLOR(@"#F5F5F5");
         _searchTextField.returnKeyType = UIReturnKeySearch;
-        UIView* leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kNavBarHeight, kNavBarHeight)];
+        UIView* leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kNavBarHeight, 35)];
         UIImageView* imageView = [UIImageView new];
         imageView.image = IMG(@"icon_search");
         [leftView addSubview:imageView];
         imageView.sd_layout.centerXEqualToView(leftView)
         .centerYEqualToView(leftView).widthIs(16).heightIs(16);
-//        _searchTextField.leftView = leftView;
+        
+        _searchTextField.leftView = leftView;
         _searchTextField.leftViewMode = UITextFieldViewModeAlways;
         ViewRadius(_searchTextField, 5);
+        _searchTextField.delegate = self;
     }
     return _searchTextField;
 }
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    
+    [self skipCertificateQueryViewController];
+    return NO;
+}
+-(void)skipCertificateQueryViewController{
+    [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"XWMVVMRACRouter://NaviPush/CertificateQueryViewController"] options:@{UIApplicationOpenURLOptionsSourceApplicationKey : @YES} completionHandler:nil];
+}
+
+- (UIView *)bgView {
+    if (!_bgView) {
+        _bgView = [[UIView alloc] init];
+        _bgView.backgroundColor = COLOR(@"#206EEA");
+    }
+    return _bgView;
+}
+
+
+- (UIView *)jxBgView {
+    if (!_jxBgView) {
+        _jxBgView = [[UIView alloc] init];
+        _jxBgView.backgroundColor = [UIColor whiteColor];
+        ViewRadius(_jxBgView, 15);
+    }
+    return _jxBgView;
+}
+
+
+- (UIView *)navView {
+    if (!_navView) {
+        _navView = [[UIView alloc] init];
+        _navView.backgroundColor = [UIColor clearColor];
+    }
+    return _navView;
+}
+
+- (UIButton *)logoBtn {
+    if (!_logoBtn) {
+        _logoBtn = [UIButton buttonWithTitie:@"" WithtextColor:nil WithBackColor:nil WithBackImage:IMG(@"icon_nav_logo")  WithImage:nil WithFont:17 EventBlock:^(id  _Nonnull params) {
+            GGLog(@"左侧图标");
+        }];
+            
+        
+     }
+    return _logoBtn;
+}
+
+- (UIButton *)scanBtn {
+    if (!_scanBtn) {
+        _scanBtn =[UIButton buttonWithTitie:@"" WithtextColor:nil WithBackColor:nil WithBackImage:IMG(@"icon_nav_scan")  WithImage:nil WithFont:17 EventBlock:^(id  _Nonnull params) {
+                GGLog(@"扫一扫");
+                [self skipCertificateQueryViewController];
+        }];
+       
+     }
+    return _scanBtn;
+}
+
 @end

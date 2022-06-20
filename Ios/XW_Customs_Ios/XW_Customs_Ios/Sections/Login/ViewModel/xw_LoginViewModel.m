@@ -36,11 +36,8 @@
 //                    [subscriber sendNext:responseCache];
                 } success:^(id responseObject) {
                     if ([responseObject[@"code"] integerValue] == 200) {
-                        GGLog(@"-----%@",[NSString DataTOjsonString:responseObject[@"data"]]);
-//                        xw_UserInfoModel* model = [xw_UserInfoModel mj_objectWithKeyValues:responseObject[@"data"]];
-//                        GGLog(@"-----%@",[NSString DataTOjsonString:responseObject[@"data"]]);
-                        [xw_ConfigHelper sharedInstance].sUserInfo = @"";
                         [subscriber sendNext:responseObject];
+                        
                         
                     } else {
 //                        [subscriber sendError:responseObject[@"msg"]];
@@ -90,15 +87,13 @@
     return _registerCommand;
 }
 
--(RACCommand*)resetPwdCommand{
-    if (!_resetPwdCommand) {
-        _resetPwdCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+-(RACCommand*)currentInfoCommand{
+    if (!_currentInfoCommand) {
+        _currentInfoCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
             return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
                 
                 
-                [PPNetworkHelper POST:[xw_HttpRequest xw_ResetPasswordUrl] parameters:input responseCache:^(id responseCache) {
-//                    [subscriber sendNext:responseCache];
-                } success:^(id responseObject) {
+                [PPNetworkHelper GET:[xw_HttpRequest xw_GetCurrentUserInfoUrl] parameters:input success:^(id responseObject) {
                     if ([responseObject[@"code"] integerValue] == 200) {
                         [subscriber sendNext:responseObject];
                     } else {
@@ -106,26 +101,27 @@
                         Dialog().wTypeSet(DialogTypeAuto).wMessageSet(responseObject[@"msg"]).wDisappelSecondSet(1).wStart();
                     }
                     [subscriber sendCompleted];
-                               
                 } failure:^(NSError *error) {
                     [subscriber sendError:error];
                     [subscriber sendCompleted];
                 }];
+                
+                
                 return nil;
             }];
         }];
     }
-    return _resetPwdCommand;
+    return _currentInfoCommand;
 }
 
--(RACCommand*)validationCommand{
-    if (!_validationCommand) {
-        _validationCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+-(RACCommand*)allDictCommand{
+    if (!_allDictCommand) {
+        _allDictCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
             return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
                 
                 
                 
-                [PPNetworkHelper POST:[xw_HttpRequest xw_SendCodeUrl] parameters:input responseCache:^(id responseCache) {
+                [PPNetworkHelper GET:[xw_HttpRequest xw_GetAllDictUrl] parameters:input responseCache:^(id responseCache) {
 //                    [subscriber sendNext:responseCache];
                 } success:^(id responseObject) {
                     
@@ -141,24 +137,17 @@
             }];
         }];
     }
-    return _validationCommand;
+    return _allDictCommand;
 }
--(RACCommand*)bindDeviceTokenCommand{
-    if (!_bindDeviceTokenCommand) {
-        _bindDeviceTokenCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+-(RACCommand*)canSelectOrgsCommand{
+    if (!_canSelectOrgsCommand) {
+        _canSelectOrgsCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
             return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
                 
        
-                if ([xw_ConfigHelper sharedInstance].deviceToken.length == 0) {
-                    [xw_ConfigHelper sharedInstance].sUserInfo = @"";
-                    Dialog().wTypeSet(DialogTypeAuto).wMessageSet(@"未获取到手机deviceToken").wDisappelSecondSet(1).wStart();
-                    [subscriber sendCompleted];
-                    return nil;
-                }
-                NSMutableDictionary* params = [NSMutableDictionary dictionary];
-                [params setValue:[xw_ConfigHelper sharedInstance].deviceToken forKey:@"deviceToken"];
                 
-                [PPNetworkHelper POST:[xw_HttpRequest xw_BindDeviceTokenUrl] parameters:params responseCache:^(id responseCache) {
+                
+                [PPNetworkHelper GET:[xw_HttpRequest xw_GetCanSelectOrgsUrl:[xw_ConfigHelper sharedInstance].userId] parameters:input responseCache:^(id responseCache) {
 //                    [subscriber sendNext:responseCache];
                 } success:^(id responseObject) {
                     
@@ -174,6 +163,32 @@
             }];
         }];
     }
-    return _bindDeviceTokenCommand;
+    return _canSelectOrgsCommand;
+}
+-(RACCommand*)entrustOrgByIdCommand{
+    if (!_entrustOrgByIdCommand) {
+        _entrustOrgByIdCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+            return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+                
+       
+                
+                
+                [PPNetworkHelper GET:[xw_HttpRequest xw_getEntrustOrgByUserIdUrl] parameters:input responseCache:^(id responseCache) {
+//                    [subscriber sendNext:responseCache];
+                } success:^(id responseObject) {
+                    
+                    
+                    [subscriber sendNext:responseObject];
+                    [subscriber sendCompleted];
+                               
+                } failure:^(NSError *error) {
+                    [subscriber sendError:error];
+                    [subscriber sendCompleted];
+                }];
+                return nil;
+            }];
+        }];
+    }
+    return _entrustOrgByIdCommand;
 }
 @end

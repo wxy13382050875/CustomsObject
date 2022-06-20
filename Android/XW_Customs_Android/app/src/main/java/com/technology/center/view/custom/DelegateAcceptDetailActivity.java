@@ -62,7 +62,7 @@ public class DelegateAcceptDetailActivity extends BaseActionBarActivity {
     private EntrustInspectModel.ContentBean model;
     private String type;
     private String inspectOrgId;
-    private String entrustOrgId;
+    private String busCategory;
     private final UserRepository userRepository = new UserRepository();
     MyDictUtils myUtils ;
 
@@ -102,18 +102,18 @@ public class DelegateAcceptDetailActivity extends BaseActionBarActivity {
     @BindView(R.id.tv_spec)
     TextView tvspec;
 
-    @Index(11)
-    @NotNull(msg = "执行标准不能为空！")
+//    @Index(11)
+//    @NotNull(msg = "执行标准不能为空！")
     @BindView(R.id.tv_excStandard)
     EditText txtExcStandard;
 
-    @Index(12)
-    @NotNull(msg = "检测项目不能为空！")
+//    @Index(12)
+//    @NotNull(msg = "检测项目不能为空！")
     @BindView(R.id.tv_project)
     EditText txtProject;
 
-    @Index(13)
-    @NotNull(msg = "检测项目依据不能为空！")
+//    @Index(13)
+//    @NotNull(msg = "检测项目依据不能为空！")
     @BindView(R.id.tv_projectBasis)
     EditText txtprojectBasis;
 
@@ -184,7 +184,7 @@ public class DelegateAcceptDetailActivity extends BaseActionBarActivity {
         }
         txtSn.setText(model.getSn());
 
-        txtBusCategory.setText(model.getBusCategory());
+        txtBusCategory.setText(myUtils.getDictNameBySubCode("BUS_CATEGORY",model.getBusCategory()));
 
         tvEntrustOrg.setText(model.getEntrustOrg().getName());
         tvPhone.setText( model.getEntrustOrg().getPhone());
@@ -212,6 +212,13 @@ public class DelegateAcceptDetailActivity extends BaseActionBarActivity {
             btnTwo.setText("确认");
 
         }
+
+        txtBusCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPicker();
+            }
+        });
     }
     private void showOrgPicker(){
 
@@ -282,7 +289,7 @@ public class DelegateAcceptDetailActivity extends BaseActionBarActivity {
 
 
 
-        List<DictAllModel.ItemsBean>  currentItems = myUtils.getDictItemByCode("ENTRUST_ORG_TYPE");
+        List<DictAllModel.ItemsBean>  currentItems = myUtils.getDictItemByCode("BUS_CATEGORY");
 
         OptionPicker picker = new OptionPicker(this);
         picker.setData(currentItems);
@@ -291,7 +298,7 @@ public class DelegateAcceptDetailActivity extends BaseActionBarActivity {
             public void onOptionPicked(int position, Object item) {
                 DictAllModel.ItemsBean dictModel = (DictAllModel.ItemsBean)item;
                 txtBusCategory.setText(dictModel.getName());
-                entrustOrgId = dictModel.getCode();
+                busCategory = dictModel.getCode();
             }
         });
         picker.getWheelLayout().setOnOptionSelectedListener(new OnOptionSelectedListener() {
@@ -309,28 +316,31 @@ public class DelegateAcceptDetailActivity extends BaseActionBarActivity {
     public void submit(View v) {
         if(v.getId() == R.id.btn_one){
             if(type.equals("ACCEPT")){
+                buttonClick(v);
             } else {
                 Log.d(TAG,"取消");
                 finish();
             }
+        } else {
+            Validate.check(this, new IValidateResult() {
+                @Override
+                public void onValidateSuccess() {
+
+                    buttonClick(v);
+                }
+
+                @Override
+                public void onValidateError(String msg, View view) {
+                    ToastUtil.show(getBaseContext(), msg);
+                }
+
+                @Override
+                public Animation onValidateErrorAnno() {
+                    return null;
+                }
+            });
         }
-        Validate.check(this, new IValidateResult() {
-            @Override
-            public void onValidateSuccess() {
 
-                buttonClick(v);
-            }
-
-            @Override
-            public void onValidateError(String msg, View view) {
-                ToastUtil.show(getBaseContext(), msg);
-            }
-
-            @Override
-            public Animation onValidateErrorAnno() {
-                return null;
-            }
-        });
     }
     private void buttonClick(View v){
         String subType = "";
@@ -359,7 +369,7 @@ public class DelegateAcceptDetailActivity extends BaseActionBarActivity {
         }
         params.put("sn",txtSn.getText().toString());
         params.put("inspectOrgId", inspectOrgId);
-        params.put("busCategory", txtBusCategory.getText().toString());
+        params.put("busCategory", busCategory);
         params.put("excStandard", txtExcStandard.getText().toString());
         params.put("project", txtProject.getText().toString());
         params.put("projectBasis", txtprojectBasis.getText().toString());

@@ -125,36 +125,38 @@ static AFHTTPSessionManager *_sessionManager;
                   success:(PPHttpRequestSuccess)success
                   failure:(PPHttpRequestFailed)failure {
     
+    if (_isOpenLog) {PPLog(@"URL = %@",URL);}
 
 //    xw_UserInfoModel* model = [xw_UserInfoModel mj_objectWithKeyValues:[xw_ConfigHelper sharedInstance].sUserInfo];
-//    if (model.token.length > 0)  {
-//        [_sessionManager.requestSerializer setValue:model.token forHTTPHeaderField:@"Authorization"];
-//    }
+    if ([xw_ConfigHelper sharedInstance].token.length > 0)  {
+        [_sessionManager.requestSerializer setValue:[xw_ConfigHelper sharedInstance].token forHTTPHeaderField:@"Authorization"];
+    }
     //读取缓存
-    NSMutableDictionary *params = [parameters mj_keyValues];
     
+    NSMutableDictionary *params = [parameters mj_keyValues];
+    if (_isOpenLog&&params != nil) {PPLog(@"URL = %@",[NSString DataTOjsonString:params]);}
     responseCache!=nil ? responseCache([PPNetworkCache httpCacheForURL:URL parameters:params]) : nil;
     
     NSURLSessionTask *sessionTask = [_sessionManager GET:URL parameters:params progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
-        if (_isOpenLog) {PPLog(@"responseObject = %@",responseObject);}
+        if (_isOpenLog) {
+            PPLog(@"responseObject = %@",[NSString DataTOjsonString:responseObject]);
+            
+        }
         [[self allSessionTask] removeObject:task];
         if ([responseObject[@"code"] integerValue] == 200) {
             success ? success(responseObject) : nil;
             //对数据进行异步缓存
             responseCache!=nil ? [PPNetworkCache setHttpCache:responseObject URL:URL parameters:parameters] : nil;
-        } else if([responseObject[@"code"] integerValue] == 401){
+        } else if([responseObject[@"code"] integerValue] == 403){
             [xw_ConfigHelper sharedInstance].sUserInfo = @"";
+            [xw_ConfigHelper sharedInstance].isLogin = NO;
             [KNotificationCenter postNotificationName:kLogoutNotification object:nil];
             
         } else {
-//            NSError* error = [NSError new];
-//            error.code = [responseObject[@"code"] integerValue];
-//            error.localizedDescription = responseObject[@"msg"];
-//            failure ? failure(nil) : nil;
-            NSDictionary * userInfo = [NSDictionary dictionaryWithObject:responseObject[@"msg"] forKey:NSLocalizedDescriptionKey];
+            NSDictionary * userInfo = [NSDictionary dictionaryWithObject:responseObject[@"message"] forKey:NSLocalizedDescriptionKey];
             NSError * error = [NSError errorWithDomain:@" An Error Has Occurred" code:[responseObject[@"code"] integerValue] userInfo:userInfo];
             failure ? failure(error) : nil;
         }
@@ -180,74 +182,52 @@ static AFHTTPSessionManager *_sessionManager;
                    success:(PPHttpRequestSuccess)success
                    failure:(PPHttpRequestFailed)failure {
     
-    
-//    xw_UserInfoModel* model = [xw_UserInfoModel mj_objectWithKeyValues:[xw_ConfigHelper sharedInstance].sUserInfo];
-    
+    if (_isOpenLog) {PPLog(@"URL = %@",URL);}
     
     NSMutableDictionary *params = [parameters mj_keyValues];
-//    [params setValue:<#(nullable id)#> forKey:@"v"];
     //读取缓存
     responseCache!=nil ? responseCache([PPNetworkCache httpCacheForURL:URL parameters:params]) : nil;
     
     
     NSMutableURLRequest *request = [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST"URLString:URL parameters:nil error:nil];
     [request setHTTPMethod:@"POST"];
-    [request setHTTPBody:[NSJSONSerialization dataWithJSONObject:params options:NSJSONWritingPrettyPrinted error:nil]];
+    [request setHTTPBody:[NSJSONSerialization dataWithJSONObject:params==nil ? @{}: params options:NSJSONWritingPrettyPrinted error:nil]];
     
     NSDictionary *infoDic=[[NSBundle mainBundle] infoDictionary];
     NSString *currentVersion=infoDic[@"CFBundleShortVersionString"];
     [request setAllHTTPHeaderFields:@{@"version":currentVersion,@"type":@"Ios"}];
-//    if (model.token.length > 0)  {
-//        [request setAllHTTPHeaderFields:@{@"Authorization":model.token}];
-//    }
+    if ([xw_ConfigHelper sharedInstance].token.length > 0)  {
+        [request setAllHTTPHeaderFields:@{@"Authorization":[xw_ConfigHelper sharedInstance].token}];
+    }
     [request addValue:@"application/json"forHTTPHeaderField:@"Content-Type"];
 
-    NSData *body = [[params mj_JSONString] dataUsingEncoding:NSUTF8StringEncoding];
+    if(params != nil){
+        NSData *body = [[params mj_JSONString] dataUsingEncoding:NSUTF8StringEncoding];
 
-    [request setHTTPBody:body];
+        [request setHTTPBody:body];
+    }
     
-//    NSURLSessionDataTask *sessionTask = [_sessionManager POST:URL parameters:params progress:^(NSProgress * _Nonnull uploadProgress) {
-//
-//    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//        if (_isOpenLog) {PPLog(@"responseObject = %@",responseObject);}
-//        [[self allSessionTask] removeObject:sessionTask];
-//        if ([responseObject[@"code"] integerValue] == 200) {
-//            success ? success(responseObject) : nil;
-//            //对数据进行异步缓存
-//            responseCache!=nil ? [PPNetworkCache setHttpCache:responseObject URL:URL parameters:parameters] : nil;
-//        } else if([responseObject[@"code"] integerValue] == 401){
-//            [xw_ConfigHelper sharedInstance].sUserInfo = @"";
-//            [KNotificationCenter postNotificationName:kLogoutNotification object:nil];
-//
-//        } else {
-//            failure ? failure(nil) : nil;
-//        }
-//    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//        if (_isOpenLog) {PPLog(@"error = %@",error);}
-//        [[self allSessionTask] removeObject:task];
-//        failure ? failure(error) : nil;
-//    }];
-//    // 添加sessionTask到数组
-//    sessionTask ? [[self allSessionTask] addObject:sessionTask] : nil ;
+    
     
     NSURLSessionDataTask *sessionTask = [_sessionManager dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
 
-        if (_isOpenLog) {PPLog(@"responseObject = %@",responseObject);}
+        if (_isOpenLog&& responseObject != nil) {
+            PPLog(@"responseObject = %@",[NSString DataTOjsonString:responseObject]);
+            
+        }
         [[self allSessionTask] removeObject:sessionTask];
         if ([responseObject[@"code"] integerValue] == 200) {
             success ? success(responseObject) : nil;
             //对数据进行异步缓存
             responseCache!=nil ? [PPNetworkCache setHttpCache:responseObject URL:URL parameters:parameters] : nil;
-        } else if([responseObject[@"code"] integerValue] == 401){
+        } else if([responseObject[@"code"] integerValue] == 403){
             [xw_ConfigHelper sharedInstance].sUserInfo = @"";
+            [xw_ConfigHelper sharedInstance].isLogin = NO;
             [KNotificationCenter postNotificationName:kLogoutNotification object:nil];
 
         } else {
-        //            NSError* error = [NSError new];
-        //            error.code = [responseObject[@"code"] integerValue];
-        //            error.localizedDescription = responseObject[@"msg"];
             
-            NSDictionary * userInfo = [NSDictionary dictionaryWithObject:responseObject[@"msg"] forKey:NSLocalizedDescriptionKey];
+            NSDictionary * userInfo = [NSDictionary dictionaryWithObject:responseObject[@"message"] forKey:NSLocalizedDescriptionKey];
             NSError * error = [NSError errorWithDomain:@" An Error Has Occurred" code:[responseObject[@"code"] integerValue] userInfo:userInfo];
             failure ? failure(error) : nil;
         }
@@ -257,29 +237,107 @@ static AFHTTPSessionManager *_sessionManager;
     }];
 
     [sessionTask resume];
-//    NSURLSessionTask *sessionTask = [_sessionManager POST:URL parameters:params progress:^(NSProgress * _Nonnull uploadProgress) {
-//
-//    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//
-//        if (_isOpenLog) {PPLog(@"responseObject = %@",responseObject);}
-//        [[self allSessionTask] removeObject:task];
-//        success ? success(responseObject) : nil;
-//        //对数据进行异步缓存
-//        responseCache!=nil ? [PPNetworkCache setHttpCache:responseObject URL:URL parameters:parameters] : nil;
-//
-//    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//
-//        if (_isOpenLog) {PPLog(@"error = %@",error);}
-//        [[self allSessionTask] removeObject:task];
-//        failure ? failure(error) : nil;
-//
-//    }];
+
     
     // 添加最新的sessionTask到数组
     sessionTask ? [[self allSessionTask] addObject:sessionTask] : nil ;
     return sessionTask;
 }
+/**
+ *  PUT请求,无缓存
+ *
+ *  @param URL        请求地址
+ *  @param parameters 请求参数
+ *  @param success    请求成功的回调
+ *  @param failure    请求失败的回调
+ *
+ *  @return 返回的对象可取消请求,调用cancel方法
+ */
++ (__kindof NSURLSessionTask *)PUT:(NSString *)URL
+                         parameters:(id)parameters
+                            success:(PPHttpRequestSuccess)success
+                            failure:(PPHttpRequestFailed)failure{
+    return [self PUT:URL parameters:parameters responseCache:nil success:success failure:failure];
+    
+}
 
+/**
+ *  PUT请求,自动缓存
+ *
+ *  @param URL           请求地址
+ *  @param parameters    请求参数
+ *  @param responseCache 缓存数据的回调
+ *  @param success       请求成功的回调
+ *  @param failure       请求失败的回调
+ *
+ *  @return 返回的对象可取消请求,调用cancel方法
+ */
++ (__kindof NSURLSessionTask *)PUT:(NSString *)URL
+                         parameters:(id)parameters
+                      responseCache:(PPHttpRequestCache)responseCache
+                            success:(PPHttpRequestSuccess)success
+                            failure:(PPHttpRequestFailed)failure{
+    if (_isOpenLog) {PPLog(@"URL = %@",URL);}
+    
+    NSMutableDictionary *params = [parameters mj_keyValues];
+    //读取缓存
+    responseCache!=nil ? responseCache([PPNetworkCache httpCacheForURL:URL parameters:params]) : nil;
+    
+    
+    NSMutableURLRequest *request = [[AFJSONRequestSerializer serializer] requestWithMethod:@"PUT"URLString:URL parameters:nil error:nil];
+    [request setHTTPMethod:@"PUT"];
+    [request setHTTPBody:[NSJSONSerialization dataWithJSONObject:params==nil ? @{}: params options:NSJSONWritingPrettyPrinted error:nil]];
+    
+    NSDictionary *infoDic=[[NSBundle mainBundle] infoDictionary];
+    NSString *currentVersion=infoDic[@"CFBundleShortVersionString"];
+    [request setAllHTTPHeaderFields:@{@"version":currentVersion,@"type":@"Ios"}];
+    if ([xw_ConfigHelper sharedInstance].token.length > 0)  {
+        [request setAllHTTPHeaderFields:@{@"Authorization":[xw_ConfigHelper sharedInstance].token}];
+    }
+    [request addValue:@"application/json"forHTTPHeaderField:@"Content-Type"];
+
+    if(params != nil){
+        NSData *body = [[params mj_JSONString] dataUsingEncoding:NSUTF8StringEncoding];
+
+        [request setHTTPBody:body];
+    }
+    
+    
+    
+    NSURLSessionDataTask *sessionTask = [_sessionManager dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+
+        if (_isOpenLog&& responseObject != nil) {
+            PPLog(@"responseObject = %@",[NSString DataTOjsonString:responseObject]);
+            
+        }
+        [[self allSessionTask] removeObject:sessionTask];
+        if ([responseObject[@"code"] integerValue] == 200) {
+            success ? success(responseObject) : nil;
+            //对数据进行异步缓存
+            responseCache!=nil ? [PPNetworkCache setHttpCache:responseObject URL:URL parameters:parameters] : nil;
+        } else if([responseObject[@"code"] integerValue] == 403){
+            [xw_ConfigHelper sharedInstance].sUserInfo = @"";
+            [xw_ConfigHelper sharedInstance].isLogin = NO;
+            [KNotificationCenter postNotificationName:kLogoutNotification object:nil];
+
+        } else {
+            
+            NSDictionary * userInfo = [NSDictionary dictionaryWithObject:responseObject[@"message"] forKey:NSLocalizedDescriptionKey];
+            NSError * error = [NSError errorWithDomain:@" An Error Has Occurred" code:[responseObject[@"code"] integerValue] userInfo:userInfo];
+            failure ? failure(error) : nil;
+        }
+
+
+
+    }];
+
+    [sessionTask resume];
+
+    
+    // 添加最新的sessionTask到数组
+    sessionTask ? [[self allSessionTask] addObject:sessionTask] : nil ;
+    return sessionTask;
+}
 #pragma mark - 上传文件
 + (NSURLSessionTask *)uploadFileWithURL:(NSString *)URL
                              parameters:(id)parameters

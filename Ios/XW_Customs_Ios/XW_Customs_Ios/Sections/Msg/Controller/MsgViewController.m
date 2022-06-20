@@ -6,9 +6,14 @@
 //
 
 #import "MsgViewController.h"
-
-@interface MsgViewController ()
-
+#import "xw_MsgGroupCell.h"
+#import "xw_MsgViewModel.h"
+#import "xw_MsgGroupModel.h"
+#import "MsgListViewController.h"
+@interface MsgViewController () <UITableViewDelegate, UITableViewDataSource>
+@property (nonatomic, strong) UITableView *tableview;
+@property(nonatomic,strong)xw_MsgViewModel* viewModel;
+@property(nonatomic,strong)NSArray* dataSource;
 @end
 
 @implementation MsgViewController
@@ -34,11 +39,11 @@
     
 }
 -(void)xw_loadDataSource{
-    
+    [self getData];
 }
 -(void)xw_loadNewData{
     
-    [self getData];
+    
 }
 -(void)xw_loadMoreData{
 //    if ([self.collectionView.mj_header isRefreshing]) {
@@ -47,30 +52,70 @@
 //    [self getData];
 }
 -(void)getData{
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//            /// 下拉时候一定要停止当前播放，不然有新数据，播放位置会错位。
-////            self.viewModel.page = [NSString stringWithFormat:@"%ld",self.page];
-////            self.viewModel.size = @"10";
-//            [[self.viewModel.requestCommand execute: nil] subscribeNext:^(id x) {
-//                GGLog(@"刷新");
-//                [self.collectionView.mj_header endRefreshing];
-//                [self.collectionView.mj_footer endRefreshingWithNoMoreData];
-//                self.model = [xw_InfoModel mj_objectWithKeyValues:x[@"data"]];
-//
-//                [self.collectionView reloadData];
-//
-//            } error:^(NSError *error) {
-//                Dialog().wTypeSet(DialogTypeAuto).wMessageSet(error.localizedDescription).wDisappelSecondSet(1).wStart();
-//                [self.collectionView.mj_header endRefreshing];
-//                [self.collectionView.mj_footer endRefreshingWithNoMoreData];
-//            }];
-//    //
-//        });
+    [[self.viewModel.msgGroupCommand execute:@{}] subscribeNext:^(id  _Nullable x) {
+        self.dataSource = [xw_MsgGroupModel mj_objectArrayWithKeyValuesArray:x[@"data"]];
+        [self.tableview reloadData];
+        
+    } error:^(NSError * _Nullable error) {
+        Dialog().wTypeSet(DialogTypeAuto).wMessageSet(error.localizedDescription).wDisappelSecondSet(1).wStart();
+    }];
 }
 -(void)xw_setupUI{
-//    self.view.backgroundColor = COLOR(@"#eeeeee");
-//    [self.view addSubview:self.collectionView];
-//    self.collectionView.sd_layout
-//    .spaceToSuperView(UIEdgeInsetsMake(0, 0, 0, 0)) ;
+    [self.view addSubview:self.tableview];
+    self.tableview.sd_layout
+    .spaceToSuperView(UIEdgeInsetsMake(5, 0, 0, 0)) ;
 }
+
+#pragma mark - tableView DataSource
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.dataSource.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    xw_MsgGroupCell *cell = [tableView dequeueReusableCellWithIdentifier:@"xw_MsgGroupCell"];
+    cell.model = self.dataSource[indexPath.row];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    return cell;
+}
+
+#pragma mark - tableView Delegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 90;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    xw_MsgGroupModel* model = self.dataSource[indexPath.row];
+    MsgListViewController* controller = [MsgListViewController new];
+    controller.type = model.type;
+    [self.navigationController pushViewController:controller animated:YES];
+}
+
+- (UITableView *)tableview {
+    if (!_tableview) {
+        _tableview = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+        _tableview.delegate = self;
+        _tableview.dataSource = self;
+        _tableview.backgroundColor = [UIColor whiteColor];
+        _tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
+        if (@available(iOS 11.0, *)) {
+            _tableview.estimatedRowHeight = 0;
+            _tableview.estimatedSectionFooterHeight = 0;
+            _tableview.estimatedSectionHeaderHeight = 0;
+            _tableview.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        }
+        [_tableview registerClass:[xw_MsgGroupCell class] forCellReuseIdentifier:@"xw_MsgGroupCell"];
+    }
+    return _tableview;
+}
+-(xw_MsgViewModel*)viewModel{
+    if (!_viewModel) {
+        _viewModel = [[xw_MsgViewModel alloc] init];
+    }
+    return _viewModel;
+}
+
+
 @end

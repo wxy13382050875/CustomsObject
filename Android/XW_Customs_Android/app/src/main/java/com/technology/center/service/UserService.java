@@ -78,6 +78,14 @@ public interface UserService {
     @GET("/bt_cus_tc/entrustInspect")
     Flowable<BaseDto<EntrustInspectModel>> getEntrustInspect(@QueryMap Map<String, String> params);
 
+
+    /**
+     * 委托申请-编辑
+     *
+     * @return
+     */
+    @PUT("/bt_cus_tc/entrustInspect/{id}")
+    Flowable<BaseDto<EntrustInspectModel>> putEntrustInspect(@Path("id") String id,@Body Map<String, String> params);
     /**
      * 委托申请
      *
@@ -108,7 +116,7 @@ public interface UserService {
      *
      * @return 返回token
      */
-    @GET("/bt_cus_tc/entrustInspect/verifyExpressSn?")
+    @GET("/bt_cus_tc/entrustInspect/verifyExpressSn")
     Flowable<BaseDto<Boolean>> getVerifyExpressSn(@QueryMap Map<String, String> params);
 
 

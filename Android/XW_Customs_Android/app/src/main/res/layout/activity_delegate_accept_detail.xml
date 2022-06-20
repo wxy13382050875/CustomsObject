@@ -90,6 +90,7 @@
                                     android:inputType="text"
                                     android:textColor="#333"
                                     android:textSize="13sp"
+                                    android:paddingLeft="10dp"
                                     />
 
                             </LinearLayout>
@@ -162,7 +163,11 @@
                                     android:hint="请选择业务类别"
                                     android:inputType="text"
                                     android:textColor="#333"
+                                    android:focusable="false"
                                     android:textSize="13sp"
+                                    android:drawableRight="@drawable/ic_select"
+                                    android:paddingRight="10dp"
+                                    android:paddingLeft="10dp"
                                     />
 <!--                                <ImageView-->
 <!--                                    android:layout_width="13dp"-->
@@ -221,6 +226,7 @@
                                     android:textSize="13sp"
                                     android:drawableRight="@drawable/ic_select"
                                     android:paddingRight="10dp"
+                                    android:paddingLeft="10dp"
                                     />
 <!--                                <ImageView-->
 <!--                                    android:layout_width="13dp"-->
@@ -389,13 +395,6 @@
                             android:text="执行标准："
                             android:textColor="#2A2A2A"
                             android:textSize="13sp" />
-                        <TextView
-                            android:layout_width="10dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:text="*"
-                            android:textColor="#FF0000"
-                            android:textSize="15sp" />
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="30dp"
@@ -416,6 +415,7 @@
                                 android:inputType="text"
                                 android:textColor="#333"
                                 android:textSize="13sp"
+                                android:paddingLeft="10dp"
                                 />
 
                         </LinearLayout>
@@ -436,13 +436,6 @@
                             android:text="检测项目："
                             android:textColor="#2A2A2A"
                             android:textSize="13sp" />
-                        <TextView
-                            android:layout_width="10dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:text="*"
-                            android:textColor="#FF0000"
-                            android:textSize="15sp" />
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="30dp"
@@ -463,6 +456,7 @@
                                 android:inputType="text"
                                 android:textColor="#333"
                                 android:textSize="13sp"
+                                android:paddingLeft="10dp"
                                 />
 
                         </LinearLayout>
@@ -483,13 +477,6 @@
                             android:text="检测项目依据："
                             android:textColor="#2A2A2A"
                             android:textSize="13sp" />
-                        <TextView
-                            android:layout_width="10dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:text="*"
-                            android:textColor="#FF0000"
-                            android:textSize="15sp" />
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="30dp"
@@ -510,6 +497,7 @@
                                 android:inputType="text"
                                 android:textColor="#333"
                                 android:textSize="13sp"
+                                android:paddingLeft="10dp"
                                 />
 
                         </LinearLayout>

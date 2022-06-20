@@ -9,12 +9,11 @@
 #import "xw_RegisterViewController.h"
 #import "xw_RegisterTabCell.h"
 #import "xw_LoginViewModel.h"
-#import "xw_FaceAuthViewModel.h"
 #import "xw_WebViewController.h"
 @interface xw_RegisterViewController ()<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) xw_LoginViewModel *viewModel;
-@property (nonatomic, strong) xw_FaceAuthViewModel *faceViewModel;
+//@property (nonatomic, strong) xw_FaceAuthViewModel *faceViewModel;
 @end
 
 @implementation xw_RegisterViewController
@@ -209,20 +208,20 @@
     NSMutableDictionary* params = [NSMutableDictionary dictionary];
     
     
-    if (self.viewModel.phone.length == 11) {
-        [params setValue:self.viewModel.phone forKey:@"phone"];
+    if (self.viewModel.username.length == 11) {
+        [params setValue:self.viewModel.username forKey:@"username"];
     } else {
         GGLog(@"手机号输入不正确");
         Dialog().wTypeSet(DialogTypeAuto).wMessageSet(@"手机号输入不正确").wDisappelSecondSet(1).wStart();
         return ;
     }
-    if (self.viewModel.smsCode.length == 6) {
-        [params setValue:self.viewModel.smsCode forKey:@"smsCode"];
-    } else {
-        GGLog(@"验证码输入不正确");
-        Dialog().wTypeSet(DialogTypeAuto).wMessageSet(@"验证码输入不正确").wDisappelSecondSet(1).wStart();
-        return ;
-    }
+//    if (self.viewModel.smsCode.length == 6) {
+//        [params setValue:self.viewModel.smsCode forKey:@"smsCode"];
+//    } else {
+//        GGLog(@"验证码输入不正确");
+//        Dialog().wTypeSet(DialogTypeAuto).wMessageSet(@"验证码输入不正确").wDisappelSecondSet(1).wStart();
+//        return ;
+//    }
     if (self.viewModel.password.length > 0) {
         [params setValue:self.viewModel.password forKey:@"password"];
     } else {
@@ -231,6 +230,10 @@
         return ;
     }
     
+    [params setValue:@"1" forKey:@"appId"];
+    [params setValue:self.viewModel.username forKey:@"phone"];
+    [params setValue:@"MANAGE" forKey:@"type"];
+    [params setValue:@[@"134"] forKey:@"roleIds"];
     
     [self.view showLoadingMeg:@"正在注册"];
 //    [self.viewModel.registerCommand execute: nil];
@@ -238,8 +241,7 @@
         [self.view hideLoading];
         GGLog(@"测试");
         Dialog().wTypeSet(DialogTypeAuto).wMessageSet(@"注册成功").wDisappelSecondSet(1).wStart();
-//        [self.navigationController popViewControllerAnimated:YES];
-        [self loginClick];
+        [self.navigationController popViewControllerAnimated:YES];
         
     } error:^(NSError *error) {
         Dialog().wTypeSet(DialogTypeAuto).wMessageSet(error.localizedDescription).wDisappelSecondSet(1).wStart();
@@ -249,8 +251,8 @@
 -(void)validationClick{
     NSMutableDictionary* params = [NSMutableDictionary dictionary];
     
-      if (self.viewModel.phone.length == 11) {
-          [params setValue:self.viewModel.phone forKey:@"phone"];
+      if (self.viewModel.username.length == 11) {
+          [params setValue:self.viewModel.username forKey:@"phone"];
       } else {
           GGLog(@"手机号输入不正确");
           Dialog().wTypeSet(DialogTypeAuto).wMessageSet(@"手机号输入不正确").wDisappelSecondSet(1).wStart();
@@ -258,19 +260,19 @@
       }
     
     [self.view showLoadingMeg:@"发送验证码"];
-    [[self.viewModel.validationCommand execute: params] subscribeNext:^(NSArray* array) {
-        [self.view hideLoading];
-        GGLog(@"测试");
-        
-    } error:^(NSError *error) {
-        Dialog().wTypeSet(DialogTypeAuto).wMessageSet(error.localizedDescription).wDisappelSecondSet(1).wStart();
-        [self.view hideLoading];
-    }];
+//    [[self.viewModel.validationCommand execute: params] subscribeNext:^(NSArray* array) {
+//        [self.view hideLoading];
+//        GGLog(@"测试");
+//
+//    } error:^(NSError *error) {
+//        Dialog().wTypeSet(DialogTypeAuto).wMessageSet(error.localizedDescription).wDisappelSecondSet(1).wStart();
+//        [self.view hideLoading];
+//    }];
 }
 -(void)loginClick{
     
     NSMutableDictionary* params = [NSMutableDictionary dictionary];
-    [params setValue:self.viewModel.phone forKey:@"phone"];
+    [params setValue:self.viewModel.username forKey:@"phone"];
     [params setValue:self.viewModel.password forKey:@"password"];
     
     [self.view showLoadingMeg:@"正在登陆"];
@@ -279,7 +281,7 @@
         GGLog(@"测试");
         
         NSDictionary* account = @{
-            @"account":self.viewModel.phone,
+            @"account":self.viewModel.username,
             @"pwd":self.viewModel.password
             
         };
@@ -296,7 +298,7 @@
             BOOL isSame = NO;
             for (int i = 0; i < [arr count]; i++) {
                 NSDictionary * dict = arr[i];
-                if ([dict[@"account"] isEqual:self.viewModel.account] ) {
+                if ([dict[@"account"] isEqual:self.viewModel.username] ) {
                     isSame = YES;
                     [newArray replaceObjectAtIndex:i withObject:account];
                 }
@@ -323,14 +325,14 @@
     
 }
 -(void)bindDeviceToken{
-    [[self.viewModel.bindDeviceTokenCommand execute: nil] subscribeNext:^(id x) {
-        [self.view hideLoading];
-        [KNotificationCenter postNotificationName:kLoginNotification object:nil];
-       
-    } error:^(NSError *error) {
-        [self.view hideLoading];
-        Dialog().wTypeSet(DialogTypeAuto).wMessageSet(error.localizedDescription).wDisappelSecondSet(1).wStart();
-        [xw_ConfigHelper sharedInstance].sUserInfo = @"";
-    }];
+//    [[self.viewModel.bindDeviceTokenCommand execute: nil] subscribeNext:^(id x) {
+//        [self.view hideLoading];
+//        [KNotificationCenter postNotificationName:kLoginNotification object:nil];
+//
+//    } error:^(NSError *error) {
+//        [self.view hideLoading];
+//        Dialog().wTypeSet(DialogTypeAuto).wMessageSet(error.localizedDescription).wDisappelSecondSet(1).wStart();
+//        [xw_ConfigHelper sharedInstance].sUserInfo = @"";
+//    }];
 }
 @end

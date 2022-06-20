@@ -28,10 +28,10 @@
         android:name=".App"
         android:allowBackup="true"
         android:allowClearUserData="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_app_icon"
         android:label="@string/app_name"
         android:largeHeap="true"
-        android:roundIcon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_app_icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.XW_Customs_Android"
         tools:replace="android:allowBackup">

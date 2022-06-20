@@ -13,5 +13,13 @@
 @dynamic sUserInfo;
 @dynamic deviceToken;
 @dynamic isUMPush;
+@dynamic isLogin;
+
 @dynamic isOpenVibration;
+@dynamic userId;
+@dynamic token;
+@dynamic dict;
+@dynamic Orgs;
+@dynamic entrustOrg;
+@dynamic orgsId;
 @end

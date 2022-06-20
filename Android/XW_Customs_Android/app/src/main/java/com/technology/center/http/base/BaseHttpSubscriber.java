@@ -55,6 +55,7 @@ public class BaseHttpSubscriber<T> implements Subscriber<BaseDto<T>> {
             onFinish(t);
         } else{
             if(t.getCode().equals(Constant.RespCode.R403)){
+
                 Intent intent = new Intent("com.technology.center.loginout");
                 ToastUtil.show(App.getContext(),"登录失效");
                 App.getContext().sendBroadcast(intent);

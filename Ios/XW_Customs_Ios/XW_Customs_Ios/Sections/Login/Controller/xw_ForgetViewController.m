@@ -126,20 +126,20 @@
     
     NSMutableDictionary* params = [NSMutableDictionary dictionary];
     
-      if (self.viewModel.phone.length == 11) {
-          [params setValue:self.viewModel.phone forKey:@"phone"];
+      if (self.viewModel.username.length == 11) {
+          [params setValue:self.viewModel.username forKey:@"phone"];
       } else {
           GGLog(@"手机号输入不正确");
           Dialog().wTypeSet(DialogTypeAuto).wMessageSet(@"手机号输入不正确").wDisappelSecondSet(1).wStart();
           return ;
       }
-      if (self.viewModel.smsCode.length == 6) {
-          [params setValue:self.viewModel.smsCode forKey:@"smsCode"];
-      } else {
-          GGLog(@"验证码输入不正确");
-          Dialog().wTypeSet(DialogTypeAuto).wMessageSet(@"验证码输入不正确").wDisappelSecondSet(1).wStart();
-          return ;
-      }
+//      if (self.viewModel.smsCode.length == 6) {
+//          [params setValue:self.viewModel.smsCode forKey:@"smsCode"];
+//      } else {
+//          GGLog(@"验证码输入不正确");
+//          Dialog().wTypeSet(DialogTypeAuto).wMessageSet(@"验证码输入不正确").wDisappelSecondSet(1).wStart();
+//          return ;
+//      }
       if (self.viewModel.password.length > 0) {
           [params setValue:self.viewModel.password forKey:@"password"];
       } else {
@@ -149,33 +149,33 @@
       }
     
     [self.view showLoadingMeg:@"正在重置密码"];
-    [[self.viewModel.resetPwdCommand execute: params] subscribeNext:^(id x) {
-        GGLog(@"发送登录通知");
-        [self.view hideLoading];
-        [self.navigationController popViewControllerAnimated:YES];
-    } error:^(NSError *error) {
-        Dialog().wTypeSet(DialogTypeAuto).wMessageSet(error.localizedDescription).wDisappelSecondSet(1).wStart();
-        [self.view hideLoading];
-    }];
+//    [[self.viewModel.resetPwdCommand execute: params] subscribeNext:^(id x) {
+//        GGLog(@"发送登录通知");
+//        [self.view hideLoading];
+//        [self.navigationController popViewControllerAnimated:YES];
+//    } error:^(NSError *error) {
+//        Dialog().wTypeSet(DialogTypeAuto).wMessageSet(error.localizedDescription).wDisappelSecondSet(1).wStart();
+//        [self.view hideLoading];
+//    }];
 }
 -(void)validationClick{
     NSMutableDictionary* params = [NSMutableDictionary dictionary];
     
-      if (self.viewModel.phone.length == 11) {
-          [params setValue:self.viewModel.phone forKey:@"phone"];
+      if (self.viewModel.username.length == 11) {
+          [params setValue:self.viewModel.username forKey:@"phone"];
       } else {
           GGLog(@"手机号输入不正确");
           Dialog().wTypeSet(DialogTypeAuto).wMessageSet(@"手机号输入不正确").wDisappelSecondSet(1).wStart();
           return ;
       }
     [self.view showLoadingMeg:@"发送验证码"];
-    [[self.viewModel.validationCommand execute: params] subscribeNext:^(id x) {
-        [self.view hideLoading];
-        GGLog(@"发送登录通知");
-        
-    } error:^(NSError *error) {
-        Dialog().wTypeSet(DialogTypeAuto).wMessageSet(error.localizedDescription).wDisappelSecondSet(1).wStart();
-        [self.view hideLoading];
-    }];
+//    [[self.viewModel.validationCommand execute: params] subscribeNext:^(id x) {
+//        [self.view hideLoading];
+//        GGLog(@"发送登录通知");
+//
+//    } error:^(NSError *error) {
+//        Dialog().wTypeSet(DialogTypeAuto).wMessageSet(error.localizedDescription).wDisappelSecondSet(1).wStart();
+//        [self.view hideLoading];
+//    }];
 }
 @end

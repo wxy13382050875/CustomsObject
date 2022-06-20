@@ -307,7 +307,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="样品数量"
+                android:text="样品数量/重量"
                 android:textColor="#2C2C2B"
                 android:textSize="15sp" />
 
@@ -321,31 +321,31 @@
                 android:textColor="#898989"
                 android:textSize="15sp" />
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:orientation="horizontal">
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="35dp"-->
+<!--            android:layout_marginLeft="20dp"-->
+<!--            android:layout_marginRight="20dp"-->
+<!--            android:orientation="horizontal">-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:text="样品重量"
-                android:textColor="#2C2C2B"
-                android:textSize="15sp" />
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center_vertical"-->
+<!--                android:text="样品重量"-->
+<!--                android:textColor="#2C2C2B"-->
+<!--                android:textSize="15sp" />-->
 
-            <TextView
-                android:id="@+id/tv_sampleWeight"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:text="委托单位"
-                android:gravity="right"
-                android:textColor="#898989"
-                android:textSize="15sp" />
-        </LinearLayout>
+<!--            <TextView-->
+<!--                android:id="@+id/tv_sampleWeight"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center_vertical"-->
+<!--                android:text="委托单位"-->
+<!--                android:gravity="right"-->
+<!--                android:textColor="#898989"-->
+<!--                android:textSize="15sp" />-->
+<!--        </LinearLayout>-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="35dp"

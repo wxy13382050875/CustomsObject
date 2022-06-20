@@ -30,20 +30,20 @@
                     @"type":self.type
                 };
 
-                [PPNetworkHelper GET:[xw_HttpRequest xw_GetArticleShow] parameters:param responseCache:^(id responseCache) {
-//                    self.model = [xw_DataStatisticsModel mj_objectWithKeyValues:dict];
-//                    [subscriber sendNext:responseCache];
-                } success:^(id responseObject) {
-                    
-//                    self.model = [xw_DataStatisticsModel mj_objectWithKeyValues:dict];
-                    
-                    [subscriber sendNext:responseObject];
-                    [subscriber sendCompleted];
-                               
-                } failure:^(NSError *error) {
-                    [subscriber sendError:error];
-                    [subscriber sendCompleted];
-                }];
+//                [PPNetworkHelper GET:[xw_HttpRequest xw_GetArticleShow] parameters:param responseCache:^(id responseCache) {
+////                    self.model = [xw_DataStatisticsModel mj_objectWithKeyValues:dict];
+////                    [subscriber sendNext:responseCache];
+//                } success:^(id responseObject) {
+//
+////                    self.model = [xw_DataStatisticsModel mj_objectWithKeyValues:dict];
+//
+//                    [subscriber sendNext:responseObject];
+//                    [subscriber sendCompleted];
+//
+//                } failure:^(NSError *error) {
+//                    [subscriber sendError:error];
+//                    [subscriber sendCompleted];
+//                }];
                 return nil;
             }];
         }];
@@ -59,20 +59,20 @@
                     @"id":self.contentId,
                 };
 
-                [PPNetworkHelper GET:[xw_HttpRequest xw_GetProtocolDetail] parameters:param responseCache:^(id responseCache) {
-//                    self.model = [xw_DataStatisticsModel mj_objectWithKeyValues:dict];
-//                    [subscriber sendNext:responseCache];
-                } success:^(id responseObject) {
-                    
-//                    self.model = [xw_DataStatisticsModel mj_objectWithKeyValues:dict];
-                    
-                    [subscriber sendNext:responseObject];
-                    [subscriber sendCompleted];
-                               
-                } failure:^(NSError *error) {
-                    [subscriber sendError:error];
-                    [subscriber sendCompleted];
-                }];
+//                [PPNetworkHelper GET:[xw_HttpRequest xw_GetProtocolDetail] parameters:param responseCache:^(id responseCache) {
+////                    self.model = [xw_DataStatisticsModel mj_objectWithKeyValues:dict];
+////                    [subscriber sendNext:responseCache];
+//                } success:^(id responseObject) {
+//
+////                    self.model = [xw_DataStatisticsModel mj_objectWithKeyValues:dict];
+//
+//                    [subscriber sendNext:responseObject];
+//                    [subscriber sendCompleted];
+//
+//                } failure:^(NSError *error) {
+//                    [subscriber sendError:error];
+//                    [subscriber sendCompleted];
+//                }];
                 return nil;
             }];
         }];
@@ -88,20 +88,20 @@
                     @"id":self.contentId,
                 };
 
-                [PPNetworkHelper GET:[xw_HttpRequest xw_GetProtocolDetailONAuth] parameters:param responseCache:^(id responseCache) {
-//                    self.model = [xw_DataStatisticsModel mj_objectWithKeyValues:dict];
-//                    [subscriber sendNext:responseCache];
-                } success:^(id responseObject) {
-                    
-//                    self.model = [xw_DataStatisticsModel mj_objectWithKeyValues:dict];
-                    
-                    [subscriber sendNext:responseObject];
-                    [subscriber sendCompleted];
-                               
-                } failure:^(NSError *error) {
-                    [subscriber sendError:error];
-                    [subscriber sendCompleted];
-                }];
+//                [PPNetworkHelper GET:[xw_HttpRequest xw_GetProtocolDetailONAuth] parameters:param responseCache:^(id responseCache) {
+////                    self.model = [xw_DataStatisticsModel mj_objectWithKeyValues:dict];
+////                    [subscriber sendNext:responseCache];
+//                } success:^(id responseObject) {
+//
+////                    self.model = [xw_DataStatisticsModel mj_objectWithKeyValues:dict];
+//
+//                    [subscriber sendNext:responseObject];
+//                    [subscriber sendCompleted];
+//
+//                } failure:^(NSError *error) {
+//                    [subscriber sendError:error];
+//                    [subscriber sendCompleted];
+//                }];
                 return nil;
             }];
         }];

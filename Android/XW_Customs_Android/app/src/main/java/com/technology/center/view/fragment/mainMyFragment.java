@@ -55,22 +55,22 @@ public class mainMyFragment extends BaseToolBarFragment {
     private void getData(){
         dataSource.clear();
         MyModel model = new MyModel();
-        model.setTitle("问题反馈");
+        model.setTitle("设置");
         model.setIcon_mipmap(R.mipmap.icon_msg_receive);
 
         dataSource.add(model);
 
-        MyModel model1 = new MyModel();
-        model1.setTitle("用户手册");
-        model1.setIcon_mipmap(R.mipmap.icon_msg_system);
-
-        dataSource.add(model1);
-
-        MyModel model2 = new MyModel();
-        model2.setTitle("服务明细");
-        model2.setIcon_mipmap(R.mipmap.icon_msg_order);
-
-        dataSource.add(model2);
+//        MyModel model1 = new MyModel();
+//        model1.setTitle("用户手册");
+//        model1.setIcon_mipmap(R.mipmap.icon_msg_system);
+//
+//        dataSource.add(model1);
+//
+//        MyModel model2 = new MyModel();
+//        model2.setTitle("服务明细");
+//        model2.setIcon_mipmap(R.mipmap.icon_msg_order);
+//
+//        dataSource.add(model2);
 
         springView.onFinishFreshAndLoad();
         adapter.notifyDataChanged();
@@ -81,14 +81,14 @@ public class mainMyFragment extends BaseToolBarFragment {
         adapter.setOnChildClickListener(listener);
         rvList.setAdapter(adapter);
         rvList.setLayoutManager(gridLayoutManager);
-        adapter.setOnClickSetting(new MyAdapter.onClickSetting() {
-
-                                      @Override
-                                      public void mySettingClick() {
-                                          Intent intent = new Intent(getContext(), SettingsActivity.class);
-                                          startActivity(intent);
-                                      }
-                                  });
+//        adapter.setOnClickSetting(new MyAdapter.onClickSetting() {
+//
+//                                      @Override
+//                                      public void mySettingClick() {
+//                                          Intent intent = new Intent(getContext(), SettingsActivity.class);
+//                                          startActivity(intent);
+//                                      }
+//                                  });
         springView.setEnableHeader(false);
 
     }
@@ -99,7 +99,8 @@ public class mainMyFragment extends BaseToolBarFragment {
     private GroupedRecyclerViewAdapter.OnChildClickListener listener = new GroupedRecyclerViewAdapter.OnChildClickListener() {
         @Override
         public void onChildClick(GroupedRecyclerViewAdapter adapter, BaseViewHolder holder, int groupPosition, int childPosition) {
-
+            Intent intent = new Intent(getContext(), SettingsActivity.class);
+            startActivity(intent);
 
         }
     };

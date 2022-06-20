@@ -1,10 +1,13 @@
 package com.technology.center.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.donkingliang.groupedadapter.adapter.GroupedRecyclerViewAdapter;
 import com.donkingliang.groupedadapter.holder.BaseViewHolder;
@@ -125,7 +128,7 @@ public class AcceptAdapter extends GroupedRecyclerViewAdapter {
                     }
                 });
             } else if(mType == DelegagteAcceptFragment.TypeEnum.REGISTERED ){
-                holder.setText(R.id.it_btn, "我的二维码");
+                holder.setText(R.id.it_btn, "证书二维码");
                 holder.get(R.id.it_btn).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -168,7 +171,25 @@ public class AcceptAdapter extends GroupedRecyclerViewAdapter {
                 }
             });
             MyDictUtils myUtils = new MyDictUtils(mContext);
-            holder.setText(R.id.tv_sn,entity.getSn());
+
+            if(mType == DelegagteAcceptFragment.TypeEnum.ACCEPTED){
+                holder.get(R.id.lv_sn).setVisibility(View.VISIBLE);
+                holder.get(R.id.tv_sn).setVisibility(View.GONE);
+                holder.setText(R.id.txt_sn,entity.getSn());
+                holder.get(R.id.btn_edit).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        EditText txtSn = holder.get(R.id.txt_sn);
+                        entity.setSn(txtSn.getText().toString());
+                        onClickBtn.myButtonClick(entity,"EDIT");
+                    }
+                });
+
+            } else {
+                holder.get(R.id.lv_sn).setVisibility(View.GONE);
+                holder.get(R.id.tv_sn).setVisibility(View.VISIBLE);
+                holder.setText(R.id.tv_sn,entity.getSn());
+            }
             if(entity.getSource() !=null&& !entity.getSource().equals("")){
                 holder.setText(R.id.tv_source,myUtils.getSingleOrgsNameById(entity.getSource()));
 
@@ -176,8 +197,12 @@ public class AcceptAdapter extends GroupedRecyclerViewAdapter {
                 holder.setText(R.id.tv_source,"自主申请");
             }
 
-            holder.setText(R.id.tv_busCategory,entity.getBusCategory());
 
+
+
+
+
+            holder.setText(R.id.tv_busCategory,myUtils.getDictNameBySubCode("BUS_CATEGORY",entity.getBusCategory()));
             holder.setText(R.id.tv_inspectOrg,myUtils.getSingleOrgsNameById(entity.getInspectOrgId()));
 
             if(entity.getEntrustOrg() != null){
@@ -197,7 +222,8 @@ public class AcceptAdapter extends GroupedRecyclerViewAdapter {
 
             if(mType == DelegagteAcceptFragment.TypeEnum.WAIT_SAMPLE ||
                     mType == DelegagteAcceptFragment.TypeEnum.SAMPLED  ||
-                    mType == DelegagteAcceptFragment.TypeEnum.WAIT_REGISTER ){
+                    mType == DelegagteAcceptFragment.TypeEnum.WAIT_REGISTER ||
+                    mType == DelegagteAcceptFragment.TypeEnum.ACCEPTED){
                 holder.get(R.id.lv_accetp_info).setVisibility(View.VISIBLE);
                 holder.setText(R.id.tv_acceptUserName,entity.getAcceptUserName());
                 holder.setText(R.id.tv_acceptUserPhone,entity.getAcceptUserPhone());
@@ -211,6 +237,18 @@ public class AcceptAdapter extends GroupedRecyclerViewAdapter {
                 holder.setText(R.id.tv_acceptTime,entity.getAcceptTime());
                 holder.setText(R.id.tv_inspectResult,entity.getInspectResult());
                 holder.setText(R.id.tv_expressNo,entity.getExpressNo());
+                if(entity.getExpressNo()!= null){
+                    holder.get(R.id.tx_query).setVisibility(View.VISIBLE);
+                    holder.get(R.id.tx_query).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            onClickBtn.myButtonClick(entity,"LOGISTICS");
+                        }
+                    });
+                } else {
+                    holder.get(R.id.tx_query).setVisibility(View.GONE);
+                }
+
                 holder.setText(R.id.tv_registerUserName,entity.getRegisterUserName());
                 holder.setText(R.id.tv_registerTime,entity.getRegisterTime());
             }

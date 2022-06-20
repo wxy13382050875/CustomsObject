@@ -61,10 +61,10 @@
     [self.bgView addSubview:self.pwdTextField];
     [self.contentView addSubview:self.protocolTextView];
     [self.contentView addSubview:self.loginBtn];
-    [self.contentView addSubview:self.forgetBtn];
+//    [self.contentView addSubview:self.forgetBtn];
     [self.contentView addSubview:self.registerBtn];
     
-    [self.contentView addSubview:self.tb];
+    [self.bgView addSubview:self.tb];
     
 }
 -(void)xw_updateConstraints{
@@ -126,10 +126,10 @@
     .topSpaceToView(self.protocolTextView, 0)
     .heightIs(50);
     
-    self.forgetBtn.sd_layout
-    .leftSpaceToView(self.contentView, 30)
-    .topSpaceToView(self.loginBtn, 5)
-    .heightIs(40).widthIs(80);
+//    self.forgetBtn.sd_layout
+//    .leftSpaceToView(self.contentView, 30)
+//    .topSpaceToView(self.loginBtn, 5)
+//    .heightIs(40).widthIs(80);
     
     self.registerBtn.sd_layout
     .rightSpaceToView(self.contentView, 30)
@@ -148,7 +148,7 @@
 //    RAC(vModel ,account) = self.usernameTextField.rac_textSignal;
 //    RAC(vModel ,password) = self.pwdTextField.rac_textSignal;
     [[RACSignal merge:@[self.usernameTextField.rac_textSignal, RACObserve(self.usernameTextField, text)]] subscribeNext:^(NSString* text){
-         vModel.account = text;
+         vModel.username = text;
     }];
     
     [[RACSignal merge:@[self.pwdTextField.rac_textSignal, RACObserve(self.pwdTextField, text)]] subscribeNext:^(NSString* text){
@@ -226,7 +226,7 @@
         _usernameTextField.font = FONT(15);
         _usernameTextField.placeholder = @"请输用户名";
         _usernameTextField.textColor = COLOR(@"#383838");
-        _usernameTextField.keyboardType = UIKeyboardTypeNumberPad;
+//        _usernameTextField.keyboardType = UIKeyboardTypeNumberPad;
         _usernameTextField.backgroundColor = COLOR(@"#F5F5F5");
         UIView* leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
         UIImageView* imageView = [UIImageView new];
@@ -415,9 +415,9 @@
 
     //文本标签
 
-    cell.textLabel.text = self.dataSource[indexPath.row][@"account"];
+    cell.textLabel.text = self.dataSource[indexPath.row][@"username"];
     cell.backgroundColor = [UIColor clearColor];
-     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
     return cell;
 
@@ -441,7 +441,7 @@
 
   //NSLog(@"textField.text=%@",textField.text);
 
-    self.usernameTextField.text = self.dataSource[indexPath.row][@"account"];
+    self.usernameTextField.text = self.dataSource[indexPath.row][@"username"];
     self.pwdTextField.text = self.dataSource[indexPath.row][@"pwd"];
     
    [self setShowList:NO];

@@ -59,7 +59,7 @@
         [self setAutomaticallyAdjustsScrollViewInsets:NO];
     }
     
-    self.view.backgroundColor = COLOR(@"#ffffff");
+    self.view.backgroundColor = COLOR(@"#eeeeee");
 }
 
 #pragma mark - system
@@ -218,7 +218,11 @@
     
 }
 -(void)xw_layoutNavigation{
-    self.statusBarStyle = UIStatusBarStyleDarkContent;
+    if (@available(iOS 13.0, *)) {
+        self.statusBarStyle = UIStatusBarStyleDarkContent;
+    } else {
+        // Fallback on earlier versions
+    }
 }
 -(void)xw_loadNewData{
 

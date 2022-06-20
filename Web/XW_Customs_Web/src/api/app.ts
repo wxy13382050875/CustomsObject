@@ -12,13 +12,13 @@ export interface IApp {
  * @returns
  */
 export const appList = (): Promise<IListPagenation<IApp>> => {
-    return http.get("/app", { params: { page: 1, size: 100 } });
+    return http.get("/sso/app", { params: { page: 1, size: 100 } });
 };
 
 export const appSave = (params: IApp) => {
-    return http.post("/app", params);
+    return http.post("/sso/app", params);
 };
 
 export const appUpdate = (params: IApp) => {
-    return http.put(`/app/${params.id}`, params);
+    return http.put(`/sso/app/${params.id}`, params);
 };

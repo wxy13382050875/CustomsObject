@@ -1,7 +1,13 @@
 export const MenuList = [
     {
-        url: "/user",
+        url: "/orgList",
         name: "用户列表",
+        id: 1,
+        children: []
+    },
+    {
+        url: "/unitList",
+        name: "委托单位",
         id: 1,
         children: []
     },
@@ -21,9 +27,17 @@ export const MenuList = [
         ]
     },
     {
-        url: "/role",
+        url: "/",
         name: "角色管理",
-        children: []
+        children: [
+            // {
+            //     url: "/sysRoleList",
+            //     name: "系统角色"
+            // },
+            {
+                url: "/orgRoleList",
+                name: "机构角色"
+            }]
     },
     // {
     //     url: "/app",

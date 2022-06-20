@@ -13,9 +13,12 @@ import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.widget.ListPopupWindow;
 import androidx.lifecycle.Observer;
 
 import com.kongzue.dialog.interfaces.OnDismissListener;
@@ -24,17 +27,20 @@ import com.kongzue.dialog.v3.WaitDialog;
 import com.technology.center.Constant;
 import com.technology.center.R;
 
+import com.technology.center.adapter.ListPopupWindowAdapter;
 import com.technology.center.http.RequestRetrofit;
 import com.technology.center.http.base.BaseDto;
 import com.technology.center.model.CanSelectOrgsModel;
 import com.technology.center.model.CurrentUserModel;
 import com.technology.center.model.DictAllModel;
 import com.technology.center.model.EntrustOrgModel;
+import com.technology.center.model.LoginVoModel;
 import com.technology.center.utils.SpUtils;
 import com.technology.center.utils.ToastUtil;
 import com.technology.center.view.MainActivity;
 import com.technology.center.view.base.BaseActionBarActivity;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,6 +60,8 @@ import com.technology.center.utils.GsonUtil;
 import com.technology.center.view.custom.DelegateApplyActivity;
 import com.technology.center.view.custom.SamplingRecordDetailActivity;
 
+import org.json.JSONObject;
+
 /**
  * 登录activity
  */
@@ -65,6 +73,9 @@ public class LoginActivity extends BaseActionBarActivity {
     private TextView registerTextView;
 
     private TextView forgetTextView;
+
+    private LinearLayout lv_phone;
+
     private Context context;
     private Activity activity;
     private SpUtils spUtils;
@@ -73,7 +84,7 @@ public class LoginActivity extends BaseActionBarActivity {
     private TextView tvPrivacy;
 
 
-
+    private LinearLayout lv_showAccount;
 
     //手机号
     @Index(2)
@@ -105,6 +116,13 @@ public class LoginActivity extends BaseActionBarActivity {
     protected void initEventAndData() {
 
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        spUtils.remove("TOKEN");
+    }
+
     //初始化控件
     private void initView() {
 
@@ -113,9 +131,11 @@ public class LoginActivity extends BaseActionBarActivity {
         forgetTextView = findViewById(R.id.tv_to_forget);
         txtRegPhone = findViewById(R.id.txt_phone);
         txtRegPwd = findViewById(R.id.txt_password);
-
+        lv_showAccount = findViewById(R.id.lv_showAccount);
         checkBox = findViewById(R.id.checkBox);
         tvPrivacy = findViewById(R.id.tv_privacy);
+
+        lv_phone = findViewById(R.id.lv_phone);
         //给注册按钮绑定事件
         registerTextView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,6 +162,9 @@ public class LoginActivity extends BaseActionBarActivity {
                 intent.putExtra("type", "modify");
                 startActivity(intent);
             }
+        });
+        lv_showAccount.setOnClickListener(view -> {
+            showListPopupWindow(lv_phone);
         });
     }
     //提交注册
@@ -197,8 +220,7 @@ public class LoginActivity extends BaseActionBarActivity {
                                                                                 spUtils.putString("userInfo", GsonUtil.toJson(currentUserModelBaseDto.getData()));
                                                                                 spUtils.putString("dict", GsonUtil.toJson(listBaseDto.getData()));
                                                                                 spUtils.putString("Orgs", GsonUtil.toJson(canSelectOrgsModelBaseDto.getData()));
-                                                                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                                                                startActivity(intent);
+                                                                                skipMainActivity();
                                                                             }
                                                                         });
 
@@ -225,8 +247,7 @@ public class LoginActivity extends BaseActionBarActivity {
                                                                     Log.d("----------orgsId----------",spUtils.getString("orgsId"));
                                                                     spUtils.putString("dict", GsonUtil.toJson(listBaseDto.getData()));
                                                                     spUtils.putString("Orgs", GsonUtil.toJson(canSelectOrgsModelBaseDto.getData()));
-                                                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                                                    startActivity(intent);
+                                                                    skipMainActivity();
                                                                 }
                                                             });
                                                         }
@@ -257,6 +278,38 @@ public class LoginActivity extends BaseActionBarActivity {
         });
     }
 
+    private void skipMainActivity(){
+        LoginVoModel loginVo = new LoginVoModel();
+        loginVo.setPassword(txtRegPwd.getText().toString());
+        loginVo.setPhone(txtRegPhone.getText().toString());
+        List list = (List) GsonUtil.fromJson(LoginActivity.this.spUtils.getString("accountList"), List.class);
+        if (list == null || list.size() == 0) {
+            list = new ArrayList();
+            list.add(loginVo);
+        } else {
+            boolean z = false;
+            for (int i = 0; i < list.size(); i++) {
+                String str2 = LoginActivity.TAG;
+                try {
+                    StringBuilder sb = new StringBuilder();
+                    sb.append("showListPopupWindow: ");
+                    sb.append(list.get(i));
+                    Log.d(str2, sb.toString());
+                    if (new JSONObject(GsonUtil.toJson(list.get(i))).getString("phone").equals(loginVo.getPhone())) {
+                        z = true;
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            if (!z) {
+                list.add(loginVo);
+            }
+        }
+        spUtils.putString("accountList", GsonUtil.toJson(list));
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(intent);
+    }
     //处理点击注册事件
     private void submit() {
         Validate.check(this, new IValidateResult() {
@@ -301,5 +354,47 @@ public class LoginActivity extends BaseActionBarActivity {
         tvPrivacy.setText(builder);
         tvPrivacy.setMovementMethod(LinkMovementMethod.getInstance());//调用此方法时文字点击事件才有效
     }
-
+    public void showListPopupWindow(View view) {
+        final List list = GsonUtil.fromJson(this.spUtils.getString("accountList"), List.class);
+        if (list == null) {
+            return;
+        }
+        if (list.size() > 0) {
+            final ListPopupWindow listPopupWindow = new ListPopupWindow(this);
+            listPopupWindow.setWidth(view.getMeasuredWidth());
+            listPopupWindow.setHeight(320);
+            ArrayList arrayList = new ArrayList();
+            for (int i2 = 0; i2 < list.size(); i2++) {
+                String str = TAG;
+                try {
+                    StringBuilder sb = new StringBuilder();
+                    sb.append("showListPopupWindow: ");
+                    sb.append(list.get(i2));
+                    Log.d(str, sb.toString());
+                    arrayList.add(new JSONObject(GsonUtil.toJson(list.get(i2))).getString("phone"));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            listPopupWindow.setAnchorView(view);
+            listPopupWindow.setAdapter(new ListPopupWindowAdapter(this, arrayList, index -> {
+                list.remove(index);
+                spUtils.putString("accountList", GsonUtil.toJson(list));
+                listPopupWindow.dismiss();
+                lv_showAccount.setRotation(0f);
+            }, index -> {
+                try {
+                    JSONObject jSONObject = new JSONObject(GsonUtil.toJson(list.get(index)));
+                    LoginActivity.this.txtRegPhone.setText(jSONObject.get("phone").toString());
+                    LoginActivity.this.txtRegPwd.setText(jSONObject.get("password").toString());
+                    listPopupWindow.dismiss();
+                    lv_showAccount.setRotation(0f);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }));
+            listPopupWindow.show();
+            lv_showAccount.setRotation(180f);
+        }
+    }
 }

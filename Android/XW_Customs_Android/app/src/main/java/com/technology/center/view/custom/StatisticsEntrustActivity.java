@@ -45,7 +45,7 @@ public class StatisticsEntrustActivity extends BaseActionListBarActivity {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_msg;
+        return R.layout.activity_statistic_entrust;
     }
 
     @Override

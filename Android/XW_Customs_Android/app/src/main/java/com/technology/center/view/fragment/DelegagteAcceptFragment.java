@@ -2,6 +2,8 @@ package com.technology.center.view.fragment;
 
 import static android.app.Activity.RESULT_OK;
 
+import static com.technology.center.App.getContext;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -24,6 +26,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.donkingliang.groupedadapter.adapter.GroupedRecyclerViewAdapter;
 import com.donkingliang.groupedadapter.holder.BaseViewHolder;
 import com.donkingliang.groupedadapter.layoutmanger.GroupedGridLayoutManager;
+import com.kongzue.dialog.interfaces.OnDismissListener;
+import com.kongzue.dialog.v3.TipDialog;
+import com.kongzue.dialog.v3.WaitDialog;
 import com.liaoinstan.springview.aliheader.AliFooter;
 import com.liaoinstan.springview.container.AutoFooter;
 import com.technology.center.R;
@@ -38,6 +43,7 @@ import com.technology.center.model.EntrustInspectModel;
 import com.technology.center.repository.impl.UserRepository;
 import com.technology.center.utils.GsonUtil;
 import com.technology.center.view.base.BaseToolBarFragment;
+import com.technology.center.view.custom.MyCourierDetailActivity;
 import com.technology.center.view.custom.MyQrActivity;
 import com.technology.center.view.custom.ResultsRegisterActivity;
 import com.technology.center.view.custom.DelegateAcceptDetailActivity;
@@ -52,7 +58,7 @@ import java.util.List;
 import java.util.Map;
 import com.technology.center.utils.ToastUtil;
 
-public class DelegagteAcceptFragment extends BaseToolBarFragment implements TitleFragmentPagerAdapter.UpdateAble {
+public class DelegagteAcceptFragment extends BaseToolBarFragment  implements TitleFragmentPagerAdapter.UpdateAble {
 
 
     public enum TypeEnum {
@@ -92,6 +98,7 @@ public class DelegagteAcceptFragment extends BaseToolBarFragment implements Titl
             public void onReceive(Context context, Intent intent){
                 String msg = intent.getStringExtra("data");
                 if("refresh".equals(msg)){
+                    dataSource.clear();
                     loadDataSource();
                 }
             }
@@ -170,6 +177,8 @@ public class DelegagteAcceptFragment extends BaseToolBarFragment implements Titl
             params.put("to", queryModel.getTo()== null?"":queryModel.getTo());
             params.put("acceptTimeFrom",queryModel.getAcceptTimeFrom()== null?"":queryModel.getAcceptTimeFrom());
             params.put("acceptTimeTo", queryModel.getAcceptTimeTo()== null?"":queryModel.getAcceptTimeTo());
+            params.put("samplingTimeFrom",queryModel.getSamplingTimeFrom()== null?"":queryModel.getSamplingTimeFrom());
+            params.put("samplingTimeTo", queryModel.getSamplingTimeTo()== null?"":queryModel.getSamplingTimeTo());
         }
 
         userRepository.getEntrustInspect(params).observe(DelegagteAcceptFragment.this, new Observer<BaseDto<EntrustInspectModel>>() {
@@ -178,22 +187,14 @@ public class DelegagteAcceptFragment extends BaseToolBarFragment implements Titl
                 springView.onFinishFreshAndLoad();
                 if (entrustInspectModelBaseDto.getCode().equals(Constant.RespCode.R200)) {
 
-                    if(entrustInspectModelBaseDto.getData().getContent().size() > 0){
-
-                        if(entrustInspectModelBaseDto.getData().getContent().size() < size){
-                            springView.getFooter(AutoFooter.class).showBottomLine();
-                        }
-                        dataSource.addAll(entrustInspectModelBaseDto.getData().getContent());
-
-                        Message msg = new Message();
-                        msg.what = 1;
-                        mHandler.sendMessage(msg);
-                    } else {
-                        if(page == 1) {
-//                            loadingProgress.setVisibility(View.VISIBLE);
-//                            loadingProgress.showDefinePage(R.layout.define_layout, false);
-                        }
+                    if(entrustInspectModelBaseDto.getData().getContent().size() < size){
+                        springView.getFooter(AutoFooter.class).showBottomLine();
                     }
+                    dataSource.addAll(entrustInspectModelBaseDto.getData().getContent());
+
+                    Message msg = new Message();
+                    msg.what = 1;
+                    mHandler.sendMessage(msg);
                 } else {
                     ToastUtil.show(getContext(), entrustInspectModelBaseDto.getMessage());
                 }
@@ -257,7 +258,22 @@ public class DelegagteAcceptFragment extends BaseToolBarFragment implements Titl
 
                     intent.putExtras(bundle);
                     startActivity(intent);
-                } else {
+                } else if(type.equals("EDIT")){//修改SN号
+                    putEntrustInspect(model);
+
+                } else if(type.equals("LOGISTICS")){//查看物流
+                    Log.d("tag---","LOGISTICS");
+                    Intent intent = new Intent(getContext(), MyCourierDetailActivity.class);
+                    //用Bundle携带数据
+                    Bundle bundle = new Bundle();
+                    //传递name参数为tinyphp
+                    bundle.putSerializable("model",model);
+
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+
+                }
+                else {
                     Intent intent = new Intent(getContext(), DelegateAcceptDetailActivity.class);
                     //用Bundle携带数据
                     Bundle bundle = new Bundle();
@@ -298,4 +314,27 @@ public class DelegagteAcceptFragment extends BaseToolBarFragment implements Titl
         super.onResume();
     }
 
+    private void putEntrustInspect(EntrustInspectModel.ContentBean model){
+        if (model.getSn() != null && !model.getSn().equals("")){
+            Map<String, String> params = new HashMap<>();
+            params.put("id", model.getId());
+            params.put("sn", model.getSn());
+            userRepository.putEntrustInspect(model.getId(),params).observe(DelegagteAcceptFragment.this, new Observer<BaseDto<EntrustInspectModel>>() {
+                @Override
+                public void onChanged(BaseDto<EntrustInspectModel> entrustInspectModelBaseDto) {
+                    if(entrustInspectModelBaseDto.getCode().equals(Constant.RespCode.R200)){
+
+                        ToastUtil.show(getContext(), "修改成功");
+
+                    } else {
+                        ToastUtil.show(getContext(), entrustInspectModelBaseDto.getMessage());
+                    }
+
+                }
+            });
+        } else {
+            ToastUtil.show(getContext(), "检测编号不能为空");
+        }
+
+    }
 }

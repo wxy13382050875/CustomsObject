@@ -24,6 +24,7 @@ selector:_selector name:_name object:nil];
 
 #define kLoginNotification            @"kLoginNotification"
 #define kLogoutNotification           @"kLogoutNotification"
+#define kRefreshNotification          @"kRefreshNotification"
 //获取当前语言
 #define KCURRENT_LANGUAGE ([[NSLocale preferredLanguages] objectAtIndex:0])
 //判断是否为iPhone

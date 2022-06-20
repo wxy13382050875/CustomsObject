@@ -32,6 +32,8 @@ typedef enum{
 -(NSString *)errorMessage;
  
 - (void)limitTextLength:(int)length;
+//如何让UITextFeild控件左边留空白
+-(void)setTextFieldLeftPadding:(CGFloat)leftWidth;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -117,7 +117,7 @@
                 android:background="@drawable/text_radius_shape"
                 android:hint="请输入公司名称"
                 android:inputType="text"
-                android:paddingLeft="5dp"
+                android:paddingLeft="10dp"
                 android:textColor="#333"
                 android:textSize="13sp"/>
 
@@ -149,7 +149,7 @@
                 android:background="@drawable/text_radius_shape"
                 android:hint=""
                 android:inputType="text"
-                android:paddingLeft="5dp"
+                android:paddingLeft="10dp"
                 android:textColor="#333"
                 android:textSize="13sp"/>
 
@@ -187,7 +187,7 @@
                 android:background="@drawable/text_radius_shape"
                 android:hint="请输入地址"
                 android:inputType="text"
-                android:paddingLeft="5dp"
+                android:paddingLeft="10dp"
                 android:textColor="#333"
                 android:textSize="13sp"/>
 
@@ -225,7 +225,7 @@
                 android:background="@drawable/text_radius_shape"
                 android:hint="请输入联系人姓名"
                 android:inputType="text"
-                android:paddingLeft="5dp"
+                android:paddingLeft="10dp"
                 android:textColor="#333"
                 android:textSize="13sp"/>
 
@@ -263,7 +263,7 @@
                 android:background="@drawable/text_radius_shape"
                 android:hint="请输入电话"
                 android:inputType="text"
-                android:paddingLeft="5dp"
+                android:paddingLeft="10dp"
                 android:textColor="#333"
                 android:textSize="13sp"/>
 
@@ -295,7 +295,7 @@
                 android:background="@drawable/text_radius_shape"
                 android:hint="请输入传真"
                 android:inputType="text"
-                android:paddingLeft="5dp"
+                android:paddingLeft="10dp"
                 android:textColor="#333"
                 android:textSize="13sp"/>
 
@@ -333,7 +333,7 @@
                 android:background="@drawable/text_radius_shape"
                 android:hint="请输入邮箱"
                 android:inputType="text"
-                android:paddingLeft="5dp"
+                android:paddingLeft="10dp"
                 android:textColor="#333"
                 android:textSize="13sp"/>
 

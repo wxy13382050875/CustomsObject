@@ -4,13 +4,21 @@ const DYNAMIC_ROUTING: Array<RouteRecordRaw> = [
     {
         path: "/",
         component: Layout,
-        redirect: "/user",
+        redirect: "/orgList",
         children: [
             {
-                path: "/user",
-                component: () => import("@/views/user/List.vue"),
+                path: "/orgList",
+                component: () => import("@/views/user/OrgList.vue"),
                 meta: {
                     title: "用户列表",
+                    keepAlive: true
+                }
+            },
+            {
+                path: "/unitList",
+                component: () => import("@/views/user/UnitList.vue"),
+                meta: {
+                    title: "委托单位",
                     keepAlive: true
                 }
             },
@@ -38,10 +46,18 @@ const DYNAMIC_ROUTING: Array<RouteRecordRaw> = [
                 }
             },
             {
-                path: "/role",
-                component: () => import("@/views/role/AllList.vue"),
+                path: "/sysRoleList",
+                component: () => import("@/views/role/sysRoleList.vue"),
                 meta: {
-                    title: "角色管理",
+                    title: "系统角色",
+                    keepAlive: true
+                }
+            },
+            {
+                path: "/orgRoleList",
+                component: () => import("@/views/role/orgRoleList.vue"),
+                meta: {
+                    title: "机构角色",
                     keepAlive: true
                 }
             },
@@ -59,10 +75,18 @@ const DYNAMIC_ROUTING: Array<RouteRecordRaw> = [
 
 const Qk_DYNAMIC_ROUTING: Array<RouteRecordRaw> = [
     {
-        path: "/user",
-        component: () => import("@/views/user/List.vue"),
+        path: "/orgList",
+        component: () => import("@/views/user/OrgList.vue"),
         meta: {
             title: "用户列表",
+            keepAlive: true
+        }
+    },
+    {
+        path: "/unitList",
+        component: () => import("@/views/user/UnitList.vue"),
+        meta: {
+            title: "委托单位",
             keepAlive: true
         }
     },
@@ -90,16 +114,24 @@ const Qk_DYNAMIC_ROUTING: Array<RouteRecordRaw> = [
         }
     },
     {
-        path: "/role",
-        component: () => import("@/views/role/List.vue"),
+        path: "/sysRoleList",
+        component: () => import("@/views/role/sysRoleList.vue"),
         meta: {
-            title: "角色管理",
+            title: "系统角色",
+            keepAlive: true
+        }
+    },
+    {
+        path: "/orgRoleList",
+        component: () => import("@/views/role/orgRoleList.vue"),
+        meta: {
+            title: "机构角色",
             keepAlive: true
         }
     },
     {
         path: "/app",
-        component: () => import("@/views/role/AllList.vue"),
+        component: () => import("@/views/role/sysRoleList.vue"),
         meta: {
             title: "应用管理",
             keepAlive: true

@@ -61,7 +61,7 @@
                     android:hint="请输入验证码"
                     android:inputType="text"
                     android:maxLength="6"
-                    android:paddingLeft="5dp"
+                    android:paddingLeft="10dp"
                     android:textColor="#333"
                     android:textSize="13sp" />
                 <Button

@@ -76,6 +76,14 @@ public interface IUserRepository {
      */
     LiveData<BaseDto<EntrustInspectModel>> getEntrustInspect(Map<String, String> params);
 
+
+    /**
+     * 委托申请-编辑
+     *
+     * @return
+     */
+    LiveData<BaseDto<EntrustInspectModel>> putEntrustInspect(String id,Map<String, String> params);
+
     /**
      * 海关端（检测机构）处理
      *
@@ -113,6 +121,8 @@ public interface IUserRepository {
      * 委托申请-登记
      */
     LiveData<BaseDto<EntrustOrgModel>> postEntrustOrg( Map<String, String> params);
+
+
 
     /**
      * 委托申请

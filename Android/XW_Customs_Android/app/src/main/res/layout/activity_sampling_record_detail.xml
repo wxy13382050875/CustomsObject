@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             titlebar:bottomShadowHeight="0dp"
-            titlebar:centerText="委托受理"
+            titlebar:centerText="采样记录"
             titlebar:centerTextColor="#171717"
             titlebar:centerType="textView"
             titlebar:leftCustomView="@layout/action_bar_back"

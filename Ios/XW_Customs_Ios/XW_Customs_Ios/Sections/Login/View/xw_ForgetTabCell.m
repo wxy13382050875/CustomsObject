@@ -116,8 +116,8 @@
 
 -(void)setViewMode:(xw_LoginViewModel* )viewMode{
 //
-    RAC(viewMode ,phone) = self.phoneTextField.rac_textSignal;
-    RAC(viewMode ,smsCode) = self.codeTextField.rac_textSignal;
+    RAC(viewMode ,username) = self.phoneTextField.rac_textSignal;
+//    RAC(viewMode ,smsCode) = self.codeTextField.rac_textSignal;
     RAC(viewMode ,password) = self.npwdTextField.rac_textSignal;
 }
 -(UIView*)topBgView{

@@ -202,4 +202,13 @@ static NSString *kLimitTextErrorMessageKey = @"kLimitTextErrorMessageKey";
      
     return str;
 }
+
+-(void)setTextFieldLeftPadding:(CGFloat)leftWidth
+{
+    CGRect frame = self.frame;
+    frame.size.width = leftWidth;
+    UIView *leftview = [[UIView alloc] initWithFrame:frame];
+    self.leftViewMode = UITextFieldViewModeAlways;
+    self.leftView = leftview;
+}
 @end

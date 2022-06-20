@@ -87,9 +87,11 @@ public class MyCourierAdapter extends GroupedRecyclerViewAdapter {
     @Override
     public void onBindChildViewHolder(BaseViewHolder holder, int groupPosition, int childPosition) {
         EntrustInspectModel.ContentBean entity = mGroups.get(groupPosition);;
+
         MyDictUtils myUtils = new MyDictUtils(mContext);
         holder.setText(R.id.tv_sn, entity.getSn());
-        holder.setText(R.id.tv_busCategory, entity.getBusCategory());
+//        holder.setText(R.id.tv_busCategory, entity.getBusCategory());
+        holder.setText(R.id.tv_busCategory,myUtils.getDictNameBySubCode("BUS_CATEGORY",entity.getBusCategory()));
         holder.setText(R.id.tv_sampleName, entity.getSampleName());
         holder.setText(R.id.tv_spec, entity.getSpec());
         holder.setText(R.id.tv_createTime, entity.getCreateTime());

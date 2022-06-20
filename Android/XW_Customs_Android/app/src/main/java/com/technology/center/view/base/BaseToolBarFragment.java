@@ -22,7 +22,7 @@ import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
 
 import com.technology.center.R;
 
-public abstract class BaseToolBarFragment extends Fragment {
+public abstract class BaseToolBarFragment extends  Fragment {
     public CommonTitleBar commonTitleBar;
     private OnButtonClick onButtonClick;//2、定义接口成员变量
     public SpUtils spUtils;

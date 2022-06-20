@@ -94,7 +94,7 @@ public class MyQrActivity extends BaseActionBarActivity {
         PrintHelper photoPrinter = new PrintHelper(getBaseContext());
         photoPrinter.setScaleMode(PrintHelper.SCALE_MODE_FIT);
 
-        photoPrinter.printBitmap("打印我的二维码", decodedByte);
+        photoPrinter.printBitmap("打印证书二维码", decodedByte);
     }
 //    /**
 //     * 生成固定大小的二维码(不需网络权限)

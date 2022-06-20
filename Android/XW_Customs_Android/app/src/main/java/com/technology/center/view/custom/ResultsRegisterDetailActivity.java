@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -15,6 +16,8 @@ import androidx.lifecycle.Observer;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.google.gson.reflect.TypeToken;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 import com.kongzue.dialog.interfaces.OnDismissListener;
 import com.kongzue.dialog.v3.TipDialog;
 import com.kongzue.dialog.v3.WaitDialog;
@@ -29,6 +32,7 @@ import com.technology.center.utils.MyDictUtils;
 import com.technology.center.utils.SpUtils;
 import com.technology.center.utils.ToastUtil;
 import com.technology.center.view.base.BaseActionBarActivity;
+import com.technology.center.view.qr.QrCodeActivity;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -59,6 +63,9 @@ public class ResultsRegisterDetailActivity extends BaseActionBarActivity {
     @Index(11)
     @BindView(R.id.txt_expressNo)
     EditText txtexpressNo;
+
+    @BindView(R.id.iv_icon)
+    ImageView iv_icon;
 
 
     @BindView(R.id.btn_one)
@@ -95,6 +102,9 @@ public class ResultsRegisterDetailActivity extends BaseActionBarActivity {
         mRadioGroup = findViewById(R.id.rg_marry);
         mRadioGroup.setOrientation(LinearLayout.HORIZONTAL);
 
+        txtexpressNo.setEnabled(false);
+        iv_icon.setEnabled(false);
+
         MyDictUtils myUtils = new MyDictUtils(getBaseContext());
         List<DictAllModel.ItemsBean>  Items = myUtils.getDictItemByCode("TAKE_WAY");
         for(int i=0; i<Items.size(); i++)
@@ -120,17 +130,48 @@ public class ResultsRegisterDetailActivity extends BaseActionBarActivity {
                     txtexpressNo.setText("");
                     if(takeWay.equals("SELF_TAKE")){
                         txtexpressNo.setEnabled(false);
+                        iv_icon.setEnabled(false);
                     } else {
                         txtexpressNo.setEnabled(true);
+                        iv_icon.setEnabled(true);
                     }
 
                 }
             });
+//            if(Items.get(i).getCode().equals("MAIL")){
+//                radioButton.setChecked(true);
+//            }
             mRadioGroup.addView(radioButton);
         }
+        iv_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new IntentIntegrator(ResultsRegisterDetailActivity.this)
+                        .setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES)// 扫码的类型,可选：一维码，二维码，一/二维码
+                        //.setPrompt("请对准二维码")// 设置提示语
+                        .setCameraId(0)// 选择摄像头,可使用前置或者后置
+                        .setBeepEnabled(true)// 是否开启声音,扫完码之后会"哔"的一声
+                        .setCaptureActivity(QrCodeActivity.class)//自定义扫码界面
+                        .initiateScan();// 初始化扫码
+
+            }
+        });
     }
 
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //扫码结果
+        IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if (intentResult != null) {
+            if (intentResult.getContents() == null) {
+                //扫码失败
+            } else {
+                String result = intentResult.getContents();//返回值
+                txtexpressNo.setText(result);
+            }
+        }
+    }
     //处理点击注册事件
     @OnClick({R.id.btn_one,R.id.btn_two})
     public void submit(View v) {
@@ -208,6 +249,7 @@ public class ResultsRegisterDetailActivity extends BaseActionBarActivity {
             }
         }
     }
+
     private void onBack() {
         Intent intent2 = new Intent("android.intent.action.CART_BROADCAST");
         intent2.putExtra("data","refresh");

@@ -77,13 +77,13 @@ public class MyAdapter extends GroupedRecyclerViewAdapter {
             holder.setText(R.id.tv_show_is_complete, userModel.getTrueName()==null ? "请完善信息" : userModel.getTrueName());
         }
 
-        ImageView btnEditInfo = holder.get(R.id.btn_setting);
-        //跳转到编辑资料
-        btnEditInfo.setOnClickListener(view -> {
-            if (onClickSetting != null) {
-                onClickSetting.mySettingClick();
-            }
-        });
+//        ImageView btnEditInfo = holder.get(R.id.btn_setting);
+//        //跳转到编辑资料
+//        btnEditInfo.setOnClickListener(view -> {
+//            if (onClickSetting != null) {
+//                onClickSetting.mySettingClick();
+//            }
+//        });
     }
 
     @Override

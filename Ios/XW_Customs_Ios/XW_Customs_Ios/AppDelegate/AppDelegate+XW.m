@@ -24,7 +24,7 @@
 
 #import "xw_LoginViewController.h"
 #import "xw_WelcomeViewController.h"
-
+#import "IQKeyboardManager.h"
 
 #define STOREAPPID @"1500549596"
 
@@ -39,6 +39,9 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)registerRoutes{
     
+    [[IQKeyboardManager sharedManager] setEnable:YES];
+    [[IQKeyboardManager sharedManager] setEnableAutoToolbar:YES];
+    [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
     //监测版本
 //
     [PPNetworkHelper setResponseSerializer:PPResponseSerializerJSON];
@@ -82,12 +85,12 @@
 //        xw_UserInfoModel* model = [xw_UserInfoModel mj_objectWithKeyValues:[xw_ConfigHelper sharedInstance].sUserInfo];
 //
 //        GGLog(@"sUserInfo = %@",[xw_ConfigHelper sharedInstance].sUserInfo);
-//        if (model.token.length != 0) {
+        if ([xw_ConfigHelper sharedInstance].isLogin) {
             [self showMainViewController];
-//        } else {
-//             [self showLoginViewController];
-//        }
-       
+        } else {
+             [self showLoginViewController];
+        }
+//        [self showLoginViewController];
     }
     
 }

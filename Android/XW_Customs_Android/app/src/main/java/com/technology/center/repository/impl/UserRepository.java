@@ -38,6 +38,13 @@ public class UserRepository extends BaseRepository implements IUserRepository {
     }
 
     @Override
+    public LiveData<BaseDto<EntrustInspectModel>> putEntrustInspect(String id, Map<String, String> params) {
+        Flowable<BaseDto<EntrustInspectModel>> flowable = RequestRetrofit.getInstance(UserService.class).putEntrustInspect(id,params);
+
+        return request(flowable).get();
+    }
+
+    @Override
     public LiveData<BaseDto<CurrentUserModel>> register(Map<String, Object> params) {
         Flowable<BaseDto<CurrentUserModel>> flowable = RequestRetrofit.getInstance(UserService.class).register(params);
 

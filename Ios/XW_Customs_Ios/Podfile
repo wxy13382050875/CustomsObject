@@ -100,4 +100,8 @@ target 'XW_Customs_Ios' do
   #pod 'TradPlusSDK', '5.4.6'
   #pod 'TradPlusSDK/GDTMobAdapter', '5.4.6'
   #pod 'GDTMobSDK', '4.12.1'
+  
+  pod 'CWLateralSlide'
+  
+  pod 'RadioButton'
 end

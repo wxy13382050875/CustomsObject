@@ -1,5 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="ExtraTranslation">
-    <string name="app_name">海关技术中心</string>
+    <string name="app_name">技术中心</string>
     <string name="string_toast_privacy_service">"请同意隐私政策和服务协议"</string>
     <string name="string_privacy">我同意本海关技术中心的隐私政策和服务协议</string>
     <string name="reg_title">注册</string>

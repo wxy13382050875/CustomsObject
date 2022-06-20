@@ -43,7 +43,7 @@
                 android:layout_height="match_parent" />
 
         </LinearLayout>
-        <include layout="@layout/layout_srccen_accept" />
+        <include layout="@layout/layout_srccen_sampling" />
 
     </androidx.drawerlayout.widget.DrawerLayout>
 </LinearLayout>

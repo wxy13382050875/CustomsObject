@@ -1,12 +1,14 @@
 <script setup lang="ts">
     import { nextTick, ref, reactive } from "vue";
     import { useRouter } from "vue-router";
-    import { message, Form } from "ant-design-vue";
+    import { message, Form ,TreeSelect,Modal} from "ant-design-vue";
     import { orgList, roleOfOrgList } from "@/api/org";
-    import { addRole, updateRole, getRolePermission, saveRoleForPermission } from "@/api/role";
+    import { addRole, updateRole, getRolePermission, saveRoleForPermission,deleteRole } from "@/api/role";
 import { store } from "@/store";
+const SHOW_ALL = TreeSelect.SHOW_ALL;
     const router = useRouter();
     const useForm = Form.useForm;
+    const allSelectedNodes = ref<number[]>([]);
     const columns = [
         {
             title: "角色名称",
@@ -107,6 +109,22 @@ import { store } from "@/store";
         formState.value = { ...item };
         roleModalStatus.value = true;
     };
+    //编辑角色
+const handleDelete = (item: any) => {
+    Modal.confirm({
+        title: () => '确认删除',
+        content: () => '您是否确认删除这条记录',
+        onOk() {
+            deleteRole(item.id).then((res: any) => {
+                message.success("删除成功");
+                getRoleData();
+            });
+        },
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        onCancel() { },
+    });
+};
+    
     // 重置表单
     const handleReset = () => {
         formState.value = {
@@ -164,7 +182,7 @@ import { store } from "@/store";
             return;
         }
         confirmAuthPermissionLoading.value = true;
-        saveRoleForPermission(selectRoleId.value as number, permissionCheckedKeys.value)
+        saveRoleForPermission(selectRoleId.value as number, allSelectedNodes.value)
             .then(() => {
                 message.success("权限分配成功");
                 authPermissionStatus.value = false;
@@ -175,31 +193,45 @@ import { store } from "@/store";
     };
     //处理数据
     const iterateTreeDataPermission = (data: any[]) => {
-        data.forEach((item) => {
-            item.key = item.id;
-            expandedKeys.value.push(item.id);
+    data.forEach((item) => {
+        item.key = item.id;
+        expandedKeys.value.push(item.id);
+
+        console.log(item.checked);
+
+        if (item.children.length > 0) {
+            item.checked = item.children.every((child: any) => child.checked == true);
             if (item.checked) {
+
                 permissionCheckedKeys.value?.push(item.id);
             }
-            if (item.children.length > 0) {
-                iterateTreeDataPermission(item.children);
+            iterateTreeDataPermission(item.children);
+        } else {
+            if (item.checked) {
+
+                permissionCheckedKeys.value?.push(item.id);
             }
-        });
-    };
+        }
+    });
+};
+//监听复选框
+const handleTreeCheck = (keys: number[], info: any) => {
+    console.log(info);
+    permissionCheckedKeys.value = keys;
+    allSelectedNodes.value = permissionCheckedKeys.value.concat(info.halfCheckedKeys);
+    // permissionCheckedKeys.value.push();
+};
     const handleShowPermission = (item: any) => {
         selectRoleId.value = item.id;
 
-        getRolePermission(item.id, { type: "WEB" }).then((res: any) => {
+        getRolePermission(item.id, { type: "MOBILE" }).then((res: any) => {
             permissionCheckedKeys.value = [];
             iterateTreeDataPermission(res);
             permissionTreeData.value = res;
             authPermissionStatus.value = true;
         });
     };
-    //监听复选框
-    const handleTreeCheck = (keys: number[]) => {
-        permissionCheckedKeys.value = keys;
-    };
+
 
     const getDataOrg = () => {
         if (!queryParams.value.appId) {
@@ -293,6 +325,13 @@ import { store } from "@/store";
                                             @click="handleEdit(record)"
                                             >编辑</a-button
                                         >
+                                        <a-button
+                                            size="small"
+                                            type="ghost"
+                                            danger
+                                            @click="handleDelete(record)"
+                                            >删除</a-button
+                                        >
                                     </a-space>
                                 </template>
                             </template>
@@ -344,6 +383,7 @@ import { store } from "@/store";
                 :field-names="{ title: 'name', key: 'id' }"
                 :tree-data="permissionTreeData"
                 @check="handleTreeCheck"
+                :show-checked-strategy="SHOW_ALL"
             >
                 <template #title="{ name }">
                     {{ name }}

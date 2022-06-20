@@ -12,6 +12,7 @@
         android:layout_height="match_parent"
 
         android:orientation="vertical">
+
         <com.wuhenzhizao.titlebar.widget.CommonTitleBar
             android:id="@+id/titlebar"
             android:layout_width="match_parent"
@@ -24,24 +25,70 @@
             titlebar:leftType="customView"
             titlebar:showBottomLine="false"
             titlebar:statusBarMode="dark" />
+
         <ScrollView
             android:id="@+id/scrollView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorWhite"
             android:layout_marginTop="10dp"
+            android:background="@color/colorWhite"
             android:paddingBottom="50dp">
+
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="35dp"-->
+<!--                    android:layout_marginLeft="20dp"-->
+<!--                    android:layout_marginTop="15dp"-->
+<!--                    android:layout_marginRight="20dp"-->
+<!--                    android:orientation="horizontal">-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_gravity="center_vertical"-->
+<!--                        android:text="请选择是否检测完成"-->
+<!--                        android:textColor="#2C2C2B"-->
+<!--                        android:textSize="15sp" />-->
+
+<!--                    <RadioGroup-->
+<!--                        android:id="@+id/rg_takeWay"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="horizontal">-->
+<!--                        &lt;!&ndash; 通过button属性修改单选按钮的图标 &ndash;&gt;-->
+<!--                        <RadioButton-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:padding="5dp"-->
+<!--                            android:text="是"-->
+<!--                            android:textColor="#000000"-->
+<!--                            android:checked="true"-->
+<!--                            android:textSize="17sp" />-->
+
+<!--                        &lt;!&ndash; 通过drawableLeft属性修改单选按钮的图标 &ndash;&gt;-->
+<!--                        <RadioButton-->
+<!--                            android:id="@+id/rb_married"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:padding="5dp"-->
+<!--                            android:text="否"-->
+<!--                            android:textColor="#000000"-->
+<!--                            android:textSize="17sp" />-->
+
+<!--                    </RadioGroup>-->
+
+<!--                </LinearLayout>-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
-                    android:layout_marginTop="15dp"
                     android:layout_marginLeft="20dp"
+                    android:layout_marginTop="15dp"
                     android:layout_marginRight="20dp"
                     android:orientation="horizontal">
 
@@ -57,7 +104,7 @@
                         android:id="@+id/rg_marry"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal" >
+                        android:orientation="horizontal">
 
 
                     </RadioGroup>
@@ -68,8 +115,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
                     android:layout_marginLeft="20dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginRight="20dp"
                     android:orientation="horizontal">
 
@@ -84,9 +131,19 @@
                         android:id="@+id/txt_expressNo"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
+                        android:layout_weight="1"
                         android:background="@drawable/text_radius_shape"
+                        android:paddingLeft="10dp"
                         android:textColor="@color/black"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:id="@+id/iv_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:src="@mipmap/icon_nav_scan" />
 
                 </LinearLayout>
             </LinearLayout>

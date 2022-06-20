@@ -11,6 +11,11 @@
 #import "xw_LoginViewModel.h"
 #import "xw_WebViewController.h"
 #import "xw_ForgetViewController.h"
+
+#import "xw_UserInfoModel.h"
+#import "xw_DictModel.h"
+#import "xw_EntrustModel.h"
+
 @interface xw_LoginViewController ()<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) xw_LoginViewModel *viewModel;
@@ -47,6 +52,7 @@
     
 }
 -(void)xw_bindViewModel{
+//    [xw_ConfigHelper sharedInstance].token = @"";
 //    @weakify(self);
     //将命令执行后的数据交给controller
 //    [self.viewModel.loginCommand.executionSignals.switchToLatest subscribeNext:^(id array) {
@@ -138,12 +144,12 @@
 -(void)loginClick{
     
     NSMutableDictionary* params = [NSMutableDictionary dictionary];
-    if (self.viewModel.account.length == 11) {
-        [params setValue:self.viewModel.account forKey:@"phone"];
+    if (self.viewModel.username.length != 0) {
+        [params setValue:self.viewModel.username forKey:@"username"];
     } else {
         GGLog(@"手机号输入不正确");
-        Dialog().wTypeSet(DialogTypeAuto).wMessageSet(@"手机号输入不正确").wDisappelSecondSet(1).wStart();
-        self.viewModel.account = @"";
+        Dialog().wTypeSet(DialogTypeAuto).wMessageSet(@"账号不能为空").wDisappelSecondSet(1).wStart();
+        self.viewModel.username = @"";
         return ;
     }
     if (self.viewModel.password.length > 0) {
@@ -156,72 +162,96 @@
     }
     [self.view showLoadingMeg:@"正在登陆"];
     [[self.viewModel.loginCommand execute: params] subscribeNext:^(NSDictionary* dict) {
-        [self.view hideLoading];
         GGLog(@"测试");
-        
-        NSDictionary* account = @{
-            @"account":self.viewModel.account,
-            @"pwd":self.viewModel.password
+        [xw_ConfigHelper sharedInstance].token = dict[@"data"];
+        [[self.viewModel.currentInfoCommand execute:nil] subscribeNext:^(id  _Nullable x) {
+            xw_UserInfoModel* model =  [xw_UserInfoModel mj_objectWithKeyValues:x[@"data"]];
+            [xw_ConfigHelper sharedInstance].userId = model.id;
+            [xw_ConfigHelper sharedInstance].sUserInfo = [model mj_JSONString];
             
-        };
-        
-        NSMutableArray *arr  = [[NSUserDefaults standardUserDefaults] objectForKey:@"accountInfo"];
-        
-        if (arr == nil) {
-            arr = [[NSMutableArray alloc] init];
-        }
-        NSMutableArray *newArray = [NSMutableArray arrayWithArray:arr];
-        if ([newArray count] == 0 ) {
-            [newArray addObject:account];
-        } else {
-            BOOL isSame = NO;
-            for (int i = 0; i < [arr count]; i++) {
-                NSDictionary * dict = arr[i];
-                if ([dict[@"account"] isEqual:self.viewModel.account] ) {
-                    isSame = YES;
-                    [newArray replaceObjectAtIndex:i withObject:account];
-                }
-            }
-            if (!isSame) {
-                [newArray addObject:account];
-            }
-        }
-        [[NSUserDefaults standardUserDefaults] setObject:newArray forKey:@"accountInfo"];
+            [[self.viewModel.allDictCommand execute:nil] subscribeNext:^(id  _Nullable x) {
+                
+                [xw_ConfigHelper sharedInstance].dict = [NSString DataTOjsonString:x ];
+//                NSArray* array = [xw_DictModel mj_objectArrayWithKeyValuesArray:[xw_ConfigHelper sharedInstance].dict.mj_JSONObject[@"data"]];
+                [[self.viewModel.canSelectOrgsCommand execute:nil] subscribeNext:^(id  _Nullable x) {
+                    [self.view hideLoading];
+                    [xw_ConfigHelper sharedInstance].Orgs = [NSString DataTOjsonString:x ];
+//                    NSArray* array = [xw_canSelectOrgModel mj_objectArrayWithKeyValuesArray:[xw_ConfigHelper sharedInstance].Orgs.mj_JSONObject[@"data"]];
+                    NSDictionary* account = @{
+                        @"username":self.viewModel.username,
+                        @"pwd":self.viewModel.password
+                        
+                    };
+                    
+                    NSMutableArray *arr  = [[NSUserDefaults standardUserDefaults] objectForKey:@"accountInfo"];
+                    
+                    if (arr == nil) {
+                        arr = [[NSMutableArray alloc] init];
+                    }
+                    NSMutableArray *newArray = [NSMutableArray arrayWithArray:arr];
+                    if ([newArray count] == 0 ) {
+                        [newArray addObject:account];
+                    } else {
+                        BOOL isSame = NO;
+                        for (int i = 0; i < [arr count]; i++) {
+                            NSDictionary * dict = arr[i];
+                            if ([dict[@"username"] isEqual:self.viewModel.username] ) {
+                                isSame = YES;
+                                [newArray replaceObjectAtIndex:i withObject:account];
+                            }
+                        }
+                        if (!isSame) {
+                            [newArray addObject:account];
+                        }
+                    }
+                    [[NSUserDefaults standardUserDefaults] setObject:newArray forKey:@"accountInfo"];
 
-        [[NSUserDefaults standardUserDefaults] synchronize];
+                    [[NSUserDefaults standardUserDefaults] synchronize];
+                    if(model.orgs.count == 0){
+                        [[self.viewModel.entrustOrgByIdCommand execute:@{@"userId":[xw_ConfigHelper sharedInstance].userId}] subscribeNext:^(id  _Nullable x) {
+                            
+                            xw_EntrustModel * entModel = [xw_EntrustModel mj_objectWithKeyValues:x[@"data"]];
+                            [xw_ConfigHelper sharedInstance].entrustOrg = entModel.mj_JSONString;
+                            [xw_ConfigHelper sharedInstance].isLogin = true;
+                            [KNotificationCenter postNotificationName:kLoginNotification object:nil];
+                        } error:^(NSError * _Nullable error) {
+                            Dialog().wTypeSet(DialogTypeAuto).wMessageSet(error.localizedDescription).wDisappelSecondSet(1).wStart();
+                        }];
+                    } else {
+                        [xw_ConfigHelper sharedInstance].orgsId = model.orgs[0].id;
+                        [xw_ConfigHelper sharedInstance].isLogin = true;
+                        [KNotificationCenter postNotificationName:kLoginNotification object:nil];
+                    }
+                    
+                } error:^(NSError * _Nullable error) {
+                    [self.view hideLoading];
+                    Dialog().wTypeSet(DialogTypeAuto).wMessageSet(error.localizedDescription).wDisappelSecondSet(1).wStart();
+                }];
+            } error:^(NSError * _Nullable error) {
+                [self.view hideLoading];
+                Dialog().wTypeSet(DialogTypeAuto).wMessageSet(error.localizedDescription).wDisappelSecondSet(1).wStart();
+            }];
+        } error:^(NSError * _Nullable error) {
+            [self.view hideLoading];
+            Dialog().wTypeSet(DialogTypeAuto).wMessageSet(error.localizedDescription).wDisappelSecondSet(1).wStart();
+        }];
         
-        NSLog(@"%@",[[[NSUserDefaults standardUserDefaults] objectForKey:@"accountInfo"] mj_JSONString]);
         
-        if ([xw_ConfigHelper sharedInstance].isUMPush) {
-            [self bindDeviceToken];
-        } else {
-            [KNotificationCenter postNotificationName:kLoginNotification object:nil];
-        }
         
-//         [KNotificationCenter postNotificationName:kLoginNotification object:nil];
+
     } error:^(NSError *error) {
         [self.view hideLoading];
-        
         Dialog().wTypeSet(DialogTypeAuto).wMessageSet(error.localizedDescription).wDisappelSecondSet(1).wStart();
-        NSLog(@"code %ld",error.code);
-        if (error.code == 1023) {
-            xw_ForgetViewController* viewController = [xw_ForgetViewController new];
-
-            [self.navigationController pushViewController:viewController animated:YES];
-            
-        }
+//        Dialog().wTypeSet(DialogTypeAuto).wMessageSet(error.localizedDescription).wDisappelSecondSet(1).wStart();
+//        NSLog(@"code %ld",error.code);
+//        if (error.code == 1023) {
+//            xw_ForgetViewController* viewController = [xw_ForgetViewController new];
+//
+//            [self.navigationController pushViewController:viewController animated:YES];
+//
+//        }
     }];
     
 }
--(void)bindDeviceToken{
-    [[self.viewModel.bindDeviceTokenCommand execute: nil] subscribeNext:^(id x) {
-        [self.view hideLoading];
-        [KNotificationCenter postNotificationName:kLoginNotification object:nil];
-       
-    } error:^(NSError *error) {
-        [self.view hideLoading];
-        Dialog().wTypeSet(DialogTypeAuto).wMessageSet(error.localizedDescription).wDisappelSecondSet(1).wStart();
-        [xw_ConfigHelper sharedInstance].sUserInfo = @"";
-    }];
-}
+
 @end

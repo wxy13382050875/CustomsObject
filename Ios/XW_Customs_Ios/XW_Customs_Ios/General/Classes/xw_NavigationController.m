@@ -63,6 +63,8 @@
             [navigationBarAppearance setBackgroundImage:[UIImage createImageWithSize:CGSizeMake(SCREEN_WIDTH, kNavBarAndStatusBarHeight) gradientColors:@[COLOR(@"#FFFFFF"),COLOR(@"#FFFFFF")] gradientType:XWGradientFromLeftToRight]];
             navigationBarAppearance.titleTextAttributes = @{NSFontAttributeName:[UIFont fontWithName:@"PingFang-SC-Light" size:17]};
             self.navigationBar.scrollEdgeAppearance = navigationBarAppearance;
+        
+            navigationBarAppearance.shadowColor = [UIColor clearColor];
             self.navigationBar.standardAppearance = navigationBarAppearance;
     } else {
         [self.navigationBar setBackgroundImage:[UIImage createImageWithSize:CGSizeMake(SCREEN_WIDTH, kNavBarAndStatusBarHeight) gradientColors:@[COLOR(@"#FFFFFF"),COLOR(@"#FFFFFF")] gradientType:XWGradientFromLeftToRight] forBarMetrics:UIBarMetricsDefault];
@@ -77,7 +79,6 @@
         [self.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     }
     
-
  
 //    [self.navigationBar xw_setBackgroundColor:[UIColor colorGradientChangeWithSize:CGSizeMake(SCREEN_WIDTH, kNavBarAndStatusBarHeight) direction:FCGradientChangeDirectionHorizontal startColor:COLOR(@"#E42332") endColor:COLOR(@"#B10613")]];
 //}

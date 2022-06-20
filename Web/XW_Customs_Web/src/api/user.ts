@@ -7,7 +7,7 @@ import http from "@/utils/http";
  * @returns
  */
 export const userList = (params: { appId: string; orgId: string }) => {
-    return http.get("/user", { params: params });
+    return http.get("/sso/user", { params: params });
 };
 
 /**
@@ -16,7 +16,16 @@ export const userList = (params: { appId: string; orgId: string }) => {
  * @returns
  */
 export const saveUserInfo = (user: IUser) => {
-    return http.post("/user/register", user);
+    return http.post("/sso/user/register", user);
+};
+
+/**
+ * 修改信息
+ * @param user
+ * @returns
+ */
+ export const putUserInfo = (userId: number,user: IUser) => {
+    return http.put(`/sso/user/${userId}/`, user);
 };
 
 /**
@@ -24,7 +33,7 @@ export const saveUserInfo = (user: IUser) => {
  * @param id
  */
 export const getUserOrgById = (userId: number): Promise<any> => {
-    return http.get(`/user/${userId}/canSelectOrgs`);
+    return http.get(`/sso/user/${userId}/canSelectOrgs`);
 };
 
 /**
@@ -33,7 +42,7 @@ export const getUserOrgById = (userId: number): Promise<any> => {
  * @param userId 用户id
  */
 export const userAssigningOrg = (userId: number | undefined, ids: number[]) => {
-    return http.post(`/user/${userId}/orgs`, ids);
+    return http.post(`/sso/user/${userId}/orgs`, ids);
 };
 
 /**
@@ -42,7 +51,7 @@ export const userAssigningOrg = (userId: number | undefined, ids: number[]) => {
  * @returns
  */
 export const userInfoDetail = (userId: number) => {
-    return http.get(`/user/${userId}`);
+    return http.get(`/sso/user/${userId}`);
 };
 
 /**
@@ -51,7 +60,7 @@ export const userInfoDetail = (userId: number) => {
  * @returns
  */
 export const userRoleList = (userId: number) => {
-    return http.get(`/user/${userId}/canSelectRoles`);
+    return http.get(`/sso/user/${userId}/canSelectRoles`);
 };
 
 /**
@@ -61,5 +70,22 @@ export const userRoleList = (userId: number) => {
  * @returns
  */
 export const userAssigningRole = (userId: number, rolesIds: number[]) => {
-    return http.post(`/user/${userId}/roles`, rolesIds);
+    return http.post(`/sso/user/${userId}/roles`, rolesIds);
+};
+/**
+ * 批量删除用户，删除用户-角色关系、删除用户-组织关系
+ * @param roleId
+ * @param params
+ * @returns
+ */
+ export const deleteUser = ( id: number) => {
+    return http.delete(`/sso/user`,  { data: [id] });
+};
+/**
+ * 委托单位分页列表
+ * @param userId
+ * @returns
+ */
+ export const entrustOrgList = (params: any) => {
+    return http.get(`/bt_cus_tc/entrustOrg`,{ params: params });
 };

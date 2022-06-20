@@ -50,15 +50,14 @@ public class SamplingRecordActivity extends BaseActionBarActivity {
     private String to;
     private String acceptTimeFrom;
     private String acceptTimeTo;
-    private String inspectOrgId;
-    @BindView(R.id.txt_sn)
-    EditText txtSn;
+    private String samplingTimeFrom;
+    private String samplingTimeTo;
 
     @BindView(R.id.txt_sampleName)
     EditText txtsampleName;
 
-    @BindView(R.id.txt_inspectOrg)
-    EditText txtinspectOrg;
+//    @BindView(R.id.txt_inspectOrg)
+//    EditText txtinspectOrg;
 
     @BindView(R.id.txt_entrustOrg)
     EditText txtentrustOrg;
@@ -66,11 +65,14 @@ public class SamplingRecordActivity extends BaseActionBarActivity {
     @BindView(R.id.txt_createTime)
     EditText txtcreateTime;
 
-    @BindView(R.id.txt_acceptUserName)
-    EditText txtacceptUserName;
+//    @BindView(R.id.txt_acceptUserName)
+//    EditText txtacceptUserName;
 
     @BindView(R.id.txt_acceptTime)
     EditText txtacceptTime;
+
+    @BindView(R.id.txt_samplingTime)
+    EditText txt_samplingTime;
     @Override
     protected int getLayoutId() {
         return R.layout.activity_sampling_record;
@@ -107,13 +109,13 @@ public class SamplingRecordActivity extends BaseActionBarActivity {
             }
         });
         mDrawerLayout = findViewById(R.id.drawer_layout);
-        txtinspectOrg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                showLinkPicker();
-                showOrgPicker();
-            }
-        });
+//        txtinspectOrg.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+////                showLinkPicker();
+//                showOrgPicker();
+//            }
+//        });
         txtacceptTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -126,11 +128,17 @@ public class SamplingRecordActivity extends BaseActionBarActivity {
                 showCalendarPicker("create");
             }
         });
-        LinearLayout lv_sn = findViewById(R.id.lv_sn);
-        lv_sn.setVisibility(View.GONE);
+        txt_samplingTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showCalendarPicker("sampling");
+            }
+        });
+//        LinearLayout lv_sn = findViewById(R.id.lv_sn);
+//        lv_sn.setVisibility(View.GONE);
 
-        LinearLayout lv_inspectResult = findViewById(R.id.lv_inspectResult);
-        lv_inspectResult.setVisibility(View.GONE);
+//        LinearLayout lv_inspectResult = findViewById(R.id.lv_inspectResult);
+//        lv_inspectResult.setVisibility(View.GONE);
 
     }
 
@@ -148,8 +156,8 @@ public class SamplingRecordActivity extends BaseActionBarActivity {
             @Override
             public void onOptionPicked(int position, Object item) {
                 CanSelectOrgsModel.ChildrenBean dictModel = (CanSelectOrgsModel.ChildrenBean)item;
-                txtinspectOrg.setText(dictModel.getName());
-                inspectOrgId = dictModel.getId()+"";
+//                txtinspectOrg.setText(dictModel.getName());
+//                inspectOrgId = dictModel.getId()+"";
             }
         });
         picker.getWheelLayout().setOnOptionSelectedListener(new OnOptionSelectedListener() {
@@ -173,15 +181,15 @@ public class SamplingRecordActivity extends BaseActionBarActivity {
                 if(first != null){
                     CanSelectOrgsModel fristModel = (CanSelectOrgsModel)first;
                     str = fristModel.getName();
-                    inspectOrgId = fristModel.getId()+"";
+//                    inspectOrgId = fristModel.getId()+"";
                 }
                 if(second != null){
                     CanSelectOrgsModel.ChildrenBean secModel = (CanSelectOrgsModel.ChildrenBean)second;
                     str +="/";
                     str += secModel.getName();
-                    inspectOrgId = secModel.getId()+"";
+//                    inspectOrgId = secModel.getId()+"";
                 }
-                txtinspectOrg.setText(str);
+//                txtinspectOrg.setText(str);
             }
         });
         picker.show();
@@ -209,11 +217,16 @@ public class SamplingRecordActivity extends BaseActionBarActivity {
                     acceptTimeTo = bf.format(endDate);
                     txtacceptTime.setText(acceptTimeFrom
                             + "至" + acceptTimeTo);
-                } else {
+                } else if(type.equals("create")){
                     frome = bf.format(startDate);
                     to = bf.format(endDate);
                     txtcreateTime.setText(frome
                             + "至" + to);
+                } else if(type.equals("sampling")){
+                    samplingTimeFrom = bf.format(startDate);
+                    samplingTimeTo = bf.format(endDate);
+                    txt_samplingTime.setText(samplingTimeFrom
+                            + "至" + samplingTimeTo);
                 }
 
             }
@@ -223,33 +236,28 @@ public class SamplingRecordActivity extends BaseActionBarActivity {
     //处理点击注册事件
     @OnClick({R.id.btn_reset})
     public void resetClick(View v) {
-        txtSn.setText("");
         txtsampleName.setText("");
-        txtinspectOrg.setText("");
         txtentrustOrg.setText("");
         txtcreateTime.setText("");
-        txtacceptUserName.setText("");
         txtacceptTime.setText("");
-
+        txt_samplingTime.setText("");
         frome = "";
         to= "";
         acceptTimeFrom= "";
         acceptTimeTo= "";
-        inspectOrgId= "";
 
     }
     @OnClick({R.id.btn_confirm})
     public void confirmClick(View v) {
         AcceptQueryModel model = new AcceptQueryModel();
-        model.setSn(txtSn.getText().toString());
         model.setSampleName(txtsampleName.getText().toString());
-        model.setInspectOrgId(inspectOrgId);
         model.setEntrustOrgName(txtentrustOrg.getText().toString());
         model.setFrom(frome);
         model.setTo(to);
-        model.setAcceptUserName(txtacceptUserName.getText().toString());
         model.setAcceptTimeFrom(acceptTimeFrom);
         model.setAcceptTimeTo(acceptTimeTo);
+        model.setSamplingTimeFrom(samplingTimeFrom);
+        model.setSamplingTimeTo(samplingTimeTo);
         adapter.update(tabLayout.getSelectedTabPosition(),model);
         mDrawerLayout.closeDrawers();
     }

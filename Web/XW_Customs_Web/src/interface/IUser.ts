@@ -85,3 +85,40 @@ export const columns = [
         width: "240px"
     }
 ];
+export const unitColumns = [
+    {
+        title: "委托单位名称",
+        dataIndex: "name",
+        width: "120px"
+    },
+    {
+        title: "委托单位类型",
+        dataIndex: "type",
+        width: "120px"
+    },
+    {
+        title: "地址",
+        dataIndex: "address",
+        width: "120px"
+    },
+    {
+        title: "联系人",
+        dataIndex: "contacts",
+        width: "120px"
+    },
+    {
+        title: "电话",
+        dataIndex: "phone",
+        width: "120px"
+    },
+    {
+        title: "传真",
+        dataIndex: "fax",
+        width: "120px"
+    },
+    {
+        title: "邮箱",
+        dataIndex: "email",
+        width: "120px"
+    }
+];

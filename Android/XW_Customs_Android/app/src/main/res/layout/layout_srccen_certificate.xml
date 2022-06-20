@@ -48,6 +48,7 @@
                     android:inputType="text"
                     android:textColor="#333"
                     android:textSize="13sp"
+                    android:paddingLeft="10dp"
                     />
             </LinearLayout>
 
@@ -79,6 +80,7 @@
                         android:inputType="text"
                         android:textColor="#333"
                         android:textSize="13sp"
+                        android:paddingLeft="10dp"
                         />
 
                 </LinearLayout>

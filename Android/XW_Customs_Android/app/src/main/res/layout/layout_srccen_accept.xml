@@ -54,13 +54,18 @@
                         android:inputType="text"
                         android:textColor="#333"
                         android:textSize="13sp"
+                        android:paddingLeft="10dp"
                         />
 
                 </LinearLayout>
             </LinearLayout>
 
 
-
+        <LinearLayout
+            android:id="@+id/lv_sampleName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -90,9 +95,10 @@
                     android:inputType="text"
                     android:textColor="#333"
                     android:textSize="13sp"
+                    android:paddingLeft="10dp"
                     />
             </LinearLayout>
-
+        </LinearLayout>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
@@ -124,6 +130,7 @@
                     android:textSize="13sp"
                     android:drawableRight="@drawable/ic_select"
                     android:paddingRight="10dp"
+                    android:paddingLeft="10dp"
                     />
 <!--                <ImageView-->
 <!--                    android:layout_width="13dp"-->
@@ -161,6 +168,7 @@
                     android:inputType="text"
                     android:textColor="#333"
                     android:textSize="13sp"
+                    android:paddingLeft="10dp"
                     />
             </LinearLayout>
             <TextView
@@ -194,6 +202,7 @@
                     android:textSize="13sp"
                     android:drawableRight="@drawable/ic_select"
                     android:paddingRight="10dp"
+                    android:paddingLeft="10dp"
                     />
 <!--                <ImageView-->
 <!--                    android:layout_width="13dp"-->
@@ -231,6 +240,7 @@
                     android:inputType="text"
                     android:textColor="#333"
                     android:textSize="13sp"
+                    android:paddingLeft="10dp"
                     />
 
             </LinearLayout>
@@ -265,6 +275,7 @@
                     android:textSize="13sp"
                     android:drawableRight="@drawable/ic_select"
                     android:paddingRight="10dp"
+                    android:paddingLeft="10dp"
                     />
 <!--                <ImageView-->
 <!--                    android:layout_width="13dp"-->
@@ -311,6 +322,7 @@
                         android:textSize="13sp"
                         android:drawableRight="@drawable/ic_select"
                         android:paddingRight="10dp"
+                        android:paddingLeft="10dp"
                         />
 <!--                    <ImageView-->
 <!--                        android:layout_width="13dp"-->

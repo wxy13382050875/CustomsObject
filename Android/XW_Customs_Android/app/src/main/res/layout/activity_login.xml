@@ -95,6 +95,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/lv_phone"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:background="@drawable/text_radius_shape"
@@ -108,19 +109,36 @@
                             android:contentDescription="@string/ic_def_title"
                             android:src="@mipmap/ic_phone" />
 
+
                         <EditText
                             android:id="@+id/txt_phone"
-                            android:layout_width="match_parent"
+                            android:layout_width="0dp"
                             android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="18dp"
+                            android:layout_weight="1"
+                            android:autofillHints="phone"
                             android:background="@null"
                             android:hint="请输入手机号"
                             android:textColorHint="@color/color_title_secondary"
                             android:inputType="text"
                             android:maxLength="11"
-                            android:paddingLeft="5dp"
-                            android:textColor="#333"
                             android:text=""
-                            android:textSize="13sp" />
+                            android:textSize="13sp"
+                            tools:ignore="LabelFor" />
+                        <LinearLayout
+                            android:id="@+id/lv_showAccount"
+                            android:layout_width="44dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center">
+
+                            <ImageView
+                                android:layout_width="22dp"
+                                android:layout_height="22dp"
+                                android:layout_gravity="center"
+                                android:contentDescription="@string/ic_def_title"
+                                android:src="@drawable/ic_select" />
+                        </LinearLayout>
                     </LinearLayout>
 
                     <LinearLayout
@@ -145,11 +163,11 @@
                             android:layout_height="match_parent"
                             android:layout_gravity="center_vertical"
                             android:layout_weight="1"
+                            android:layout_marginStart="18dp"
                             android:background="@null"
                             android:hint="请输入密码"
                             android:textColorHint="@color/color_title_secondary"
                             android:inputType="textPassword"
-                            android:paddingLeft="5dp"
                             android:textColor="#333"
                             android:text=""
                             android:textSize="13sp" />

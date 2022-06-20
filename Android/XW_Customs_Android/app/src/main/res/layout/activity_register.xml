@@ -99,7 +99,7 @@
                             android:textColorHint="@color/color_title_secondary"
                             android:inputType="phone"
                             android:maxLength="11"
-                            android:paddingLeft="5dp"
+                            android:paddingLeft="10dp"
                             android:textColor="#333"
                             android:textSize="13sp" />
                     </LinearLayout>
@@ -131,7 +131,7 @@
                             android:textColorHint="@color/color_title_secondary"
                             android:inputType="text"
                             android:maxLength="6"
-                            android:paddingLeft="5dp"
+                            android:paddingLeft="10dp"
                             android:textColor="#333"
                             android:textSize="13sp" />
 
@@ -173,7 +173,7 @@
                             android:textColorHint="@color/color_title_secondary"
                             android:inputType="textPassword"
 
-                            android:paddingLeft="5dp"
+                            android:paddingLeft="10dp"
                             android:textColor="#333"
                             android:textSize="13sp" />
                     </LinearLayout>

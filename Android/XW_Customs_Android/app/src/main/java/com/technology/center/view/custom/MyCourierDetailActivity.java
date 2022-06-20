@@ -85,10 +85,16 @@ public class MyCourierDetailActivity extends BaseActionListBarActivity {
             public void onChanged(BaseDto<ExpressModel> expressModelBaseDto) {
                 springView.onFinishFreshAndLoad();
                 if (expressModelBaseDto.getCode().equals(Constant.RespCode.R200)) {
-                    dataSource = expressModelBaseDto.getData().getResult().getList();
-                    Message msg = new Message();
-                    msg.what = 1;
-                    mHandler.sendMessage(msg);
+                    if(expressModelBaseDto.getData().getStatus().equals("0")){
+                        dataSource = expressModelBaseDto.getData().getResult().getList();
+                        Message msg = new Message();
+                        msg.what = 1;
+                        mHandler.sendMessage(msg);
+                    } else {
+                        ToastUtil.show(getContext(), expressModelBaseDto.getData().getMsg());
+                        finish();
+                    }
+
                 } else {
                     ToastUtil.show(getContext(), expressModelBaseDto.getMessage());
                 }

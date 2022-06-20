@@ -6,7 +6,7 @@ import http from "@/utils/http";
  * @returns
  */
 export const addRole = (params: any) => {
-    return http.post("role", params);
+    return http.post("/sso/role", params);
 };
 
 /**
@@ -15,7 +15,7 @@ export const addRole = (params: any) => {
  * @returns
  */
 export const updateRole = (params: any) => {
-    return http.put(`/role/${params.id}`, params);
+    return http.put(`/sso/role/${params.id}`, params);
 };
 /**
  * 获取角色分页查询
@@ -24,7 +24,7 @@ export const updateRole = (params: any) => {
  * @returns
  */
  export const getRoleList = ( params: any) => {
-    return http.get("/role", { params: params });
+    return http.get("/sso/role", { params: params });
 };
 /**
  * 获取角色下的权限
@@ -33,7 +33,7 @@ export const updateRole = (params: any) => {
  * @returns
  */
 export const getRolePermission = (roleId: number, params: any) => {
-    return http.get(`/role/${roleId}/permissions`, { params: params });
+    return http.get(`/sso/role/${roleId}/permissions`, { params: params });
 };
 
 /**
@@ -43,5 +43,15 @@ export const getRolePermission = (roleId: number, params: any) => {
  * @returns
  */
 export const saveRoleForPermission = (roleId: number, params: number[]) => {
-    return http.post(`/role/${roleId}/permissions`, params);
+    return http.post(`/sso/role/${roleId}/permissions`, params);
+};
+
+/**
+ * 删除
+ * @param roleId
+ * @param params
+ * @returns
+ */
+ export const deleteRole = ( id: number) => {
+    return http.delete(`/sso/role`,  { data: [id] });
 };

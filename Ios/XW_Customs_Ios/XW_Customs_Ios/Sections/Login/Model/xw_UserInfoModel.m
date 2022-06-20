@@ -10,21 +10,29 @@
 //}
 + (NSDictionary *)mj_objectClassInArray{
     return @{
-             @"roleList" : @"Rolelist"
+             @"mobilePermissionTree" : @"MobilepermissiontreeModel",
+             @"roles" : @"RolesModel",
+             @"orgs" : @"xw_canSelectOrgModel"
              };
 }
 
 @end
 
-@implementation Civilinfo
+
+@implementation RolesModel
+
+@end
+
+@implementation MobilepermissiontreeModel
++ (NSDictionary *)mj_objectClassInArray {
+    return @{
+             @"children" : @"SubTreeModel"
+             };
+}
 
 
 @end
 
-
-@implementation Rolelist
-
+@implementation SubTreeModel
 
 @end
-
-

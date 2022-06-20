@@ -28,17 +28,17 @@
                 
                
                 
-                [PPNetworkHelper GET:[xw_HttpRequest xw_GetAdShow]  parameters:input success:^(id responseObject) {
-                
-                          if ([responseObject[@"code"] intValue] == 200) {
-                              [subscriber sendNext:responseObject];
-                          }
-                          
-                          [subscriber sendCompleted];
-                      } failure:^(NSError *error) {
-                          [subscriber sendError:error];
-                          [subscriber sendCompleted];
-                      }];
+//                [PPNetworkHelper GET:[xw_HttpRequest xw_GetAdShow]  parameters:input success:^(id responseObject) {
+//                
+//                          if ([responseObject[@"code"] intValue] == 200) {
+//                              [subscriber sendNext:responseObject];
+//                          }
+//                          
+//                          [subscriber sendCompleted];
+//                      } failure:^(NSError *error) {
+//                          [subscriber sendError:error];
+//                          [subscriber sendCompleted];
+//                      }];
                 return nil;
             }];
         }];

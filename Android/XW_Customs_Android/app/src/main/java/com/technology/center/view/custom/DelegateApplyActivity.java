@@ -108,14 +108,14 @@ public class DelegateApplyActivity extends BaseActionBarActivity {
     EditText txt_sampleMark;
 
     @Index(8)
-    @NotNull(msg = "样品数量不能为空！")
+    @NotNull(msg = "样品数量/重量不能为空！")
     @BindView(R.id.txt_sampleQuantity)
     EditText txt_sampleQuantity;
 
-    @Index(9)
-    @NotNull(msg = "样品重量不能为空！")
-    @BindView(R.id.txt_sampleWeight)
-    EditText txt_sampleWeight;
+//    @Index(9)
+//    @NotNull(msg = "样品重量不能为空！")
+//    @BindView(R.id.txt_sampleWeight)
+//    EditText txt_sampleWeight;
 
     @BindView(R.id.txt_project)
     EditText txt_project;
@@ -203,7 +203,7 @@ public class DelegateApplyActivity extends BaseActionBarActivity {
             txt_producer.setText(cacheModel.getProducer() != null ? cacheModel.getProducer():"");
             txt_producerAddress.setText(cacheModel.getProducerAddress() != null ? cacheModel.getProducerAddress():"");
             txt_inspectOrg.setText(cacheModel.getInspectOrgId() != null ? myUtils.getSingleOrgsNameById(cacheModel.getInspectOrgId()):"");
-            txt_sampleWeight.setText(cacheModel.getSampleWeight() != null ? cacheModel.getSampleWeight():"");
+//            txt_sampleWeight.setText(cacheModel.getSampleWeight() != null ? cacheModel.getSampleWeight():"");
 
 
         }
@@ -355,7 +355,7 @@ public class DelegateApplyActivity extends BaseActionBarActivity {
         params.put("sampleName", txt_sampleName.getText().toString());
         params.put("sampleNum", txt_sampleNum.getText().toString());
         params.put("sampleQuantity", txt_sampleQuantity.getText().toString());
-        params.put("sampleWeight", txt_sampleWeight.getText().toString());
+//        params.put("sampleWeight", txt_sampleWeight.getText().toString());
         params.put("sampleMark", txt_sampleMark.getText().toString());
         params.put("spec", txt_spec.getText().toString());
 
@@ -407,7 +407,7 @@ public class DelegateApplyActivity extends BaseActionBarActivity {
         params.put("sampleName", txt_sampleName.getText().toString());
         params.put("sampleNum", txt_sampleNum.getText().toString());
         params.put("sampleQuantity", txt_sampleQuantity.getText().toString());
-        params.put("sampleWeight", txt_sampleWeight.getText().toString());
+//        params.put("sampleWeight", txt_sampleWeight.getText().toString());
         params.put("sampleMark", txt_sampleMark.getText().toString());
         params.put("spec", txt_spec.getText().toString());
 
