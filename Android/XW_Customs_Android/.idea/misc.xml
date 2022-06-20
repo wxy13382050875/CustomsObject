@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="../../../../../../layout/custom_preview.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable-v24/btn_folding_selector.xml" value="0.1975" />
+        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1235" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1235" />
+        <entry key="app/src/main/res/layout/accept_adapter.xml" value="0.4159907300115875" />
+        <entry key="app/src/main/res/layout/accept_footer_adapter.xml" value="0.18958333333333333" />
+        <entry key="app/src/main/res/layout/accept_header_adapter.xml" value="0.375" />
+        <entry key="app/src/main/res/layout/accept_stati_adapter.xml" value="0.375" />
+        <entry key="app/src/main/res/layout/action_bar_screen.xml" value="0.16302083333333334" />
+        <entry key="app/src/main/res/layout/activity_certificate_query.xml" value="0.18958333333333333" />
+        <entry key="app/src/main/res/layout/activity_change_pwd.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_delegate_accept.xml" value="0.18958333333333333" />
+        <entry key="app/src/main/res/layout/activity_delegate_accept_detail.xml" value="0.36367753623188404" />
+        <entry key="app/src/main/res/layout/activity_delegate_apply.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_delegate_record.xml" value="0.16302083333333334" />
+        <entry key="app/src/main/res/layout/activity_delegate_record_detail.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_delegate_regist.xml" value="0.36367753623188404" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.67" />
+        <entry key="app/src/main/res/layout/activity_my_qr.xml" value="0.36367753623188404" />
+        <entry key="app/src/main/res/layout/activity_result_register_detail.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_results_register.xml" value="0.18958333333333333" />
+        <entry key="app/src/main/res/layout/activity_sampling_record.xml" value="0.16302083333333334" />
+        <entry key="app/src/main/res/layout/activity_sampling_record_detail.xml" value="0.18958333333333333" />
+        <entry key="app/src/main/res/layout/activity_splash.xml" value="0.2737169517884914" />
+        <entry key="app/src/main/res/layout/activity_statistic_accept.xml" value="0.16302083333333334" />
+        <entry key="app/src/main/res/layout/activity_statistic_entrust.xml" value="0.16302083333333334" />
+        <entry key="app/src/main/res/layout/activity_statistice_query.xml" value="0.16302083333333334" />
+        <entry key="app/src/main/res/layout/certificate_grid_adapter.xml" value="0.16302083333333334" />
+        <entry key="app/src/main/res/layout/entrust_stati_adapter.xml" value="0.375" />
+        <entry key="app/src/main/res/layout/fragment_main_msg.xml" value="0.18958333333333333" />
+        <entry key="app/src/main/res/layout/fragment_main_my.xml" value="0.375" />
+        <entry key="app/src/main/res/layout/item_list_popup_window.xml" value="0.36367753623188404" />
+        <entry key="app/src/main/res/layout/layout_srccen_accept.xml" value="0.16302083333333334" />
+        <entry key="app/src/main/res/layout/layout_srccen_record.xml" value="0.18958333333333333" />
+        <entry key="app/src/main/res/layout/layout_srccen_sampling.xml" value="0.16302083333333334" />
+        <entry key="app/src/main/res/layout/menu_grid_adapter.xml" value="0.18958333333333333" />
+        <entry key="app/src/main/res/layout/menu_header_adapter.xml" value="0.18958333333333333" />
+        <entry key="app/src/main/res/layout/msg_type_grid_adapter.xml" value="0.16302083333333334" />
+        <entry key="app/src/main/res/layout/my_courier_adapter.xml" value="0.18958333333333333" />
+        <entry key="app/src/main/res/layout/my_courier_detail_adapter.xml" value="0.16302083333333334" />
+        <entry key="app/src/main/res/layout/my_courier_footer_adapter.xml" value="0.36367753623188404" />
+        <entry key="app/src/main/res/layout/my_header_adapter.xml" value="0.16302083333333334" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1235" />
+      </map>
+    </option>
+  </component>
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
